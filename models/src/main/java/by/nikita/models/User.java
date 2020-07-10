@@ -28,6 +28,9 @@ public class User extends AEntity {
     @OneToMany(mappedBy = "user")
     private List<Order> bookings;
 
+    @OneToOne
+    private UserDetails userDetails;
+
     public User() {
     }
 

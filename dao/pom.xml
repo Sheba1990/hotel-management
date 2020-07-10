@@ -17,6 +17,13 @@
             <artifactId>models</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>${version.org.hibernate}</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 
