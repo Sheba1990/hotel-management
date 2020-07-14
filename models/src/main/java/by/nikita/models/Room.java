@@ -20,7 +20,7 @@ public class Room extends AEntity {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "status_id")
-    private RoomStatus status;
+    private RoomStatus roomStatus;
 
     @OneToMany(mappedBy = "room")
     private List<Order> bookings;
@@ -28,11 +28,11 @@ public class Room extends AEntity {
     public Room() {
     }
 
-    public Room(Integer number, Category category, RoomDetails details, RoomStatus status, List<Order> bookings) {
+    public Room(Integer number, Category category, RoomDetails details, RoomStatus roomStatus, List<Order> bookings) {
         this.number = number;
         this.category = category;
         this.details = details;
-        this.status = status;
+        this.roomStatus = roomStatus;
         this.bookings = bookings;
     }
 
@@ -60,12 +60,12 @@ public class Room extends AEntity {
         this.details = details;
     }
 
-    public RoomStatus getStatus() {
-        return status;
+    public RoomStatus getRoomStatus() {
+        return roomStatus;
     }
 
-    public void setStatus(RoomStatus status) {
-        this.status = status;
+    public void setRoomStatus(RoomStatus roomStatus) {
+        this.roomStatus = roomStatus;
     }
 
     public List<Order> getBookings() {

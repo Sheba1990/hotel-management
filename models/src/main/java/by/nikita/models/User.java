@@ -29,6 +29,7 @@ public class User extends AEntity {
     private List<Order> bookings;
 
     @OneToOne
+    @JoinColumn(name = "user_details_id")
     private UserDetails userDetails;
 
     public User() {

@@ -19,12 +19,41 @@ public class AddressDao extends AGenericDao<Address> implements IAddressDao {
         super(Address.class);
     }
 
-    List<Address> getAddressByCountry(String country) {
+
+    //Get mapping methods
+
+    public List<Address> getAddressByCountry(String country) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Address> query = criteriaBuilder.createQuery(Address.class);
             Root<Address> root = query.from(Address.class);
             query.select(root).where(criteriaBuilder.equal(root.get(Address_.COUNTRY), country));
+            TypedQuery<Address> result = entityManager.createQuery(query);
+            return result.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public List<Address> getAddressByPostalCode(String postalCode) {
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Address> query = criteriaBuilder.createQuery(Address.class);
+            Root<Address> root = query.from(Address.class);
+            query.select(root).where(criteriaBuilder.equal(root.get(Address_.POSTAL_CODE), postalCode));
+            TypedQuery<Address> result = entityManager.createQuery(query);
+            return result.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public List<Address> getAddressByCity(String city) {
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Address> query = criteriaBuilder.createQuery(Address.class);
+            Root<Address> root = query.from(Address.class);
+            query.select(root).where(criteriaBuilder.equal(root.get(Address_.CITY), city));
             TypedQuery<Address> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {

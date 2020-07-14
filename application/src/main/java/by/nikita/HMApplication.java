@@ -1,4 +1,4 @@
-package by.nikita.application;
+package by.nikita;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

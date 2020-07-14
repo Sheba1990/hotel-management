@@ -27,16 +27,27 @@ public class UserDetails extends AEntity {
     @JoinColumn(name = "contact_data_id")
     private ContactData contactData;
 
+    @OneToOne(mappedBy = "userDetails")
+    private User user;
+
     public UserDetails() {
     }
 
-    public UserDetails(String firstName, String lastName, String middleName, LocalDate birthdate, Passport passport, ContactData contactData) {
+    public UserDetails(
+            String firstName,
+            String lastName,
+            String middleName,
+            LocalDate birthdate,
+            Passport passport,
+            ContactData contactData,
+            User user) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.birthdate = birthdate;
         this.passport = passport;
         this.contactData = contactData;
+        this.user = user;
     }
 
     public String getFirstName() {
@@ -85,6 +96,14 @@ public class UserDetails extends AEntity {
 
     public void setContactData(ContactData contactData) {
         this.contactData = contactData;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
 

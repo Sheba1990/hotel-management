@@ -12,7 +12,7 @@ public class RoomStatus extends AEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "status", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "roomStatus", fetch = FetchType.LAZY)
     private List<Room> rooms;
 
     public RoomStatus() {

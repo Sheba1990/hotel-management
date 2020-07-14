@@ -6,9 +6,13 @@ import java.util.List;
 
 public interface IRoomDao extends IAGenericDao<Room> {
 
-    Room getRoomByNumber(Integer number);
+    List<Room> getRoomByNumber(Integer roomNumber);
 
-    List<Room> getRoomsByCategory(String category);
+    List<Room> getRoomsByCategory(String roomCategory);
 
-    List<Room> getRoomsByStatus(String status);
+    List<Room> getRoomsByStatus(String roomStatus);
+
+    List<Room> getRoomsByCapacity(Integer roomCapacity);
+
+    List<Room> getRoomByAmountOfRoom(Integer amountOfRooms);
 }

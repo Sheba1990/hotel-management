@@ -25,7 +25,7 @@ public class Passport extends AEntity {
     private String countryOfIssue;
 
     @OneToOne(mappedBy = "passport")
-    private UserDetails user;
+    private UserDetails userDetails;
 
     public Passport() {
     }
@@ -36,13 +36,13 @@ public class Passport extends AEntity {
             String dateOfIssue,
             String dateOfExpiry,
             String countryOfIssue,
-            UserDetails user) {
+            UserDetails userDetails) {
         this.passportSerial = passportSerial;
         this.passportNumber = passportNumber;
         this.dateOfIssue = dateOfIssue;
         this.dateOfExpiry = dateOfExpiry;
         this.countryOfIssue = countryOfIssue;
-        this.user = user;
+        this.userDetails = userDetails;
 
     }
 
@@ -86,12 +86,12 @@ public class Passport extends AEntity {
         this.countryOfIssue = countryOfIssue;
     }
 
-    public UserDetails getUser() {
-        return user;
+    public UserDetails getUserDetails() {
+        return userDetails;
     }
 
-    public void setUser(UserDetails user) {
-        this.user = user;
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
 }
 
