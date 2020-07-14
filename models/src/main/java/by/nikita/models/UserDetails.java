@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "user_details_table")
-public class UserDetails extends AEntity {
+public class UserDetails extends IdAwareEntity {
 
     @Column(name = "first_name")
     private String firstName;

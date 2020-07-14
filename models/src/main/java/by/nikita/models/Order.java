@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "booking_table")
-public class Order extends AEntity {
+public class Order extends IdAwareEntity {
 
     @Column(name = "number")
     private Integer number;

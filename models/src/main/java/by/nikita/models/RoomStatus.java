@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "room_status_table")
-public class RoomStatus extends AEntity {
+public class RoomStatus extends IdAwareEntity {
 
     private String name;
 

@@ -6,7 +6,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(RoomDetails.class)
-public abstract class RoomDetails_ extends by.nikita.models.AEntity_ {
+public abstract class RoomDetails_ extends IdAwareEntity_ {
 
 	public static volatile SingularAttribute<RoomDetails, Boolean> hasSeaView;
 	public static volatile SingularAttribute<RoomDetails, Boolean> hasWifi;

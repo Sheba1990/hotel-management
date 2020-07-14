@@ -7,19 +7,19 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Room.class)
-public abstract class Room_ extends by.nikita.models.AEntity_ {
+public abstract class Room_ extends IdAwareEntity_ {
 
-	public static volatile SingularAttribute<Room, Integer> number;
-	public static volatile SingularAttribute<Room, RoomDetails> details;
-	public static volatile SingularAttribute<Room, Category> category;
-	public static volatile ListAttribute<Room, Order> bookings;
-	public static volatile SingularAttribute<Room, RoomStatus> status;
+	public static volatile SingularAttribute<Room, Integer> roomNumber;
+	public static volatile SingularAttribute<Room, RoomDetails> roomDetails;
+	public static volatile SingularAttribute<Room, RoomCategory> roomCategory;
+	public static volatile ListAttribute<Room, Order> orders;
+	public static volatile SingularAttribute<Room, RoomStatus> roomStatus;
 
-	public static final String NUMBER = "number";
-	public static final String DETAILS = "details";
-	public static final String CATEGORY = "category";
-	public static final String BOOKINGS = "bookings";
-	public static final String STATUS = "status";
+	public static final String ROOM_NUMBER = "roomNumber";
+	public static final String ROOM_DETAILS = "details";
+	public static final String ROOM_CATEGORY = "roomCategory";
+	public static final String ORDERS = "orders";
+	public static final String ROOM_STATUS = "roomStatus";
 
 }
 

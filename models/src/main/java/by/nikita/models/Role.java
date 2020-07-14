@@ -1,11 +1,19 @@
 package by.nikita.models;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "role_table")
-public class Role extends AEntity {
+@Table(name = "user_role_table")
+public enum Role implements GrantedAuthority {
 
-    private String name;
+    GUEST, ADMIN;
+
+
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }

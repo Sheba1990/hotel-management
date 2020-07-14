@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "contact_data_table")
-public class ContactData extends AEntity {
+public class ContactData extends IdAwareEntity {
 
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -13,7 +13,7 @@ public class ContactData extends AEntity {
     @OneToOne(mappedBy = "contactData", fetch = FetchType.LAZY)
     private UserDetails userDetails;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 

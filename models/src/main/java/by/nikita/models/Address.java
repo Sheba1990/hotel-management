@@ -2,12 +2,13 @@ package by.nikita.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Table(name = "address_table")
-public class Address extends AEntity {
+public class Address extends IdAwareEntity {
 
     @Column(name = "postal_code")
     private String postalCode;
@@ -27,20 +28,20 @@ public class Address extends AEntity {
     @Column(name = "home_number")
     private String homeNumber;
 
-    @OneToOne(mappedBy = "address")
-    private ContactData contactData;
+    @OneToMany(mappedBy = "address")
+    private List<ContactData> contactDataList;
 
     public Address() {
     }
 
-    public Address(String postalCode, String country, String province, String city, String street, String homeNumber, ContactData contactData) {
+    public Address(String postalCode, String country, String province, String city, String street, String homeNumber, List<ContactData> contactDataList) {
         this.postalCode = postalCode;
         this.country = country;
         this.province = province;
         this.city = city;
         this.street = street;
         this.homeNumber = homeNumber;
-        this.contactData = contactData;
+        this.contactDataList = contactDataList;
     }
 
     public String getPostalCode() {
@@ -91,11 +92,11 @@ public class Address extends AEntity {
         this.homeNumber = homeNumber;
     }
 
-    public ContactData getContactData() {
-        return contactData;
+    public List<ContactData> getContactDataList() {
+        return contactDataList;
     }
 
-    public void setContactData(ContactData contactData) {
-        this.contactData = contactData;
+    public void setContactDataList(List<ContactData> contactDataList) {
+        this.contactDataList = contactDataList;
     }
 }

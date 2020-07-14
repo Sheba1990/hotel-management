@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class OrderDao extends AGenericDao<Order> implements IOrderDao {
+public class OrderDao extends AbstractGenericDao<Order> implements IOrderDao {
 
     public OrderDao() {
         super(Order.class);
@@ -40,9 +40,9 @@ public class OrderDao extends AGenericDao<Order> implements IOrderDao {
             CriteriaQuery<Order> query = criteriaBuilder.createQuery(Order.class);
             Root<Order> root = query.from(Order.class);
             Join<Order, Room> room = root.join(Order_.ROOM);
-            Join<Room, Category> category = room.join(Room_.CATEGORY);
+            Join<Room, RoomCategory> category = room.join(Room_.ROOM_CATEGORY);
             List<Predicate> conditions = new ArrayList<>();
-            conditions.add(criteriaBuilder.equal(category.get(Category_.NAME), roomCategory));
+            conditions.add(criteriaBuilder.equal(category.get(RoomCategory_.NAME), roomCategory));
             query.select(root).where(conditions.toArray(new Predicate[]{}));
             TypedQuery<Order> result = entityManager.createQuery(query);
             return result.getResultList();

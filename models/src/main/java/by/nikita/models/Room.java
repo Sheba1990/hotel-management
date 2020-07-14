@@ -5,59 +5,59 @@ import java.util.List;
 
 @Entity
 @Table(name = "room_table")
-public class Room extends AEntity {
+public class Room extends IdAwareEntity {
 
-    @Column(name = "number")
-    private Integer number;
+    @Column(name = "room_number")
+    private Integer roomNumber;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "room_category_id")
+    private RoomCategory roomCategory;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "details_id")
-    private RoomDetails details;
+    @JoinColumn(name = "room_details_id")
+    private RoomDetails roomDetails;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = "room_status_id")
     private RoomStatus roomStatus;
 
     @OneToMany(mappedBy = "room")
-    private List<Order> bookings;
+    private List<Order> orders;
 
     public Room() {
     }
 
-    public Room(Integer number, Category category, RoomDetails details, RoomStatus roomStatus, List<Order> bookings) {
-        this.number = number;
-        this.category = category;
-        this.details = details;
+    public Room(Integer roomNumber, RoomCategory roomCategory, RoomDetails roomDetails, RoomStatus roomStatus, List<Order> orders) {
+        this.roomNumber = roomNumber;
+        this.roomCategory = roomCategory;
+        this.roomDetails = roomDetails;
         this.roomStatus = roomStatus;
-        this.bookings = bookings;
+        this.orders = orders;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getRoomNumber() {
+        return roomNumber;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setRoomNumber(Integer roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
-    public Category getCategory() {
-        return category;
+    public RoomCategory getRoomCategory() {
+        return roomCategory;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setRoomCategory(RoomCategory roomCategory) {
+        this.roomCategory = roomCategory;
     }
 
-    public RoomDetails getDetails() {
-        return details;
+    public RoomDetails getRoomDetails() {
+        return roomDetails;
     }
 
-    public void setDetails(RoomDetails details) {
-        this.details = details;
+    public void setRoomDetails(RoomDetails roomDetails) {
+        this.roomDetails = roomDetails;
     }
 
     public RoomStatus getRoomStatus() {
@@ -68,12 +68,12 @@ public class Room extends AEntity {
         this.roomStatus = roomStatus;
     }
 
-    public List<Order> getBookings() {
-        return bookings;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setBookings(List<Order> bookings) {
-        this.bookings = bookings;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }
 

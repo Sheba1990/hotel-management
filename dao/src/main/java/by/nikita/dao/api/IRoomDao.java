@@ -4,7 +4,7 @@ import by.nikita.models.Room;
 
 import java.util.List;
 
-public interface IRoomDao extends IAGenericDao<Room> {
+public interface IRoomDao extends IAbstractGenericDao<Room> {
 
     List<Room> getRoomByNumber(Integer roomNumber);
 

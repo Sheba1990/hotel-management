@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
-public class AddressDao extends AGenericDao<Address> implements IAddressDao {
+public class AddressDao extends AbstractGenericDao<Address> implements IAddressDao {
 
     public AddressDao() {
         super(Address.class);

@@ -5,7 +5,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "room_details_table")
-public class RoomDetails extends AEntity {
+public class RoomDetails extends IdAwareEntity {
 
     private Double pricePerNight;
 

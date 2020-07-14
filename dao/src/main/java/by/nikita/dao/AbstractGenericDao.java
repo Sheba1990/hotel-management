@@ -1,7 +1,7 @@
 package by.nikita.dao;
 
-import by.nikita.dao.api.IAGenericDao;
-import by.nikita.models.AEntity;
+import by.nikita.dao.api.IAbstractGenericDao;
+import by.nikita.models.IdAwareEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -13,11 +13,11 @@ import javax.persistence.criteria.Root;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AGenericDao<T extends AEntity> implements IAGenericDao<T> {
+public abstract class AbstractGenericDao<T extends IdAwareEntity> implements IAbstractGenericDao<T> {
 
     protected Class<T> clazz;
 
-    public AGenericDao(Class<T> clazz) {
+    public AbstractGenericDao(Class<T> clazz) {
         this.clazz = clazz;
     }
 

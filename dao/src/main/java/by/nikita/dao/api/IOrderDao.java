@@ -4,7 +4,7 @@ import by.nikita.models.Order;
 
 import java.util.List;
 
-public interface IOrderDao extends IAGenericDao<Order> {
+public interface IOrderDao extends IAbstractGenericDao<Order> {
 
     Order getOrderByNumber(Integer orderNumber);
 

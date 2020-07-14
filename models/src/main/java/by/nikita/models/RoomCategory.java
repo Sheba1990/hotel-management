@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "room_category_table")
-public class Category extends AEntity {
+public class RoomCategory extends IdAwareEntity {
 
     @Column(name = "name")
     private String name;
@@ -13,10 +13,10 @@ public class Category extends AEntity {
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private List<Room> rooms;
 
-    public Category() {
+    public RoomCategory() {
     }
 
-    public Category(String name, List<Room> rooms) {
+    public RoomCategory(String name, List<Room> rooms) {
         this.name = name;
         this.rooms = rooms;
     }

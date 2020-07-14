@@ -2,5 +2,9 @@ package by.nikita.dao.api;
 
 import by.nikita.models.UserDetails;
 
-public interface IUserDetailsDao extends IAGenericDao<UserDetails> {
+import java.util.List;
+
+public interface IUserDetailsDao extends IAbstractGenericDao<UserDetails> {
+
+    List<UserDetails> getDetailsByUserFirstName(String firstName);
 }

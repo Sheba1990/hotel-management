@@ -2,6 +2,7 @@ package by.nikita.dao;
 
 import by.nikita.dao.api.IRoomDao;
 import by.nikita.models.*;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -11,7 +12,8 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class RoomDao extends AGenericDao<Room> implements IRoomDao {
+@Repository
+public class RoomDao extends AbstractGenericDao<Room> implements IRoomDao {
 
     public RoomDao() {
         super(Room.class);
@@ -23,7 +25,7 @@ public class RoomDao extends AGenericDao<Room> implements IRoomDao {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
             Root<Room> root = query.from(Room.class);
-            query.select(root).where(criteriaBuilder.equal(root.get(Room_.NUMBER), roomNumber));
+            query.select(root).where(criteriaBuilder.equal(root.get(Room_.ROOM_NUMBER), roomNumber));
             TypedQuery<Room> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
@@ -37,8 +39,8 @@ public class RoomDao extends AGenericDao<Room> implements IRoomDao {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
             Root<Room> root = query.from(Room.class);
-            Join<Room, Category> category = root.join(Room_.CATEGORY);
-            query.select(root).where(criteriaBuilder.equal(category.get(Category_.NAME), roomCategory));
+            Join<Room, RoomCategory> category = root.join(Room_.ROOM_CATEGORY);
+            query.select(root).where(criteriaBuilder.equal(category.get(RoomCategory_.NAME), roomCategory));
             TypedQuery<Room> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
@@ -52,7 +54,7 @@ public class RoomDao extends AGenericDao<Room> implements IRoomDao {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
             Root<Room> root = query.from(Room.class);
-            Join<Room, RoomStatus> status = root.join(Room_.STATUS);
+            Join<Room, RoomStatus> status = root.join(Room_.ROOM_STATUS);
             query.select(root).where(criteriaBuilder.equal(status.get(RoomStatus_.NAME), roomStatus));
             TypedQuery<Room> result = entityManager.createQuery(query);
             return result.getResultList();
@@ -67,7 +69,7 @@ public class RoomDao extends AGenericDao<Room> implements IRoomDao {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
             Root<Room> root = query.from(Room.class);
-            Join<Room, RoomDetails> roomDetails = root.join(Room_.DETAILS);
+            Join<Room, RoomDetails> roomDetails = root.join(Room_.ROOM_DETAILS);
             query.select(root).where(criteriaBuilder.equal(roomDetails.get(RoomDetails_.CAPACITY), roomCapacity));
             TypedQuery<Room> result = entityManager.createQuery(query);
             return result.getResultList();
@@ -82,7 +84,7 @@ public class RoomDao extends AGenericDao<Room> implements IRoomDao {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
             Root<Room> root = query.from(Room.class);
-            Join<Room, RoomDetails> roomDetails = root.join(Room_.DETAILS);
+            Join<Room, RoomDetails> roomDetails = root.join(Room_.ROOM_DETAILS);
             query.select(root).where(criteriaBuilder.equal(roomDetails.get(RoomDetails_.AMOUNT_OF_ROOMS), amountOfRooms));
             TypedQuery<Room> result = entityManager.createQuery(query);
             return result.getResultList();

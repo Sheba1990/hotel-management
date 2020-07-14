@@ -4,7 +4,7 @@ import by.nikita.models.Address;
 
 import java.util.List;
 
-public interface IAddressDao extends IAGenericDao<Address> {
+public interface IAddressDao extends IAbstractGenericDao<Address> {
 
     List<Address> getAddressByCountry(String country);
 

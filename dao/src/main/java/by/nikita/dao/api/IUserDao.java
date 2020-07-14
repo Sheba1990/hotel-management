@@ -4,7 +4,7 @@ import by.nikita.models.User;
 
 import java.util.List;
 
-public interface IUserDao extends IAGenericDao<User> {
+public interface IUserDao extends IAbstractGenericDao<User> {
 
     List<User> getUsersByFirstName(String firstName);
 
