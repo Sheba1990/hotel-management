@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<packaging>pom</packaging>
 	<modules>
-		<module>models</module>
-		<module>services</module>
-		<module>dao</module>
-		<module>controllers</module>
-		<module>application</module>
+		<module>hot-models</module>
+		<module>hot-services</module>
+		<module>hot-dao</module>
+		<module>hot-controllers</module>
+		<module>hot-application</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -29,80 +29,73 @@
 		<version.org.springframework.boot>2.2.4.RELEASE</version.org.springframework.boot>
 		<version.org.postgresql>42.2.14</version.org.postgresql>
 		<version.org.hibernate>5.4.18.Final</version.org.hibernate>
-		<version.org.hibernate>5.4.18.Final</version.org.hibernate>
+		<version.org.hibernate-validator>5.2.4.Final</version.org.hibernate-validator>
 	</properties>
 
-	<dependencies>
+	<dependencyManagement>
+		<dependencies>
 
-		<!-- SPRING -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<version>${version.org.springframework.boot}</version>
-		</dependency>
-		<!-- security -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-			<version>${version.org.springframework.boot}</version>
-		</dependency>
-		<!-- for working with email -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-			<version>${version.org.springframework.boot}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<version>${version.org.springframework.boot}</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<!-- HIBERNATE -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-jpamodelgen</artifactId>
-			<version>${version.org.hibernate}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>${version.org.hibernate}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-jpamodelgen</artifactId>
-			<version>${version.org.hibernate}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- POSTGRES DATABASE -->
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>${version.org.postgresql}</version>
-			<scope>runtime</scope>
-		</dependency>
-
-	</dependencies>
-
-
-	<build>
-		<plugins>
-			<plugin>
+			<!-- SPRING: -->
+			<!-- data JPA -->
+			<dependency>
 				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
+				<version>${version.org.springframework.boot}</version>
+			</dependency>
+			<!-- security -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-security</artifactId>
+				<version>${version.org.springframework.boot}</version>
+			</dependency>
+			<!-- for working with email -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-mail</artifactId>
+				<version>${version.org.springframework.boot}</version>
+			</dependency>
+			<!-- Test -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>${version.org.springframework.boot}</version>
+				<scope>test</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>org.junit.vintage</groupId>
+						<artifactId>junit-vintage-engine</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+			<!-- HIBERNATE -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-jpamodelgen</artifactId>
+				<version>${version.org.hibernate}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${version.org.hibernate}</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>${version.org.hibernate-validator}</version>
+			</dependency>
+
+			<!-- POSTGRES DATABASE -->
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>${version.org.postgresql}</version>
+				<scope>runtime</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
 
 </project>
