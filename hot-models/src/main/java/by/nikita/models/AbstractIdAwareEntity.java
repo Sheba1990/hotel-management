@@ -3,17 +3,17 @@ package by.nikita.models;
 import javax.persistence.*;
 
 @MappedSuperclass
-public abstract class IdAwareEntity {
+public abstract class AbstractIdAwareEntity {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    public IdAwareEntity() {
+    public AbstractIdAwareEntity() {
     }
 
-    public IdAwareEntity(Long id) {
+    public AbstractIdAwareEntity(Long id) {
         this.id = id;
     }
 

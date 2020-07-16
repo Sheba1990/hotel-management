@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "address_table")
-public class Address extends IdAwareEntity {
+public class Address extends AbstractIdAwareEntity {
 
     @Column(name = "postal_code")
     private String postalCode;

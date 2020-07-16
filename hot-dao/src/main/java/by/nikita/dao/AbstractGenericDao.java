@@ -1,12 +1,11 @@
 package by.nikita.dao;
 
 import by.nikita.dao.api.IAbstractGenericDao;
-import by.nikita.models.IdAwareEntity;
+import by.nikita.models.AbstractIdAwareEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,7 +13,7 @@ import javax.persistence.criteria.Root;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractGenericDao<T extends IdAwareEntity> implements IAbstractGenericDao<T> {
+public abstract class AbstractGenericDao<T extends AbstractIdAwareEntity> implements IAbstractGenericDao<T> {
 
     protected Class<T> clazz;
 

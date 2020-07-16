@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "role_table")
-public class Role extends IdAwareEntity{
+public class Role extends AbstractIdAwareEntity {
 
     @Column(name = "role_name")
     private String roleName;

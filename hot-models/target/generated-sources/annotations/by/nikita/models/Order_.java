@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Order.class)
-public abstract class Order_ extends by.nikita.models.IdAwareEntity_ {
+public abstract class Order_ extends AbstractIdAwareEntity_ {
 
 	public static volatile SingularAttribute<Order, Integer> number;
 	public static volatile SingularAttribute<Order, Integer> amountOfGuests;

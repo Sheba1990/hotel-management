@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "room_table")
-public class Room extends IdAwareEntity {
+public class Room extends AbstractIdAwareEntity {
 
     @Column(name = "room_number")
     private Integer roomNumber;

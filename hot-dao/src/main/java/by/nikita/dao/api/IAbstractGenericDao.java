@@ -1,10 +1,10 @@
 package by.nikita.dao.api;
 
-import by.nikita.models.IdAwareEntity;
+import by.nikita.models.AbstractIdAwareEntity;
 
 import java.util.List;
 
-public interface IAbstractGenericDao<T extends IdAwareEntity> {
+public interface IAbstractGenericDao<T extends AbstractIdAwareEntity> {
 
     Class<T> getGenericClass();
 

@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "passport_table")
-public class Passport extends IdAwareEntity {
+public class Passport extends AbstractIdAwareEntity {
 
     @Column(name = "passport_serial")
     private String passportSerial;

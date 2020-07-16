@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "contact_data_table")
-public class ContactData extends IdAwareEntity {
+public class ContactData extends AbstractIdAwareEntity {
 
     @Column(name = "phone_number")
     private String phoneNumber;

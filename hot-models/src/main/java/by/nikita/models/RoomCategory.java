@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "room_category_table")
-public class RoomCategory extends IdAwareEntity {
+public class RoomCategory extends AbstractIdAwareEntity {
 
     @Column(name = "name")
     private String name;

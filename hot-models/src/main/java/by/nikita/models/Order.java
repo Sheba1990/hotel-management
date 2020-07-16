@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "order_table")
-public class Order extends IdAwareEntity {
+public class Order extends AbstractIdAwareEntity {
 
     @Column(name = "number")
     private Integer number;
