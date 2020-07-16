@@ -29,7 +29,7 @@
 		<version.org.springframework.boot>2.2.4.RELEASE</version.org.springframework.boot>
 		<version.org.postgresql>42.2.14</version.org.postgresql>
 		<version.org.hibernate>5.4.18.Final</version.org.hibernate>
-		<version.org.hibernate-validator>5.2.4.Final</version.org.hibernate-validator>
+		<version.org.hibernate-validator>5.3.5.Final</version.org.hibernate-validator>
 	</properties>
 
 	<dependencyManagement>
