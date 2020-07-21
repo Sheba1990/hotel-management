@@ -3,6 +3,8 @@ package by.nikita.dto;
 import by.nikita.models.Order;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderDto extends AbstractIdAwareDto {
 
@@ -25,6 +27,35 @@ public class OrderDto extends AbstractIdAwareDto {
     private Integer roomNumber;
 
     private String roomCategory;
+
+    public static List<OrderDto> convertList(List<Order> orderList) {
+        List<OrderDto> orders = new ArrayList<>();
+        for (Order order : orderList) {
+            OrderDto orderDto = new OrderDto();
+            orderDto.setOrderNumber(order.getNumber());
+            orderDto.setRoomNumber(order.getRoom().getRoomNumber());
+            orderDto.setUserFirstName(order.getUser().getUserDetails().getFirstName());
+            orderDto.setUserLastName(order.getUser().getUserDetails().getLastName());
+            orders.add(orderDto);
+        }
+        return orders;
+    }
+
+    public static OrderDto entityToDto(Order order) {
+        OrderDto orderDto = new OrderDto();
+        orderDto.setId(order.getId());
+        orderDto.setOrderNumber(order.getNumber());
+        orderDto.setAmountOfGuests(order.getAmountOfGuests());
+        orderDto.setDateOfCheckIn(order.getDateOfCheckIn());
+        orderDto.setDateOfCheckOut(order.getDateOfCheckOut());
+        orderDto.setUserName(order.getUser().getUsername());
+        orderDto.setUserEmail(order.getUser().getEmail());
+        orderDto.setUserFirstName(order.getUser().getUserDetails().getFirstName());
+        orderDto.setUserLastName(order.getUser().getUserDetails().getLastName());
+        orderDto.setRoomNumber(order.getRoom().getRoomNumber());
+        orderDto.setRoomCategory(order.getRoom().getRoomCategory().getCategoryName());
+        return orderDto;
+    }
 
     public OrderDto() {
     }
