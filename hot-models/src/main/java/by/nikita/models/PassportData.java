@@ -1,13 +1,10 @@
 package by.nikita.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "passport_table")
-public class Passport extends AbstractIdAwareEntity {
+public class PassportData extends AbstractIdAwareEntity {
 
     @Column(name = "passport_serial")
     private String passportSerial;
@@ -24,13 +21,13 @@ public class Passport extends AbstractIdAwareEntity {
     @Column(name = "country")
     private String countryOfIssue;
 
-    @OneToOne(mappedBy = "passport")
+    @OneToOne(mappedBy = "passport",fetch = FetchType.LAZY)
     private UserDetails userDetails;
 
-    public Passport() {
+    public PassportData() {
     }
 
-    public Passport(
+    public PassportData(
             String passportSerial,
             String passportNumber,
             String dateOfIssue,

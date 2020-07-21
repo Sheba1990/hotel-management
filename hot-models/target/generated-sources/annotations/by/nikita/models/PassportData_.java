@@ -5,15 +5,15 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
-@StaticMetamodel(Passport.class)
-public abstract class Passport_ extends AbstractIdAwareEntity_ {
+@StaticMetamodel(PassportData.class)
+public abstract class PassportData_ extends AbstractIdAwareEntity_ {
 
-	public static volatile SingularAttribute<Passport, String> passportNumber;
-	public static volatile SingularAttribute<Passport, String> dateOfExpiry;
-	public static volatile SingularAttribute<Passport, String> passportSerial;
-	public static volatile SingularAttribute<Passport, String> countryOfIssue;
-	public static volatile SingularAttribute<Passport, String> dateOfIssue;
-	public static volatile SingularAttribute<Passport, UserDetails> userDetails;
+	public static volatile SingularAttribute<PassportData, String> passportNumber;
+	public static volatile SingularAttribute<PassportData, String> dateOfExpiry;
+	public static volatile SingularAttribute<PassportData, String> passportSerial;
+	public static volatile SingularAttribute<PassportData, String> countryOfIssue;
+	public static volatile SingularAttribute<PassportData, String> dateOfIssue;
+	public static volatile SingularAttribute<PassportData, UserDetails> userDetails;
 
 	public static final String PASSPORT_NUMBER = "passportNumber";
 	public static final String DATE_OF_EXPIRY = "dateOfExpiry";

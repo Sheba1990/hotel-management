@@ -10,4 +10,6 @@ public interface IContactDataDao extends IAbstractGenericDao<ContactData> {
 
     List<ContactData> getContactDataByUserLastName(String userLastName);
 
+    List<ContactData> getContactDataByUserFullName(String userFirstName, String userLastName);
+
 }

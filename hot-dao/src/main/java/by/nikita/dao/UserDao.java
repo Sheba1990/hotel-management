@@ -73,9 +73,9 @@ public class UserDao extends AbstractGenericDao<User> implements IUserDao {
             CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
             Root<User> root = query.from(User.class);
             Join<User, UserDetails> userDetails = root.join(User_.USER_DETAILS);
-            Join<UserDetails, Passport> passport = userDetails.join(UserDetails_.PASSPORT);
+            Join<UserDetails, PassportData> passport = userDetails.join(UserDetails_.PASSPORT);
             List<Predicate> conditions = new ArrayList<>();
-            conditions.add(criteriaBuilder.equal(passport.get(Passport_.COUNTRY_OF_ISSUE), passportCountry));
+            conditions.add(criteriaBuilder.equal(passport.get(PassportData_.COUNTRY_OF_ISSUE), passportCountry));
             query.select(root).where(conditions.toArray(new Predicate[]{}));
             TypedQuery<User> result = entityManager.createQuery(query);
             return result.getResultList();

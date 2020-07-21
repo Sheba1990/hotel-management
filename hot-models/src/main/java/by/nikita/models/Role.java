@@ -1,9 +1,6 @@
 package by.nikita.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -13,15 +10,14 @@ public class Role extends AbstractIdAwareEntity {
     @Column(name = "role_name")
     private String roleName;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<User> users;
 
     public Role(Long id) {
         super(id);
     }
 
-    public Role(Long id, String roleName, List<User> users) {
-        super(id);
+    public Role(String roleName, List<User> users) {
         this.roleName = roleName;
         this.users = users;
     }

@@ -1,16 +1,14 @@
 package by.nikita.models;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "room_status_table")
 public class RoomStatus extends AbstractIdAwareEntity {
 
-    private String name;
+    @Column(name = "status_name")
+    private String statusName;
 
     @OneToMany(mappedBy = "roomStatus", fetch = FetchType.LAZY)
     private List<Room> rooms;
@@ -18,17 +16,17 @@ public class RoomStatus extends AbstractIdAwareEntity {
     public RoomStatus() {
     }
 
-    public RoomStatus(String name, List<Room> rooms) {
-        this.name = name;
+    public RoomStatus(String statusName, List<Room> rooms) {
+        this.statusName = statusName;
         this.rooms = rooms;
     }
 
-    public String getName() {
-        return name;
+    public String getStatusName() {
+        return statusName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 
     public List<Room> getRooms() {

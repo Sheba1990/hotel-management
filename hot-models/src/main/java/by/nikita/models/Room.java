@@ -22,7 +22,7 @@ public class Room extends AbstractIdAwareEntity {
     @JoinColumn(name = "room_status_id", referencedColumnName = "id")
     private RoomStatus roomStatus;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
     private List<Order> orders;
 
     public Room() {

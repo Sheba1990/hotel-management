@@ -13,7 +13,7 @@ public abstract class UserDetails_ extends AbstractIdAwareEntity_ {
 	public static volatile SingularAttribute<UserDetails, String> lastName;
 	public static volatile SingularAttribute<UserDetails, ContactData> contactData;
 	public static volatile SingularAttribute<UserDetails, LocalDate> birthdate;
-	public static volatile SingularAttribute<UserDetails, Passport> passport;
+	public static volatile SingularAttribute<UserDetails, PassportData> passport;
 	public static volatile SingularAttribute<UserDetails, String> middleName;
 	public static volatile SingularAttribute<UserDetails, User> user;
 

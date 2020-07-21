@@ -20,14 +20,14 @@ public class UserDetails extends AbstractIdAwareEntity {
     private LocalDate birthdate;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "passport_id")
-    private Passport passport;
+    @JoinColumn(name = "passport_id", referencedColumnName = "id")
+    private PassportData passportData;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "contact_data_id")
+    @JoinColumn(name = "contact_data_id", referencedColumnName = "id")
     private ContactData contactData;
 
-    @OneToOne(mappedBy = "userDetails")
+    @OneToOne(mappedBy = "userDetails", fetch = FetchType.LAZY)
     private User user;
 
     public UserDetails() {
@@ -38,14 +38,14 @@ public class UserDetails extends AbstractIdAwareEntity {
             String lastName,
             String middleName,
             LocalDate birthdate,
-            Passport passport,
+            PassportData passportData,
             ContactData contactData,
             User user) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.birthdate = birthdate;
-        this.passport = passport;
+        this.passportData = passportData;
         this.contactData = contactData;
         this.user = user;
     }
@@ -82,12 +82,12 @@ public class UserDetails extends AbstractIdAwareEntity {
         this.birthdate = birthdate;
     }
 
-    public Passport getPassport() {
-        return passport;
+    public PassportData getPassportData() {
+        return passportData;
     }
 
-    public void setPassport(Passport passport) {
-        this.passport = passport;
+    public void setPassportData(PassportData passportData) {
+        this.passportData = passportData;
     }
 
     public ContactData getContactData() {

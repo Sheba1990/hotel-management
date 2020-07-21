@@ -7,8 +7,8 @@ import java.util.List;
 @Table(name = "room_category_table")
 public class RoomCategory extends AbstractIdAwareEntity {
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "category_name")
+    private String categoryName;
 
     @OneToMany(mappedBy = "roomCategory", fetch = FetchType.LAZY)
     private List<Room> rooms;
@@ -16,17 +16,17 @@ public class RoomCategory extends AbstractIdAwareEntity {
     public RoomCategory() {
     }
 
-    public RoomCategory(String name, List<Room> rooms) {
-        this.name = name;
+    public RoomCategory(String categoryName, List<Room> rooms) {
+        this.categoryName = categoryName;
         this.rooms = rooms;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public List<Room> getRooms() {

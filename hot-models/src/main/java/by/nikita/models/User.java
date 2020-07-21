@@ -21,7 +21,7 @@ public class User extends AbstractIdAwareEntity {
 
     private boolean active;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Order> orders;
 
     @OneToOne

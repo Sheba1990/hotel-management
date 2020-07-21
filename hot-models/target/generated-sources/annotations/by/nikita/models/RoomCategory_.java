@@ -10,10 +10,10 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class RoomCategory_ extends AbstractIdAwareEntity_ {
 
 	public static volatile ListAttribute<RoomCategory, Room> rooms;
-	public static volatile SingularAttribute<RoomCategory, String> name;
+	public static volatile SingularAttribute<RoomCategory, String> categoryName;
 
 	public static final String ROOMS = "rooms";
-	public static final String NAME = "name";
+	public static final String CATEGORY_NAME = "categoryName";
 
 }
 

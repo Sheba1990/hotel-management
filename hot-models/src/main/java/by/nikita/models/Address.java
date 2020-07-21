@@ -1,10 +1,6 @@
 package by.nikita.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import java.util.List;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "address_table")
@@ -28,20 +24,27 @@ public class Address extends AbstractIdAwareEntity {
     @Column(name = "home_number")
     private String homeNumber;
 
-    @OneToMany(mappedBy = "address")
-    private List<ContactData> contactDataList;
+    @OneToOne(mappedBy = "address")
+    private ContactData contactData;
 
     public Address() {
     }
 
-    public Address(String postalCode, String country, String province, String city, String street, String homeNumber, List<ContactData> contactDataList) {
+    public Address(
+            String postalCode,
+            String country,
+            String province,
+            String city,
+            String street,
+            String homeNumber,
+            ContactData contactData) {
         this.postalCode = postalCode;
         this.country = country;
         this.province = province;
         this.city = city;
         this.street = street;
         this.homeNumber = homeNumber;
-        this.contactDataList = contactDataList;
+        this.contactData = contactData;
     }
 
     public String getPostalCode() {
@@ -92,11 +95,11 @@ public class Address extends AbstractIdAwareEntity {
         this.homeNumber = homeNumber;
     }
 
-    public List<ContactData> getContactDataList() {
-        return contactDataList;
+    public ContactData getContactData() {
+        return contactData;
     }
 
-    public void setContactDataList(List<ContactData> contactDataList) {
-        this.contactDataList = contactDataList;
+    public void setContactData(ContactData contactData) {
+        this.contactData = contactData;
     }
 }

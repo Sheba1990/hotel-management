@@ -40,7 +40,7 @@ public class RoomDao extends AbstractGenericDao<Room> implements IRoomDao {
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
             Root<Room> root = query.from(Room.class);
             Join<Room, RoomCategory> category = root.join(Room_.ROOM_CATEGORY);
-            query.select(root).where(criteriaBuilder.equal(category.get(RoomCategory_.NAME), roomCategory));
+            query.select(root).where(criteriaBuilder.equal(category.get(RoomCategory_.CATEGORY_NAME), roomCategory));
             TypedQuery<Room> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
@@ -55,7 +55,7 @@ public class RoomDao extends AbstractGenericDao<Room> implements IRoomDao {
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
             Root<Room> root = query.from(Room.class);
             Join<Room, RoomStatus> status = root.join(Room_.ROOM_STATUS);
-            query.select(root).where(criteriaBuilder.equal(status.get(RoomStatus_.NAME), roomStatus));
+            query.select(root).where(criteriaBuilder.equal(status.get(RoomStatus_.STATUS_NAME), roomStatus));
             TypedQuery<Room> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {

@@ -1,15 +1,13 @@
 package by.nikita.dao;
 
 import by.nikita.dao.api.IAddressDao;
-import by.nikita.models.Address;
-import by.nikita.models.Address_;
+import by.nikita.models.*;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -21,6 +19,43 @@ public class AddressDao extends AbstractGenericDao<Address> implements IAddressD
 
 
     //Get mapping methods
+
+
+    @Override
+    public List<Address> getAddressByUserFirstName(String userFirstName) {
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Address> query = criteriaBuilder.createQuery(Address.class);
+            Root<Address> root = query.from(Address.class);
+            Join<Address, ContactData> contactData = root.join(Address_.CONTACT_DATA_LIST);
+            Join<ContactData, UserDetails> userDetails = contactData.join(ContactData_.USER_DETAILS);
+            List<Predicate> conditions = new ArrayList<>();
+            conditions.add(criteriaBuilder.equal(userDetails.get(UserDetails_.FIRST_NAME), userFirstName));
+            query.select(root).where(conditions.toArray(new Predicate[]{}));
+            TypedQuery<Address> result = entityManager.createQuery(query);
+            return result.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Address> getAddressByUserLastName(String userLastName) {
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Address> query = criteriaBuilder.createQuery(Address.class);
+            Root<Address> root = query.from(Address.class);
+            Join<Address, ContactData> contactData = root.join(Address_.CONTACT_DATA_LIST);
+            Join<ContactData, UserDetails> userDetails = contactData.join(ContactData_.USER_DETAILS);
+            List<Predicate> conditions = new ArrayList<>();
+            conditions.add(criteriaBuilder.equal(userDetails.get(UserDetails_.LAST_NAME), userLastName));
+            query.select(root).where(conditions.toArray(new Predicate[]{}));
+            TypedQuery<Address> result = entityManager.createQuery(query);
+            return result.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
     public List<Address> getAddressByCountry(String country) {
         try {

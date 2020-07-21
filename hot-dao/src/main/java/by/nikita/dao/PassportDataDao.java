@@ -1,8 +1,8 @@
 package by.nikita.dao;
 
-import by.nikita.dao.api.IContactDataDao;
-import by.nikita.models.ContactData;
-import by.nikita.models.ContactData_;
+import by.nikita.dao.api.IPassportDataDao;
+import by.nikita.models.PassportData;
+import by.nikita.models.PassportData_;
 import by.nikita.models.UserDetails;
 import by.nikita.models.UserDetails_;
 import org.springframework.stereotype.Repository;
@@ -13,21 +13,21 @@ import javax.persistence.criteria.*;
 import java.util.List;
 
 @Repository
-public class ContactDataDao extends AbstractGenericDao<ContactData> implements IContactDataDao {
+public class PassportDataDao extends AbstractGenericDao<PassportData> implements IPassportDataDao {
 
-    public ContactDataDao() {
-        super(ContactData.class);
+    public PassportDataDao() {
+        super(PassportData.class);
     }
 
     @Override
-    public List<ContactData> getContactDataByUserFirstName(String userFirstName) {
+    public List<PassportData> getPassportDataByUserFirstName(String userFirstName) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaQuery<ContactData> query = criteriaBuilder.createQuery(ContactData.class);
-            Root<ContactData> root = query.from(ContactData.class);
-            Join<ContactData, UserDetails> userDetails = root.join(ContactData_.USER_DETAILS);
+            CriteriaQuery<PassportData> query = criteriaBuilder.createQuery(PassportData.class);
+            Root<PassportData> root = query.from(PassportData.class);
+            Join<PassportData, UserDetails> userDetails = root.join(PassportData_.USER_DETAILS);
             query.select(root).where(criteriaBuilder.equal(userDetails.get(UserDetails_.FIRST_NAME), userFirstName));
-            TypedQuery<ContactData> result = entityManager.createQuery(query);
+            TypedQuery<PassportData> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
             return null;
@@ -35,14 +35,14 @@ public class ContactDataDao extends AbstractGenericDao<ContactData> implements I
     }
 
     @Override
-    public List<ContactData> getContactDataByUserLastName(String userLastName) {
+    public List<PassportData> getPassportDataByUserLastName(String userLastName) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaQuery<ContactData> query = criteriaBuilder.createQuery(ContactData.class);
-            Root<ContactData> root = query.from(ContactData.class);
-            Join<ContactData, UserDetails> userDetails = root.join(ContactData_.USER_DETAILS);
+            CriteriaQuery<PassportData> query = criteriaBuilder.createQuery(PassportData.class);
+            Root<PassportData> root = query.from(PassportData.class);
+            Join<PassportData, UserDetails> userDetails = root.join(PassportData_.USER_DETAILS);
             query.select(root).where(criteriaBuilder.equal(userDetails.get(UserDetails_.LAST_NAME), userLastName));
-            TypedQuery<ContactData> result = entityManager.createQuery(query);
+            TypedQuery<PassportData> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
             return null;
@@ -50,17 +50,17 @@ public class ContactDataDao extends AbstractGenericDao<ContactData> implements I
     }
 
     @Override
-    public List<ContactData> getContactDataByUserFullName(String userFirstName, String userLastName) {
+    public List<PassportData> getPassportDataByUserFullName(String userFirstName, String userLastName) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaQuery<ContactData> query = criteriaBuilder.createQuery(ContactData.class);
-            Root<ContactData> root = query.from(ContactData.class);
-            Join<ContactData, UserDetails> userDetails = root.join(ContactData_.USER_DETAILS);
+            CriteriaQuery<PassportData> query = criteriaBuilder.createQuery(PassportData.class);
+            Root<PassportData> root = query.from(PassportData.class);
+            Join<PassportData, UserDetails> userDetails = root.join(PassportData_.USER_DETAILS);
             Predicate predicateForFirstName = criteriaBuilder.equal(userDetails.get(UserDetails_.FIRST_NAME), userFirstName);
             Predicate predicateForLastName = criteriaBuilder.equal(userDetails.get(UserDetails_.LAST_NAME), userLastName);
             Predicate predicateForFullName = criteriaBuilder.and(predicateForFirstName, predicateForLastName);
             query.select(root).where(predicateForFullName);
-            TypedQuery<ContactData> result = entityManager.createQuery(query);
+            TypedQuery<PassportData> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
             return null;

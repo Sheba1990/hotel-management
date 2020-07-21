@@ -7,4 +7,6 @@ import java.util.List;
 public interface IUserDetailsDao extends IAbstractGenericDao<UserDetails> {
 
     List<UserDetails> getUserDetailsByUserFirstName(String firstName);
+
+    List<UserDetails> getUserDetailsByUserLastName(String lastName);
 }

@@ -42,7 +42,7 @@ public class OrderDao extends AbstractGenericDao<Order> implements IOrderDao {
             Join<Order, Room> room = root.join(Order_.ROOM);
             Join<Room, RoomCategory> category = room.join(Room_.ROOM_CATEGORY);
             List<Predicate> conditions = new ArrayList<>();
-            conditions.add(criteriaBuilder.equal(category.get(RoomCategory_.NAME), roomCategory));
+            conditions.add(criteriaBuilder.equal(category.get(RoomCategory_.CATEGORY_NAME), roomCategory));
             query.select(root).where(conditions.toArray(new Predicate[]{}));
             TypedQuery<Order> result = entityManager.createQuery(query);
             return result.getResultList();

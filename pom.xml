@@ -9,7 +9,8 @@
 		<module>hot-dao</module>
 		<module>hot-controllers</module>
 		<module>hot-application</module>
-	</modules>
+        <module>hot-dto</module>
+    </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

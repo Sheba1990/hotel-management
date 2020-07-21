@@ -13,7 +13,7 @@ public class ContactData extends AbstractIdAwareEntity {
     @OneToOne(mappedBy = "contactData", fetch = FetchType.LAZY)
     private UserDetails userDetails;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 

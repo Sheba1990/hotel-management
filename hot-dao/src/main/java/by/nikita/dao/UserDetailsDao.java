@@ -31,4 +31,17 @@ public class UserDetailsDao extends AbstractGenericDao<UserDetails> implements I
             return null;
         }
     }
+
+    public List<UserDetails> getUserDetailsByUserLastName(String lastName) {
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<UserDetails> query = criteriaBuilder.createQuery(UserDetails.class);
+            Root<UserDetails> root = query.from(UserDetails.class);
+            query.select(root).where(criteriaBuilder.equal(root.get(UserDetails_.LAST_NAME), lastName));
+            TypedQuery<UserDetails> result = entityManager.createQuery(query);
+            return result.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }
