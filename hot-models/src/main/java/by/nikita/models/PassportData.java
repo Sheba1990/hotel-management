@@ -6,9 +6,6 @@ import javax.persistence.*;
 @Table(name = "passport_table")
 public class PassportData extends AbstractIdAwareEntity {
 
-    @Column(name = "passport_serial")
-    private String passportSerial;
-
     @Column(name = "passport_number")
     private String passportNumber;
 
@@ -28,27 +25,17 @@ public class PassportData extends AbstractIdAwareEntity {
     }
 
     public PassportData(
-            String passportSerial,
             String passportNumber,
             String dateOfIssue,
             String dateOfExpiry,
             String countryOfIssue,
             UserDetails userDetails) {
-        this.passportSerial = passportSerial;
         this.passportNumber = passportNumber;
         this.dateOfIssue = dateOfIssue;
         this.dateOfExpiry = dateOfExpiry;
         this.countryOfIssue = countryOfIssue;
         this.userDetails = userDetails;
 
-    }
-
-    public String getPassportSerial() {
-        return passportSerial;
-    }
-
-    public void setPassportSerial(String passportSerial) {
-        this.passportSerial = passportSerial;
     }
 
     public String getPassportNumber() {

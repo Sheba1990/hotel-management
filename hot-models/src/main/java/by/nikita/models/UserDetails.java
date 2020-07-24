@@ -16,8 +16,8 @@ public class UserDetails extends AbstractIdAwareEntity {
     @Column(name = "middle_name")
     private String middleName;
 
-    @Column(name = "birthdate")
-    private LocalDate birthdate;
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "passport_id", referencedColumnName = "id")
@@ -37,14 +37,14 @@ public class UserDetails extends AbstractIdAwareEntity {
             String firstName,
             String lastName,
             String middleName,
-            LocalDate birthdate,
+            LocalDate birthDate,
             PassportData passportData,
             ContactData contactData,
             User user) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
-        this.birthdate = birthdate;
+        this.birthDate = birthDate;
         this.passportData = passportData;
         this.contactData = contactData;
         this.user = user;
@@ -74,12 +74,12 @@ public class UserDetails extends AbstractIdAwareEntity {
         this.middleName = middleName;
     }
 
-    public LocalDate getBirthdate() {
-        return birthdate;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirthdate(LocalDate birthdate) {
-        this.birthdate = birthdate;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public PassportData getPassportData() {

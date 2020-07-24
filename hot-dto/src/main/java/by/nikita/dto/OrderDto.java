@@ -1,6 +1,7 @@
 package by.nikita.dto;
 
 import by.nikita.models.Order;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,24 +9,34 @@ import java.util.List;
 
 public class OrderDto extends AbstractIdAwareDto {
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer orderNumber;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer amountOfGuests;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDate dateOfCheckIn;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDate dateOfCheckOut;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userName;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userEmail;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userFirstName;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userLastName;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer roomNumber;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String roomCategory;
 
     public static List<OrderDto> convertList(List<Order> orderList) {
