@@ -23,6 +23,27 @@ public class ContactDataDto extends AbstractIdAwareDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userEmail;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String postalCode;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String country;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String province;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String city;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String street;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String homeNumber;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String apartmentNumber;
+
     public static List<ContactDataDto> convertList(List<ContactData> contactDataList) {
         List<ContactDataDto> contacts = new ArrayList<>();
         for (ContactData contactData : contactDataList) {
@@ -58,6 +79,15 @@ public class ContactDataDto extends AbstractIdAwareDto {
             contactDataDto.setUserLastName(null);
         }
         contactDataDto.setUserPhoneNumber(contactData.getPhoneNumber());
+        if (contactData.getAddress() != null) {
+            contactDataDto.setPostalCode(contactData.getAddress().getPostalCode());
+            contactDataDto.setCountry(contactData.getAddress().getCountry());
+            contactDataDto.setProvince(contactData.getAddress().getProvince());
+            contactDataDto.setCity(contactData.getAddress().getCity());
+            contactDataDto.setStreet(contactData.getAddress().getStreet());
+            contactDataDto.setHomeNumber(contactData.getAddress().getHomeNumber());
+            contactDataDto.setApartmentNumber(contactData.getAddress().getApartmentNumber());
+        }
         return contactDataDto;
     }
 
@@ -71,6 +101,13 @@ public class ContactDataDto extends AbstractIdAwareDto {
         this.userLastName = contactData.getUserDetails().getLastName();
         this.userPhoneNumber = contactData.getPhoneNumber();
         this.userEmail = contactData.getUserDetails().getUser().getEmail();
+        this.postalCode = contactData.getAddress().getPostalCode();
+        this.country = contactData.getAddress().getCountry();
+        this.province = contactData.getAddress().getProvince();
+        this.city = contactData.getAddress().getCity();
+        this.street = contactData.getAddress().getStreet();
+        this.homeNumber = contactData.getAddress().getHomeNumber();
+        this.apartmentNumber = contactData.getAddress().getApartmentNumber();
     }
 
     public String getUserName() {
@@ -111,5 +148,61 @@ public class ContactDataDto extends AbstractIdAwareDto {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getHomeNumber() {
+        return homeNumber;
+    }
+
+    public void setHomeNumber(String homeNumber) {
+        this.homeNumber = homeNumber;
+    }
+
+    public String getApartmentNumber() {
+        return apartmentNumber;
+    }
+
+    public void setApartmentNumber(String apartmentNumber) {
+        this.apartmentNumber = apartmentNumber;
     }
 }

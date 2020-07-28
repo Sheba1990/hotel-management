@@ -53,11 +53,11 @@ public abstract class AbstractGenericDao<T extends AbstractIdAwareEntity> implem
     @Override
     public List<T> getAll() {
         try {
-            CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-            CriteriaQuery<T> cq = cb.createQuery(getGenericClass());
-            Root<T> rootEntry = cq.from(getGenericClass());
-            cq.select(rootEntry);
-            TypedQuery<T> result = entityManager.createQuery(cq);
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<T> query = criteriaBuilder.createQuery(getGenericClass());
+            Root<T> root = query.from(getGenericClass());
+            query.select(root);
+            TypedQuery<T> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
             return Collections.emptyList();

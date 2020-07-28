@@ -26,14 +26,20 @@ public class AddressDto extends AbstractIdAwareDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String homeNumber;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String apartmentNumber;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userFirstName;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userLastName;
 
     public static List<AddressDto> convertList(List<Address> addressList) {
         List<AddressDto> addresses = new ArrayList<>();
         for (Address address : addressList) {
             AddressDto addressDto = new AddressDto();
+            addressDto.setId(address.getId());
             if (address.getContactData().getUserDetails() != null) {
                 addressDto.setUserFirstName(address.getContactData().getUserDetails().getFirstName());
                 addressDto.setUserLastName(address.getContactData().getUserDetails().getLastName());
@@ -41,11 +47,11 @@ public class AddressDto extends AbstractIdAwareDto {
                 addressDto.setUserFirstName(null);
                 addressDto.setUserLastName(null);
             }
-            addressDto.setId(address.getId());
             addressDto.setCountry(address.getCountry());
             addressDto.setCity(address.getCity());
             addressDto.setStreet(address.getStreet());
             addressDto.setHomeNumber(address.getHomeNumber());
+            addressDto.setApartmentNumber(address.getApartmentNumber());
             addresses.add(addressDto);
         }
         return addresses;
@@ -67,6 +73,7 @@ public class AddressDto extends AbstractIdAwareDto {
         addressDto.setCity(address.getCity());
         addressDto.setStreet(address.getStreet());
         addressDto.setHomeNumber(address.getHomeNumber());
+        addressDto.setApartmentNumber(address.getApartmentNumber());
         return addressDto;
     }
 
@@ -81,6 +88,7 @@ public class AddressDto extends AbstractIdAwareDto {
         this.city = address.getCity();
         this.street = address.getStreet();
         this.homeNumber = address.getHomeNumber();
+        this.apartmentNumber = address.getApartmentNumber();
     }
 
     public String getPostalCode() {
@@ -129,6 +137,14 @@ public class AddressDto extends AbstractIdAwareDto {
 
     public void setHomeNumber(String homeNumber) {
         this.homeNumber = homeNumber;
+    }
+
+    public String getApartmentNumber() {
+        return apartmentNumber;
+    }
+
+    public void setApartmentNumber(String apartmentNumber) {
+        this.apartmentNumber = apartmentNumber;
     }
 
     public String getUserFirstName() {

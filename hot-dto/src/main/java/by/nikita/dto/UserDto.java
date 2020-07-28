@@ -64,6 +64,9 @@ public class UserDto extends AbstractIdAwareDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userResidenceHomeNumber;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String userResidenceApartmentNumber;
+
     public static List<UserDto> convertList(List<User> userList) {
         List<UserDto> users = new ArrayList<>();
         List<RoleDto> roles = new ArrayList<>();
@@ -118,6 +121,7 @@ public class UserDto extends AbstractIdAwareDto {
         userDto.setUserResidenceCity(user.getUserDetails().getContactData().getAddress().getCity());
         userDto.setUserResidenceStreet(user.getUserDetails().getContactData().getAddress().getStreet());
         userDto.setUserResidenceHomeNumber(user.getUserDetails().getContactData().getAddress().getHomeNumber());
+        userDto.setUserResidenceApartmentNumber(user.getUserDetails().getContactData().getAddress().getApartmentNumber());
         return userDto;
     }
 
@@ -144,6 +148,7 @@ public class UserDto extends AbstractIdAwareDto {
         this.userResidenceCity = user.getUserDetails().getContactData().getAddress().getCity();
         this.userResidenceStreet = user.getUserDetails().getContactData().getAddress().getStreet();
         this.userResidenceHomeNumber = user.getUserDetails().getContactData().getAddress().getHomeNumber();
+        this.userResidenceApartmentNumber = user.getUserDetails().getContactData().getAddress().getApartmentNumber();
     }
 
     public String getUserName() {
@@ -288,5 +293,13 @@ public class UserDto extends AbstractIdAwareDto {
 
     public void setUserResidenceHomeNumber(String userResidenceHomeNumber) {
         this.userResidenceHomeNumber = userResidenceHomeNumber;
+    }
+
+    public String getUserResidenceApartmentNumber() {
+        return userResidenceApartmentNumber;
+    }
+
+    public void setUserResidenceApartmentNumber(String userResidenceApartmentNumber) {
+        this.userResidenceApartmentNumber = userResidenceApartmentNumber;
     }
 }

@@ -24,6 +24,8 @@ public class Address extends AbstractIdAwareEntity {
     @Column(name = "home_number")
     private String homeNumber;
 
+    private String apartmentNumber;
+
     @OneToOne(mappedBy = "address")
     private ContactData contactData;
 
@@ -37,6 +39,7 @@ public class Address extends AbstractIdAwareEntity {
             String city,
             String street,
             String homeNumber,
+            String apartmentNumber,
             ContactData contactData) {
         this.postalCode = postalCode;
         this.country = country;
@@ -44,6 +47,7 @@ public class Address extends AbstractIdAwareEntity {
         this.city = city;
         this.street = street;
         this.homeNumber = homeNumber;
+        this.apartmentNumber = apartmentNumber;
         this.contactData = contactData;
     }
 
@@ -93,6 +97,14 @@ public class Address extends AbstractIdAwareEntity {
 
     public void setHomeNumber(String homeNumber) {
         this.homeNumber = homeNumber;
+    }
+
+    public String getApartmentNumber() {
+        return apartmentNumber;
+    }
+
+    public void setApartmentNumber(String apartmentNumber) {
+        this.apartmentNumber = apartmentNumber;
     }
 
     public ContactData getContactData() {
