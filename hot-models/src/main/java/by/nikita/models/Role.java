@@ -1,8 +1,9 @@
 package by.nikita.models;
 
-public enum Role {
+public enum Role{
 
     USER;
+
 }
 
 

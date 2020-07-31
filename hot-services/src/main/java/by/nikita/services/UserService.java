@@ -2,12 +2,12 @@ package by.nikita.services;
 
 import by.nikita.dao.api.IUserDao;
 import by.nikita.dao.api.IUserDetailsDao;
-import by.nikita.dto.*;
-import by.nikita.models.PassportData;
+import by.nikita.dto.UserDto;
 import by.nikita.models.User;
 import by.nikita.models.UserDetails;
 import by.nikita.services.api.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -23,6 +23,21 @@ public class UserService implements IUserService {
 
     @Autowired
     IUserDetailsDao userDetailsDao;
+
+
+    @Override
+    public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return loadUserByUsername(username);
+    }
+
+    @Override
+    public UserDto addUser(UserDto userDto) {
+        User user = new User();
+        user.setUsername(userDto.getUserName());
+        user.setEmail(userDto.getUserEmail());
+        user.setPassword(userDto.getUserPassword());
+        return UserDto.entityToDto(userDao.create(user));
+    }
 
     @Override
     public List<UserDto> getAllUsers() {
@@ -61,52 +76,25 @@ public class UserService implements IUserService {
 
     @Override
     public List<UserDto> getUsersByResidenceCity(String residenceCity) {
-        return null;
+        return UserDto.convertList(userDao.getUsersByResidenceCountry(residenceCity));
     }
 
     @Override
     public List<UserDto> getUsersByOccupiedRoomNumber(Integer roomNumber) {
-        return null;
+        return UserDto.convertList(userDao.getUsersByOccupiedRoomNumber(roomNumber));
     }
 
     @Override
-    public void updateUser(long id, UserDto userDto, UserDetailsDto userDetailsDto, PassportDataDto passportDataDto, ContactDataDto contactDataDto, AddressDto addressDto) {
+    public void updateUser(long id, UserDto userDto) {
         User user = userDao.get(id);
-        UserDetails userDetails = user.getUserDetails();
-        PassportData passportData = user.getUserDetails().getPassportData();
         if (userDto.getUserName() != null && !StringUtils.isEmpty(userDto.getUserName())) {
             user.setUsername(userDto.getUserName());
         }
         if (userDto.getUserEmail() != null && !StringUtils.isEmpty(userDto.getUserEmail())) {
             user.setEmail(userDto.getUserEmail());
         }
-        if (user.getUserDetails() != null) {
-            if (userDto.getUserFirstName() != null && !StringUtils.isEmpty(userDto.getUserFirstName())) {
-                userDetails.setFirstName(userDetailsDto.getUserFirstName());
-            }
-            if (userDto.getUserLastName() != null && !StringUtils.isEmpty(userDto.getUserLastName())) {
-                userDetails.setLastName(userDetailsDto.getUserLastName());
-            }
-            if (userDto.getUserMiddleName() != null && !StringUtils.isEmpty(userDto.getUserMiddleName())) {
-                userDetails.setMiddleName(userDetailsDto.getUserMiddleName());
-            }
-            if (userDto.getUserBirthDate() != null && !StringUtils.isEmpty(userDto.getUserBirthDate())) {
-                userDetails.setBirthDate(userDetailsDto.getUserBirthDate());
-            }
-        }
-        if (user.getUserDetails().getPassportData() != null) {
-            if (userDto.getUserPassportNumber() != null && !StringUtils.isEmpty(userDto.getUserPassportNumber())) {
-                passportData.setPassportNumber(passportDataDto.getPassportNumber());
-            }
-            if (userDto.getUserPassportDateOfIssue() != null && !StringUtils.isEmpty(userDto.getUserPassportDateOfIssue())) {
-                passportData.setDateOfIssue(passportDataDto.getDateOfIssue());
-            }
-            if (userDto.getUserPassportDateOfExpiry() != null && !StringUtils.isEmpty(userDto.getUserPassportDateOfExpiry())) {
-                passportData.setDateOfExpiry(passportDataDto.getDateOfExpiry());
-            }
-            if (userDto.getUserPassportCountryOfIssue() != null && !StringUtils.isEmpty(userDto.getUserPassportCountryOfIssue())) {
-                passportData.setCountryOfIssue(passportDataDto.getCountryOfIssue());
-            }
+        if (userDto.getUserPassword() != null && !StringUtils.isEmpty(userDto.getUserPassword())) {
+            user.setPassword(userDto.getUserPassword());
         }
         userDao.update(user);
     }

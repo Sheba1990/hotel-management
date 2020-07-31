@@ -1,10 +1,17 @@
 package by.nikita.services.api;
 
-import by.nikita.dto.*;
+import by.nikita.dto.UserDto;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
-public interface IUserService {
+public interface IUserService extends UserDetailsService {
+
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+
+    UserDto addUser(UserDto userDto);
 
     List<UserDto> getAllUsers();
 
@@ -24,7 +31,7 @@ public interface IUserService {
 
     List<UserDto> getUsersByOccupiedRoomNumber(Integer roomNumber);
 
-    void updateUser(long id, UserDto userDto, UserDetailsDto userDetailsDto, PassportDataDto passportDataDto, ContactDataDto contactDataDto, AddressDto addressDto);
+    void updateUser(long id, UserDto userDto);
 
     void deleteUser(long id);
 

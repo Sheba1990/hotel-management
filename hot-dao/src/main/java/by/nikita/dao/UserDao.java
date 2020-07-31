@@ -3,6 +3,7 @@ package by.nikita.dao;
 import by.nikita.dao.api.IUserDao;
 import by.nikita.models.*;
 import by.nikita.models.Order;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
@@ -17,6 +18,7 @@ public class UserDao extends AbstractGenericDao<User> implements IUserDao {
     public UserDao() {
         super(User.class);
     }
+
 
     @Override
     public List<User> getUsersByFirstName(String firstName) {

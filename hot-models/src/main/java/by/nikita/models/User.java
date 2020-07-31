@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user_table")
-public class User extends AbstractIdAwareEntity {
+public class User extends AbstractIdAwareEntity{
 
     @Column(name = "username")
     private String username;
@@ -16,8 +16,6 @@ public class User extends AbstractIdAwareEntity {
 
     @Column(name = "password")
     private String password;
-
-    private boolean active;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Order> orders;
@@ -32,8 +30,6 @@ public class User extends AbstractIdAwareEntity {
     private Set<Role> roles;
 
 
-
-
     public User() {
     }
 
@@ -41,7 +37,6 @@ public class User extends AbstractIdAwareEntity {
             String username,
             String email,
             String password,
-            String activationCode,
             UserDetails userDetails) {
         this.email = email;
         this.username = username;
@@ -52,6 +47,7 @@ public class User extends AbstractIdAwareEntity {
     public String getUsername() {
         return username;
     }
+
 
     public void setUsername(String username) {
         this.username = username;
@@ -71,14 +67,6 @@ public class User extends AbstractIdAwareEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public List<Order> getOrders() {

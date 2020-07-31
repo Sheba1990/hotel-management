@@ -1,9 +1,14 @@
 package by.nikita.services;
 
+import by.nikita.dao.AddressDao;
 import by.nikita.dao.ContactDataDao;
 import by.nikita.dao.PassportDataDao;
 import by.nikita.dao.api.IUserDetailsDao;
+import by.nikita.dto.AddressDto;
+import by.nikita.dto.ContactDataDto;
+import by.nikita.dto.PassportDataDto;
 import by.nikita.dto.UserDetailsDto;
+import by.nikita.models.Address;
 import by.nikita.models.ContactData;
 import by.nikita.models.PassportData;
 import by.nikita.models.UserDetails;
@@ -28,14 +33,53 @@ public class UserDetailsService implements IUserDetailsService {
     @Autowired
     PassportDataDao passportDataDao;
 
+    @Autowired
+    AddressDao addressDao;
+
     @Override
-    public UserDetailsDto addUserDetails(UserDetailsDto userDetailsDto) {
+    public UserDetailsDto addUserDetails(UserDetailsDto userDetailsDto,
+                                         ContactDataDto contactDataDto,
+                                         AddressDto addressDto,
+                                         PassportDataDto passportDataDto) {
+
+        PassportData passportData = new PassportData();
+        passportData.setPassportNumber(passportDataDto.getPassportNumber());
+        passportData.setCountryOfIssue(passportDataDto.getCountryOfIssue());
+        passportData.setDateOfIssue(passportDataDto.getDateOfIssue());
+        passportData.setDateOfExpiry(passportDataDto.getDateOfExpiry());
+        passportDataDao.create(passportData);
+
+        Address address = new Address();
+        address.setPostalCode(addressDto.getPostalCode());
+        address.setCountry(addressDto.getCountry());
+        address.setProvince(addressDto.getProvince());
+        address.setCity(addressDto.getCity());
+        address.setStreet(addressDto.getStreet());
+        address.setHomeNumber(addressDto.getHomeNumber());
+        address.setApartmentNumber(addressDto.getApartmentNumber());
+        addressDao.create(address);
+
+        ContactData contactData = new ContactData();
+        contactData.setPhoneNumber(contactDataDto.getUserPhoneNumber());
+        contactData.setAddress(address);
+        contactDataDao.create(contactData);
+
         UserDetails userDetails = new UserDetails();
         userDetails.setFirstName(userDetailsDto.getUserFirstName());
         userDetails.setMiddleName(userDetailsDto.getUserMiddleName());
         userDetails.setLastName(userDetailsDto.getUserLastName());
         userDetails.setBirthDate(userDetailsDto.getUserBirthDate());
-        return UserDetailsDto.entityToDto(userDetailsDao.create(userDetails));
+        userDetails.setPassportData(passportData);
+        userDetails.setContactData(contactData);
+
+        UserDetails newUserDetails = userDetailsDao.create(userDetails);
+
+        return UserDetailsDto.entityToDto(newUserDetails);
+    }
+
+    @Override
+    public UserDetailsDto getUserDetailsByUserId(long userId) {
+        return UserDetailsDto.entityToDto(userDetailsDao.getUserDetailsByUserId(userId));
     }
 
     @Override
@@ -59,8 +103,17 @@ public class UserDetailsService implements IUserDetailsService {
     }
 
     @Override
-    public void updateUserDetails(long id, UserDetailsDto userDetailsDto) {
+    public void updateUserDetails(long id,
+                                  UserDetailsDto userDetailsDto,
+                                  ContactDataDto contactDataDto,
+                                  AddressDto addressDto,
+                                  PassportDataDto passportDataDto) {
+
         UserDetails userDetails = userDetailsDao.get(id);
+        PassportData passportData = userDetails.getPassportData();
+        ContactData contactData = userDetails.getContactData();
+        Address address = userDetails.getContactData().getAddress();
+
         if (userDetailsDto.getUserFirstName() != null && !StringUtils.isEmpty(userDetailsDto.getUserFirstName())) {
             userDetails.setFirstName(userDetailsDto.getUserFirstName());
         }
@@ -73,6 +126,55 @@ public class UserDetailsService implements IUserDetailsService {
         if (userDetailsDto.getUserBirthDate() != null && !StringUtils.isEmpty(userDetailsDto.getUserBirthDate())) {
             userDetails.setBirthDate(userDetailsDto.getUserBirthDate());
         }
+
+        if (userDetails.getPassportData() != null) {
+            if (userDetailsDto.getUserPassportNumber() != null && !StringUtils.isEmpty(userDetailsDto.getUserPassportNumber())) {
+                passportData.setPassportNumber(passportDataDto.getPassportNumber());
+            }
+            if (userDetailsDto.getUserPassportCountryOfIssue() != null && !StringUtils.isEmpty(userDetailsDto.getUserPassportCountryOfIssue())) {
+                passportData.setCountryOfIssue(passportDataDto.getCountryOfIssue());
+            }
+            if (userDetailsDto.getUserPassportDateOfIssue() != null && !StringUtils.isEmpty(userDetailsDto.getUserPassportDateOfIssue())) {
+                passportData.setDateOfIssue(passportDataDto.getDateOfIssue());
+            }
+            if (userDetailsDto.getUserPassportDateOfExpiry() != null && !StringUtils.isEmpty(userDetailsDto.getUserPassportDateOfExpiry())) {
+                passportData.setDateOfExpiry(passportDataDto.getDateOfExpiry());
+            }
+            passportDataDao.update(passportData);
+        }
+
+        if (userDetails.getContactData() != null) {
+            if (userDetailsDto.getUserPhoneNumber() != null && !StringUtils.isEmpty(userDetailsDto.getUserPhoneNumber())) {
+                contactData.setPhoneNumber(contactDataDto.getUserPhoneNumber());
+            }
+            contactDataDao.update(contactData);
+        }
+
+        if (userDetails.getContactData().getAddress() != null) {
+            if (userDetailsDto.getUserPostalCode() != null && !StringUtils.isEmpty(userDetailsDto.getUserPostalCode())) {
+                address.setPostalCode(addressDto.getPostalCode());
+            }
+            if (userDetailsDto.getUserResidenceCountry() != null && !StringUtils.isEmpty(userDetailsDto.getUserResidenceCountry())) {
+                address.setCountry(addressDto.getCountry());
+            }
+            if (userDetailsDto.getUserResidenceProvince() != null && !StringUtils.isEmpty(userDetailsDto.getUserResidenceProvince())) {
+                address.setProvince(addressDto.getProvince());
+            }
+            if (userDetailsDto.getUserResidenceCity() != null && !StringUtils.isEmpty(userDetailsDto.getUserResidenceCity())) {
+                address.setCity(addressDto.getCity());
+            }
+            if (userDetailsDto.getUserResidenceStreet() != null && !StringUtils.isEmpty(userDetailsDto.getUserResidenceStreet())) {
+                address.setStreet(addressDto.getStreet());
+            }
+            if (userDetailsDto.getUserResidenceHomeNumber() != null && !StringUtils.isEmpty(userDetailsDto.getUserResidenceHomeNumber())) {
+                address.setHomeNumber(addressDto.getHomeNumber());
+            }
+            if (userDetailsDto.getUserResidenceApartmentNumber() != null && !StringUtils.isEmpty(userDetailsDto.getUserResidenceApartmentNumber())) {
+                address.setApartmentNumber(addressDto.getApartmentNumber());
+            }
+            addressDao.update(address);
+        }
+
         userDetailsDao.update(userDetails);
     }
 
