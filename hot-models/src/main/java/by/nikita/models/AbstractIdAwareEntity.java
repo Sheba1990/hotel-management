@@ -6,7 +6,7 @@ import javax.persistence.*;
 public abstract class AbstractIdAwareEntity {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 

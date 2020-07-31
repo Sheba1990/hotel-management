@@ -2,6 +2,7 @@ package by.nikita.models;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_table")
@@ -16,9 +17,6 @@ public class User extends AbstractIdAwareEntity {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "activation_code")
-    private String activationCode;
-
     private boolean active;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -28,11 +26,12 @@ public class User extends AbstractIdAwareEntity {
     @JoinColumn(name = "user_details_id", referencedColumnName = "id")
     private UserDetails userDetails;
 
-    @ManyToMany
-    @JoinTable(name = "user_role_table",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role_table ", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+
+
 
 
     public User() {
@@ -43,13 +42,10 @@ public class User extends AbstractIdAwareEntity {
             String email,
             String password,
             String activationCode,
-            List<Role> roles,
             UserDetails userDetails) {
         this.email = email;
         this.username = username;
         this.password = password;
-        this.activationCode = activationCode;
-        this.roles = roles;
         this.userDetails = userDetails;
     }
 
@@ -77,14 +73,6 @@ public class User extends AbstractIdAwareEntity {
         this.password = password;
     }
 
-    public String getActivationCode() {
-        return activationCode;
-    }
-
-    public void setActivationCode(String activationCode) {
-        this.activationCode = activationCode;
-    }
-
     public boolean isActive() {
         return active;
     }
@@ -109,11 +97,11 @@ public class User extends AbstractIdAwareEntity {
         this.userDetails = userDetails;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }

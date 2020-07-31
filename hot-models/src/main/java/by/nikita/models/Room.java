@@ -14,7 +14,7 @@ public class Room extends AbstractIdAwareEntity {
     @JoinColumn(name = "room_category_id", referencedColumnName = "id")
     private RoomCategory roomCategory;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "room_details_id", referencedColumnName = "id")
     private RoomDetails roomDetails;
 

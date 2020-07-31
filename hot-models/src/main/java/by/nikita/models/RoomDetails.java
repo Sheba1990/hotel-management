@@ -1,7 +1,6 @@
 package by.nikita.models;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "room_details_table")
@@ -40,8 +39,8 @@ public class RoomDetails extends AbstractIdAwareEntity {
     @Column(name = "has_breakfast")
     private boolean hasBreakfast;
 
-    @OneToMany(mappedBy = "roomDetails", fetch = FetchType.LAZY)
-    private List<Room> rooms;
+    @OneToOne(mappedBy = "roomDetails", fetch = FetchType.LAZY)
+    private Room room;
 
     public RoomDetails() {
     }
@@ -58,7 +57,7 @@ public class RoomDetails extends AbstractIdAwareEntity {
             boolean hasBabyBed,
             boolean hasWifi,
             boolean hasBreakfast,
-            List<Room> rooms) {
+            Room room) {
         this.pricePerNight = pricePerNight;
         this.floor = floor;
         this.amountOfRooms = amountOfRooms;
@@ -70,7 +69,7 @@ public class RoomDetails extends AbstractIdAwareEntity {
         this.hasBabyBed = hasBabyBed;
         this.hasWifi = hasWifi;
         this.hasBreakfast = hasBreakfast;
-        this.rooms = rooms;
+        this.room = room;
     }
 
     public Double getPricePerNight() {
@@ -161,12 +160,12 @@ public class RoomDetails extends AbstractIdAwareEntity {
         this.hasBreakfast = hasBreakfast;
     }
 
-    public List<Room> getRooms() {
-        return rooms;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }
 
