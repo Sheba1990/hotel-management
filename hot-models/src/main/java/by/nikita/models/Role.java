@@ -1,9 +1,16 @@
 package by.nikita.models;
 
-public enum Role{
+import org.springframework.security.core.GrantedAuthority;
 
-    USER;
+public enum Role implements GrantedAuthority {
 
+    USER,
+    ADMIN;
+
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }
 
 

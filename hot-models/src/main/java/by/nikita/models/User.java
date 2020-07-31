@@ -1,12 +1,15 @@
 package by.nikita.models;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "user_table")
-public class User extends AbstractIdAwareEntity{
+public class User extends AbstractIdAwareEntity implements org.springframework.security.core.userdetails.UserDetails {
 
     @Column(name = "username")
     private String username;
@@ -16,6 +19,8 @@ public class User extends AbstractIdAwareEntity{
 
     @Column(name = "password")
     private String password;
+
+    private boolean active;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Order> orders;
@@ -33,21 +38,52 @@ public class User extends AbstractIdAwareEntity{
     public User() {
     }
 
-    public User(
-            String username,
-            String email,
-            String password,
-            UserDetails userDetails) {
-        this.email = email;
+    public User(Long id,
+                String username,
+                String email,
+                String password,
+                boolean active,
+                List<Order> orders,
+                UserDetails userDetails,
+                Set<Role> roles) {
+        super(id);
         this.username = username;
+        this.email = email;
         this.password = password;
+        this.active = active;
+        this.orders = orders;
         this.userDetails = userDetails;
+        this.roles = roles;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive();
     }
 
     public String getUsername() {
         return username;
     }
-
 
     public void setUsername(String username) {
         this.username = username;
@@ -67,6 +103,14 @@ public class User extends AbstractIdAwareEntity{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public List<Order> getOrders() {
