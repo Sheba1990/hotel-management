@@ -1,6 +1,6 @@
 package by.nikita.services.api;
 
-import by.nikita.dto.UserDto;
+import by.nikita.dto.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,6 +35,10 @@ public interface IUserService extends UserDetailsService {
 
     void deleteUser(long id);
 
-    UserDto addUserDetailsToUser(long userDetailsId, long userId);
+    UserDto addUserDetailsToUser(long userId,
+                                 UserDetailsDto userDetailsDto,
+                                 ContactDataDto contactDataDto,
+                                 AddressDto addressDto,
+                                 PassportDataDto passportDataDto);
 
 }

@@ -31,6 +31,7 @@
 		<version.org.postgresql>42.2.14</version.org.postgresql>
 		<version.org.hibernate>5.4.18.Final</version.org.hibernate>
 		<version.org.hibernate-validator>5.3.5.Final</version.org.hibernate-validator>
+		<version.org.projectlombok>1.18.12</version.org.projectlombok>
 	</properties>
 
 	<dependencyManagement>
@@ -94,6 +95,14 @@
 				<artifactId>postgresql</artifactId>
 				<version>${version.org.postgresql}</version>
 				<scope>runtime</scope>
+			</dependency>
+
+			<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${version.org.projectlombok}</version>
+				<scope>provided</scope>
 			</dependency>
 
 		</dependencies>

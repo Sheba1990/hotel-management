@@ -1,6 +1,6 @@
 package by.nikita.dto;
 
-public class RoleDto extends AbstractIdAwareDto {
+public class RoleDto {
 
     private String roleName;
 

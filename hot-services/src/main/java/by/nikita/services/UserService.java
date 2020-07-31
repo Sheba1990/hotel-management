@@ -1,10 +1,8 @@
 package by.nikita.services;
 
-import by.nikita.dao.api.IUserDao;
-import by.nikita.dao.api.IUserDetailsDao;
-import by.nikita.dto.UserDto;
-import by.nikita.models.User;
-import by.nikita.models.UserDetails;
+import by.nikita.dao.api.*;
+import by.nikita.dto.*;
+import by.nikita.models.*;
 import by.nikita.services.api.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,7 +20,16 @@ public class UserService implements IUserService {
     IUserDao userDao;
 
     @Autowired
+    IPassportDataDao passportDataDao;
+
+    @Autowired
     IUserDetailsDao userDetailsDao;
+
+    @Autowired
+    IAddressDao addressDao;
+
+    @Autowired
+    IContactDataDao contactDataDao;
 
 
     @Override
@@ -105,11 +112,48 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDto addUserDetailsToUser(long userDetailsId, long userId) {
-        UserDetails userDetails = userDetailsDao.get(userDetailsId);
+    public UserDto addUserDetailsToUser(long userId,
+                                         UserDetailsDto userDetailsDto,
+                                         ContactDataDto contactDataDto,
+                                         AddressDto addressDto,
+                                         PassportDataDto passportDataDto) {
         User user = userDao.get(userId);
+
+        PassportData passportData = new PassportData();
+        passportData.setPassportNumber(passportDataDto.getPassportNumber());
+        passportData.setCountryOfIssue(passportDataDto.getCountryOfIssue());
+        passportData.setDateOfIssue(passportDataDto.getDateOfIssue());
+        passportData.setDateOfExpiry(passportDataDto.getDateOfExpiry());
+        passportDataDao.create(passportData);
+
+        Address address = new Address();
+        address.setPostalCode(addressDto.getPostalCode());
+        address.setCountry(addressDto.getCountry());
+        address.setProvince(addressDto.getProvince());
+        address.setCity(addressDto.getCity());
+        address.setStreet(addressDto.getStreet());
+        address.setHomeNumber(addressDto.getHomeNumber());
+        address.setApartmentNumber(addressDto.getApartmentNumber());
+        addressDao.create(address);
+
+        ContactData contactData = new ContactData();
+        contactData.setPhoneNumber(contactDataDto.getUserPhoneNumber());
+        contactData.setAddress(address);
+        contactDataDao.create(contactData);
+
+        UserDetails userDetails = new UserDetails();
+        userDetails.setFirstName(userDetailsDto.getUserFirstName());
+        userDetails.setMiddleName(userDetailsDto.getUserMiddleName());
+        userDetails.setLastName(userDetailsDto.getUserLastName());
+        userDetails.setBirthDate(userDetailsDto.getUserBirthDate());
+        userDetails.setPassportData(passportData);
+        userDetails.setContactData(contactData);
+        userDetailsDao.create(userDetails);
+
         user.setUserDetails(userDetails);
+
         userDao.update(user);
+
         return UserDto.entityToDto(user);
     }
 }
