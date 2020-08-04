@@ -1,7 +1,8 @@
 package by.nikita.models;
 
+import by.nikita.models.enums.Role;
+
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,7 +21,7 @@ public class User extends AbstractIdAwareEntity {
     private boolean active;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Order> orders;
+    private Order order;
 
     @OneToOne
     @JoinColumn(name = "user_details_id", referencedColumnName = "id")
@@ -40,7 +41,7 @@ public class User extends AbstractIdAwareEntity {
                 String email,
                 String password,
                 boolean active,
-                List<Order> orders,
+                Order order,
                 UserDetails userDetails,
                 Set<Role> roles) {
         super(id);
@@ -48,7 +49,7 @@ public class User extends AbstractIdAwareEntity {
         this.email = email;
         this.password = password;
         this.active = active;
-        this.orders = orders;
+        this.order = order;
         this.userDetails = userDetails;
         this.roles = roles;
     }
@@ -86,12 +87,12 @@ public class User extends AbstractIdAwareEntity {
         this.active = active;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public UserDetails getUserDetails() {

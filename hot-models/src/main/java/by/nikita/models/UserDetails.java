@@ -1,5 +1,7 @@
 package by.nikita.models;
 
+import by.nikita.models.enums.Gender;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -19,6 +21,10 @@ public class UserDetails extends AbstractIdAwareEntity {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender", nullable = false)
+    private Gender gender;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "passport_id", referencedColumnName = "id")
     private PassportData passportData;
@@ -37,6 +43,7 @@ public class UserDetails extends AbstractIdAwareEntity {
             String firstName,
             String lastName,
             String middleName,
+            Gender gender,
             LocalDate birthDate,
             PassportData passportData,
             ContactData contactData,
@@ -44,6 +51,7 @@ public class UserDetails extends AbstractIdAwareEntity {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
+        this.gender = gender;
         this.birthDate = birthDate;
         this.passportData = passportData;
         this.contactData = contactData;
@@ -72,6 +80,14 @@ public class UserDetails extends AbstractIdAwareEntity {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public LocalDate getBirthDate() {

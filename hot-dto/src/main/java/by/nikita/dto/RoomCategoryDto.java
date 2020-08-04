@@ -26,7 +26,7 @@ public class RoomCategoryDto extends AbstractIdAwareDto {
                 if (roomCategory.getRooms() != null) {
                     roomDto.setId(room.getId());
                     roomDto.setRoomNumber(room.getRoomNumber());
-                    roomDto.setRoomStatus(room.getRoomStatus().getStatusName());
+                    roomDto.setRoomStatus(room.getRoomStatus().toString());
                     rooms.add(roomDto);
                 } else {
                     roomCategory.setRooms(null);
@@ -48,7 +48,7 @@ public class RoomCategoryDto extends AbstractIdAwareDto {
             if (roomCategory.getRooms() != null) {
                 roomDto.setId(room.getId());
                 roomDto.setRoomNumber(room.getRoomNumber());
-                roomDto.setRoomStatus(room.getRoomStatus().getStatusName());
+                roomDto.setRoomStatus(room.getRoomStatus().toString());
                 rooms.add(roomDto);
             } else {
                 roomCategory.setRooms(null);

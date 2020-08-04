@@ -1,4 +1,4 @@
-package by.nikita.models;
+package by.nikita.models.enums;
 
 public enum Role {
 

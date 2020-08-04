@@ -68,6 +68,7 @@ public class UserDetailsService implements IUserDetailsService {
         userDetails.setFirstName(userDetailsDto.getUserFirstName());
         userDetails.setMiddleName(userDetailsDto.getUserMiddleName());
         userDetails.setLastName(userDetailsDto.getUserLastName());
+        userDetails.setGender(userDetailsDto.getGender());
         userDetails.setBirthDate(userDetailsDto.getUserBirthDate());
         userDetails.setPassportData(passportData);
         userDetails.setContactData(contactData);
@@ -122,6 +123,9 @@ public class UserDetailsService implements IUserDetailsService {
         }
         if (userDetailsDto.getUserMiddleName() != null && !StringUtils.isEmpty(userDetailsDto.getUserMiddleName())) {
             userDetails.setMiddleName(userDetails.getMiddleName());
+        }
+        if (userDetailsDto.getGender() != null && !StringUtils.isEmpty(userDetailsDto.getGender())) {
+            userDetails.setGender(userDetailsDto.getGender());
         }
         if (userDetailsDto.getUserBirthDate() != null && !StringUtils.isEmpty(userDetailsDto.getUserBirthDate())) {
             userDetails.setBirthDate(userDetailsDto.getUserBirthDate());

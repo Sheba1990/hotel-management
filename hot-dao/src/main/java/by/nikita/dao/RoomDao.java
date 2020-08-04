@@ -2,6 +2,7 @@ package by.nikita.dao;
 
 import by.nikita.dao.api.IRoomDao;
 import by.nikita.models.*;
+import by.nikita.models.enums.RoomStatus;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
@@ -54,8 +55,7 @@ public class RoomDao extends AbstractGenericDao<Room> implements IRoomDao {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
             Root<Room> root = query.from(Room.class);
-            Join<Room, RoomStatus> status = root.join(Room_.ROOM_STATUS);
-            query.select(root).where(criteriaBuilder.equal(status.get(RoomStatus_.STATUS_NAME), roomStatus));
+            query.select(root).where(criteriaBuilder.equal(root.get(RoomStatus.class.toString()), roomStatus));
             TypedQuery<Room> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {

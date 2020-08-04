@@ -1,6 +1,6 @@
 package by.nikita.dto;
 
-import by.nikita.models.Role;
+import by.nikita.models.enums.Role;
 import by.nikita.models.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 

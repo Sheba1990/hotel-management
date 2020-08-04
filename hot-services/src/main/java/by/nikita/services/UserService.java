@@ -3,13 +3,14 @@ package by.nikita.services;
 import by.nikita.dao.api.*;
 import by.nikita.dto.*;
 import by.nikita.models.*;
+import by.nikita.models.enums.Role;
 import by.nikita.services.api.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -33,16 +34,12 @@ public class UserService implements IUserService {
 
 
     @Override
-    public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return loadUserByUsername(username);
-    }
-
-    @Override
     public UserDto addUser(UserDto userDto) {
         User user = new User();
         user.setUsername(userDto.getUserName());
         user.setEmail(userDto.getUserEmail());
         user.setPassword(userDto.getUserPassword());
+        user.setRoles(Collections.singleton(Role.USER));
         return UserDto.entityToDto(userDao.create(user));
     }
 
@@ -83,7 +80,7 @@ public class UserService implements IUserService {
 
     @Override
     public List<UserDto> getUsersByResidenceCity(String residenceCity) {
-        return UserDto.convertList(userDao.getUsersByResidenceCountry(residenceCity));
+        return UserDto.convertList(userDao.getUsersByResidenceCity(residenceCity));
     }
 
     @Override
@@ -113,10 +110,10 @@ public class UserService implements IUserService {
 
     @Override
     public UserDto addUserDetailsToUser(long userId,
-                                         UserDetailsDto userDetailsDto,
-                                         ContactDataDto contactDataDto,
-                                         AddressDto addressDto,
-                                         PassportDataDto passportDataDto) {
+                                        UserDetailsDto userDetailsDto,
+                                        ContactDataDto contactDataDto,
+                                        AddressDto addressDto,
+                                        PassportDataDto passportDataDto) {
         User user = userDao.get(userId);
 
         PassportData passportData = new PassportData();
@@ -145,6 +142,7 @@ public class UserService implements IUserService {
         userDetails.setFirstName(userDetailsDto.getUserFirstName());
         userDetails.setMiddleName(userDetailsDto.getUserMiddleName());
         userDetails.setLastName(userDetailsDto.getUserLastName());
+        userDetails.setGender(userDetailsDto.getGender());
         userDetails.setBirthDate(userDetailsDto.getUserBirthDate());
         userDetails.setPassportData(passportData);
         userDetails.setContactData(contactData);

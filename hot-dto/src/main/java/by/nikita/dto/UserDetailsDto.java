@@ -1,6 +1,7 @@
 package by.nikita.dto;
 
-import by.nikita.models.Role;
+import by.nikita.models.enums.Gender;
+import by.nikita.models.enums.Role;
 import by.nikita.models.UserDetails;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -15,15 +16,21 @@ public class UserDetailsDto extends AbstractIdAwareDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<RoleDto> userRoles;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userFirstName;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userMiddleName;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userLastName;
+
+    private String userFullName;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDate userBirthDate;
+
+    private Gender gender;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userPassportNumber;
@@ -69,10 +76,8 @@ public class UserDetailsDto extends AbstractIdAwareDto {
         for (UserDetails userDetails : userDetailsList) {
             UserDetailsDto userDetailsDto = new UserDetailsDto();
             userDetailsDto.setId(userDetails.getId());
+            userDetailsDto.setUserFullName(userDetails.getFirstName().concat(" " + userDetails.getMiddleName() + " " + userDetails.getLastName()));
             userDetailsDto.setUserName(userDetails.getUser().getUsername());
-            userDetailsDto.setUserFirstName(userDetails.getFirstName());
-            userDetailsDto.setUserMiddleName(userDetails.getMiddleName());
-            userDetailsDto.setUserLastName(userDetails.getLastName());
             userDetailss.add(userDetailsDto);
         }
         return userDetailss;
@@ -96,6 +101,7 @@ public class UserDetailsDto extends AbstractIdAwareDto {
         userDetailsDto.setUserFirstName(userDetails.getFirstName());
         userDetailsDto.setUserMiddleName(userDetails.getMiddleName());
         userDetailsDto.setUserLastName(userDetails.getLastName());
+        userDetailsDto.setGender(userDetails.getGender());
         userDetailsDto.setUserBirthDate(userDetails.getBirthDate());
         userDetailsDto.setUserPassportNumber(userDetails.getPassportData().getPassportNumber());
         userDetailsDto.setUserPassportCountryOfIssue(userDetails.getPassportData().getCountryOfIssue());
@@ -122,7 +128,21 @@ public class UserDetailsDto extends AbstractIdAwareDto {
         this.userFirstName = userDetails.getFirstName();
         this.userMiddleName = userDetails.getMiddleName();
         this.userLastName = userDetails.getLastName();
+        this.gender = userDetails.getGender();
         this.userBirthDate = userDetails.getBirthDate();
+        this.userPassportNumber = userDetails.getPassportData().getPassportNumber();
+        this.userPassportCountryOfIssue = userDetails.getPassportData().getCountryOfIssue();
+        this.userPassportDateOfIssue = userDetails.getPassportData().getDateOfIssue();
+        this.userPassportDateOfExpiry = userDetails.getPassportData().getDateOfExpiry();
+        this.userPhoneNumber = userDetails.getContactData().getPhoneNumber();
+        this.userEmail = userDetails.getUser().getEmail();
+        this.userPostalCode = userDetails.getContactData().getAddress().getPostalCode();
+        this.userResidenceCountry = userDetails.getContactData().getAddress().getCountry();
+        this.userResidenceProvince = userDetails.getContactData().getAddress().getProvince();
+        this.userResidenceCity = userDetails.getContactData().getAddress().getCity();
+        this.userResidenceStreet = userDetails.getContactData().getAddress().getStreet();
+        this.userResidenceHomeNumber = userDetails.getContactData().getAddress().getHomeNumber();
+        this.userResidenceApartmentNumber = userDetails.getContactData().getAddress().getApartmentNumber();
     }
 
     public String getUserName() {
@@ -155,6 +175,22 @@ public class UserDetailsDto extends AbstractIdAwareDto {
 
     public void setUserMiddleName(String userMiddleName) {
         this.userMiddleName = userMiddleName;
+    }
+
+    public String getUserFullName() {
+        return userFullName;
+    }
+
+    public void setUserFullName(String userFullName) {
+        this.userFullName = userFullName;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public LocalDate getUserBirthDate() {

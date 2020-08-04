@@ -1,7 +1,8 @@
 package by.nikita.models;
 
+import by.nikita.models.enums.RoomStatus;
+
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "room_table")
@@ -18,22 +19,26 @@ public class Room extends AbstractIdAwareEntity {
     @JoinColumn(name = "room_details_id", referencedColumnName = "id")
     private RoomDetails roomDetails;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "room_status_id", referencedColumnName = "id")
+    @Enumerated(EnumType.STRING)
+    @JoinColumn(name = "room_status", nullable = false)
     private RoomStatus roomStatus;
 
-    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
-    private List<Order> orders;
+    @OneToOne(mappedBy = "room", fetch = FetchType.LAZY)
+    private Order order;
 
     public Room() {
     }
 
-    public Room(Integer roomNumber, RoomCategory roomCategory, RoomDetails roomDetails, RoomStatus roomStatus, List<Order> orders) {
+    public Room(Integer roomNumber,
+                RoomCategory roomCategory,
+                RoomDetails roomDetails,
+                RoomStatus roomStatus,
+                Order order) {
         this.roomNumber = roomNumber;
         this.roomCategory = roomCategory;
         this.roomDetails = roomDetails;
         this.roomStatus = roomStatus;
-        this.orders = orders;
+        this.order = order;
     }
 
     public Integer getRoomNumber() {
@@ -68,12 +73,12 @@ public class Room extends AbstractIdAwareEntity {
         this.roomStatus = roomStatus;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
 

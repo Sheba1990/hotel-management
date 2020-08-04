@@ -2,7 +2,6 @@ package by.nikita.services.api;
 
 import by.nikita.dto.AddressDto;
 import by.nikita.dto.ContactDataDto;
-import by.nikita.models.ContactData;
 
 import java.util.List;
 

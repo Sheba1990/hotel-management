@@ -1,15 +1,10 @@
 package by.nikita.services.api;
 
 import by.nikita.dto.*;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
-public interface IUserService extends UserDetailsService {
-
-    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+public interface IUserService {
 
     UserDto addUser(UserDto userDto);
 

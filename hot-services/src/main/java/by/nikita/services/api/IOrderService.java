@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IOrderService {
 
-    OrderDto addOrder(OrderDto orderDto);
+    OrderDto addOrderByUser(OrderDto orderDto);
 
     List<OrderDto> getAllOrders();
 

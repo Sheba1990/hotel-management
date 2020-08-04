@@ -8,7 +8,11 @@ import java.time.LocalDate;
 public class Order extends AbstractIdAwareEntity {
 
     @Column(name = "number")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer number;
+
+    @Column(name = "roomCategory")
+    private String roomCategory;
 
     @Column(name = "amount_of_guests")
     private Integer amountOfGuests;
@@ -19,19 +23,20 @@ public class Order extends AbstractIdAwareEntity {
     @Column(name = "date_of_check_out")
     private LocalDate dateOfCheckOut;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "room_id", referencedColumnName = "id")
     private Room room;
 
     public Order() {
     }
 
-    public Order(Integer number, Integer amountOfGuests, LocalDate dateOfCheckIn, LocalDate dateOfCheckOut, User user, Room room) {
+    public Order(Integer number, String roomCategory, Integer amountOfGuests, LocalDate dateOfCheckIn, LocalDate dateOfCheckOut, User user, Room room) {
         this.number = number;
+        this.roomCategory = roomCategory;
         this.amountOfGuests = amountOfGuests;
         this.dateOfCheckIn = dateOfCheckIn;
         this.dateOfCheckOut = dateOfCheckOut;
@@ -45,6 +50,14 @@ public class Order extends AbstractIdAwareEntity {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public String getRoomCategory() {
+        return roomCategory;
+    }
+
+    public void setRoomCategory(String roomCategory) {
+        this.roomCategory = roomCategory;
     }
 
     public Integer getAmountOfGuests() {

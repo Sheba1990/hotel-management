@@ -58,7 +58,7 @@ public class RoomDetailsDto extends AbstractIdAwareDto {
             roomDetailsDto.setId(roomDetails.getId());
             roomDetailsDto.setRoomNumber(roomDetails.getRoom().getRoomNumber());
             roomDetailsDto.setRoomCategory(roomDetails.getRoom().getRoomCategory().getCategoryName());
-            roomDetailsDto.setRoomStatus(roomDetails.getRoom().getRoomStatus().getStatusName());
+            roomDetailsDto.setRoomStatus(roomDetails.getRoom().getRoomStatus().toString());
             roomDetailsDto.setPricePerNight(roomDetails.getPricePerNight());
             roomDetailsDto.setFloor(roomDetails.getFloor());
             roomDetailsDto.setAmountOfRooms(roomDetails.getAmountOfRooms());
@@ -73,7 +73,7 @@ public class RoomDetailsDto extends AbstractIdAwareDto {
         roomDetailsDto.setId(roomDetails.getId());
         roomDetailsDto.setRoomNumber(roomDetails.getRoom().getRoomNumber());
         roomDetailsDto.setRoomCategory(roomDetails.getRoom().getRoomCategory().getCategoryName());
-        roomDetailsDto.setRoomStatus(roomDetails.getRoom().getRoomStatus().getStatusName());
+        roomDetailsDto.setRoomStatus(roomDetails.getRoom().getRoomStatus().toString());
         roomDetailsDto.setPricePerNight(roomDetails.getPricePerNight());
         roomDetailsDto.setFloor(roomDetails.getFloor());
         roomDetailsDto.setAmountOfRooms(roomDetails.getAmountOfRooms());
@@ -95,7 +95,7 @@ public class RoomDetailsDto extends AbstractIdAwareDto {
     public RoomDetailsDto(RoomDetails roomDetails) {
         this.roomNumber = roomDetails.getRoom().getRoomNumber();
         this.roomCategory = roomDetails.getRoom().getRoomCategory().getCategoryName();
-        this.roomStatus = roomDetails.getRoom().getRoomStatus().getStatusName();
+        this.roomStatus = roomDetails.getRoom().getRoomStatus().toString();
         this.pricePerNight = roomDetails.getPricePerNight();
         this.floor = roomDetails.getFloor();
         this.amountOfRooms = roomDetails.getAmountOfRooms();

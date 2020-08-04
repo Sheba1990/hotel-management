@@ -6,6 +6,7 @@ import by.nikita.models.Order;
 import by.nikita.services.api.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -18,13 +19,13 @@ public class OrderService implements IOrderService {
     IOrderDao orderDao;
 
     @Override
-    public OrderDto addOrder(OrderDto orderDto) {
+    public OrderDto addOrderByUser(OrderDto orderDto) {
         Order order = new Order();
-        order.setNumber(orderDto.getOrderNumber());
+        order.setRoomCategory(orderDto.getRoomCategory());
         order.setAmountOfGuests(orderDto.getAmountOfGuests());
         order.setDateOfCheckIn(orderDto.getDateOfCheckIn());
         order.setDateOfCheckOut(orderDto.getDateOfCheckOut());
-        return null;
+        return OrderDto.entityToDto(orderDao.create(order));
     }
 
     @Override
@@ -64,7 +65,17 @@ public class OrderService implements IOrderService {
 
     @Override
     public void updateOrder(long id, OrderDto orderDto) {
-
+        Order order = orderDao.get(id);
+        if (orderDto.getAmountOfGuests() != null && !StringUtils.isEmpty(orderDto.getAmountOfGuests())) {
+            order.setAmountOfGuests(orderDto.getAmountOfGuests());
+        }
+        if (orderDto.getDateOfCheckIn() != null && !StringUtils.isEmpty(orderDto.getDateOfCheckIn())) {
+            order.setDateOfCheckIn(orderDto.getDateOfCheckIn());
+        }
+        if (orderDto.getDateOfCheckOut() != null && !StringUtils.isEmpty(orderDto.getDateOfCheckOut())) {
+            order.setDateOfCheckOut(orderDto.getDateOfCheckOut());
+        }
+        orderDao.update(order);
     }
 
     @Override
