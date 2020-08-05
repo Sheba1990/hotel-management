@@ -8,22 +8,16 @@ import java.util.List;
 
 public class RoomDetailsDto extends AbstractIdAwareDto {
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer roomNumber;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String roomCategory;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String roomStatus;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Double pricePerNight;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer floor;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer amountOfRooms;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -35,19 +29,14 @@ public class RoomDetailsDto extends AbstractIdAwareDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String picture;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private boolean hasSeaView;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private boolean hasBath;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private boolean hasBabyBed;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private boolean hasWifi;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private boolean hasBreakfast;
 
 

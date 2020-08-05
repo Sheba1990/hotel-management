@@ -20,7 +20,7 @@ public class User extends AbstractIdAwareEntity {
 
     private boolean active;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private Order order;
 
     @OneToOne
@@ -33,18 +33,18 @@ public class User extends AbstractIdAwareEntity {
     private Set<Role> roles;
 
 
+    //Constructors
+
     public User() {
     }
 
-    public User(Long id,
-                String username,
+    public User(String username,
                 String email,
                 String password,
                 boolean active,
                 Order order,
                 UserDetails userDetails,
                 Set<Role> roles) {
-        super(id);
         this.username = username;
         this.email = email;
         this.password = password;
@@ -54,6 +54,12 @@ public class User extends AbstractIdAwareEntity {
         this.roles = roles;
     }
 
+    public boolean isAdmin() {
+        return roles.contains(Role.ADMIN);
+    }
+
+
+    //Getters & Setters
 
     public String getUsername() {
         return username;

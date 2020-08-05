@@ -74,7 +74,7 @@ public class UserDao extends AbstractGenericDao<User> implements IUserDao {
             CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
             Root<User> root = query.from(User.class);
             Join<User, UserDetails> userDetails = root.join(User_.USER_DETAILS);
-            Join<UserDetails, PassportData> passport = userDetails.join(UserDetails_.PASSPORT);
+            Join<UserDetails, PassportData> passport = userDetails.join(UserDetails_.PASSPORT_DATA);
             List<Predicate> conditions = new ArrayList<>();
             conditions.add(criteriaBuilder.equal(passport.get(PassportData_.COUNTRY_OF_ISSUE), passportCountry));
             query.select(root).where(conditions.toArray(new Predicate[]{}));
@@ -129,7 +129,7 @@ public class UserDao extends AbstractGenericDao<User> implements IUserDao {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
             Root<User> root = query.from(User.class);
-            Join<User, Order> order = root.join(User_.ORDERS);
+            Join<User, Order> order = root.join(User_.ORDER);
             Join<Order, Room> room = order.join(Order_.ROOM);
             List<Predicate> conditions = new ArrayList<>();
             conditions.add(criteriaBuilder.equal(room.get(Room_.ROOM_NUMBER), roomNumber));

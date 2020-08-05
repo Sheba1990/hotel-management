@@ -27,7 +27,7 @@ public class AddressDao extends AbstractGenericDao<Address> implements IAddressD
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Address> query = criteriaBuilder.createQuery(Address.class);
             Root<Address> root = query.from(Address.class);
-            Join<Address, ContactData> contactData = root.join(Address_.CONTACT_DATA_LIST);
+            Join<Address, ContactData> contactData = root.join(Address_.CONTACT_DATA);
             Join<ContactData, UserDetails> userDetails = contactData.join(ContactData_.USER_DETAILS);
             List<Predicate> conditions = new ArrayList<>();
             conditions.add(criteriaBuilder.equal(userDetails.get(UserDetails_.FIRST_NAME), userFirstName));
@@ -45,7 +45,7 @@ public class AddressDao extends AbstractGenericDao<Address> implements IAddressD
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Address> query = criteriaBuilder.createQuery(Address.class);
             Root<Address> root = query.from(Address.class);
-            Join<Address, ContactData> contactData = root.join(Address_.CONTACT_DATA_LIST);
+            Join<Address, ContactData> contactData = root.join(Address_.CONTACT_DATA);
             Join<ContactData, UserDetails> userDetails = contactData.join(ContactData_.USER_DETAILS);
             List<Predicate> conditions = new ArrayList<>();
             conditions.add(criteriaBuilder.equal(userDetails.get(UserDetails_.LAST_NAME), userLastName));

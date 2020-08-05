@@ -20,7 +20,7 @@ public class Room extends AbstractIdAwareEntity {
     private RoomDetails roomDetails;
 
     @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "room_status", nullable = false)
+    @Column(name = "room_status")
     private RoomStatus roomStatus;
 
     @OneToOne(mappedBy = "room", fetch = FetchType.LAZY)

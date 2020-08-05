@@ -18,7 +18,7 @@ public class PassportData extends AbstractIdAwareEntity {
     @Column(name = "country")
     private String countryOfIssue;
 
-    @OneToOne(mappedBy = "passportData",fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "passportData", fetch = FetchType.LAZY)
     private UserDetails userDetails;
 
     public PassportData() {

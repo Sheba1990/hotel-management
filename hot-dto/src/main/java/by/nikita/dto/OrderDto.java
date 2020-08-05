@@ -9,22 +9,16 @@ import java.util.List;
 
 public class OrderDto extends AbstractIdAwareDto {
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer orderNumber;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer amountOfGuests;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDate dateOfCheckIn;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDate dateOfCheckOut;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userEmail;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -36,7 +30,6 @@ public class OrderDto extends AbstractIdAwareDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer roomNumber;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String roomCategory;
 
     public static List<OrderDto> convertList(List<Order> orderList) {
@@ -44,9 +37,10 @@ public class OrderDto extends AbstractIdAwareDto {
         for (Order order : orderList) {
             OrderDto orderDto = new OrderDto();
             orderDto.setOrderNumber(order.getNumber());
+            orderDto.setUserName(order.getUser().getUsername());
             orderDto.setRoomNumber(order.getRoom().getRoomNumber());
-            orderDto.setUserFirstName(order.getUser().getUserDetails().getFirstName());
-            orderDto.setUserLastName(order.getUser().getUserDetails().getLastName());
+            orderDto.setAmountOfGuests(order.getAmountOfGuests());
+            orderDto.setRoomCategory(order.getRoom().getRoomCategory().getCategoryName());
             orders.add(orderDto);
         }
         return orders;

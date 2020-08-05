@@ -27,7 +27,7 @@ public class RoomDetailsDao extends AbstractGenericDao<RoomDetails> implements I
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<RoomDetails> query = criteriaBuilder.createQuery(RoomDetails.class);
             Root<RoomDetails> root = query.from(RoomDetails.class);
-            Join<RoomDetails, Room> room = root.join(RoomDetails_.ROOMS);
+            Join<RoomDetails, Room> room = root.join(RoomDetails_.ROOM);
             query.select(root).where(criteriaBuilder.equal(room.get(Room_.ROOM_NUMBER), roomNumber));
             TypedQuery<RoomDetails> result = entityManager.createQuery(query);
             return result.getSingleResult();

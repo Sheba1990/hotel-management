@@ -1,6 +1,9 @@
 package by.nikita.models;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "address_table")
@@ -24,6 +27,7 @@ public class Address extends AbstractIdAwareEntity {
     @Column(name = "home_number")
     private String homeNumber;
 
+    @Column(name = "apartment_number")
     private String apartmentNumber;
 
     @OneToOne(mappedBy = "address")

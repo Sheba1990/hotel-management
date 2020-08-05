@@ -8,7 +8,6 @@ import java.util.List;
 
 public class ContactDataDto extends AbstractIdAwareDto {
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userName;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -20,25 +19,20 @@ public class ContactDataDto extends AbstractIdAwareDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userPhoneNumber;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userEmail;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String postalCode;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String country;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String province;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String city;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String street;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String homeNumber;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -56,6 +50,7 @@ public class ContactDataDto extends AbstractIdAwareDto {
                 contactDataDto.setUserName(null);
                 contactDataDto.setUserEmail(null);
             }
+            contactDataDto.setUserPhoneNumber(contactData.getPhoneNumber());
             contacts.add(contactDataDto);
         }
         return contacts;

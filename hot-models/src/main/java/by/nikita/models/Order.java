@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Table(name = "order_table")
 public class Order extends AbstractIdAwareEntity {
 
-    @Column(name = "number")
+    @Column(name = "number", unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer number;
 
@@ -24,7 +24,7 @@ public class Order extends AbstractIdAwareEntity {
     private LocalDate dateOfCheckOut;
 
     @OneToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @OneToOne

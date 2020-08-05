@@ -1,7 +1,7 @@
 package by.nikita.dto;
 
-import by.nikita.models.enums.Role;
 import by.nikita.models.User;
+import by.nikita.models.enums.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.ArrayList;
@@ -11,22 +11,17 @@ import java.util.Set;
 
 public class UserDto extends AbstractIdAwareDto {
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Set<RoleDto> roles;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userEmail;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userPassword;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userFirstName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userLastName;
 
 

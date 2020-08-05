@@ -2,14 +2,12 @@ package by.nikita.dto;
 
 import by.nikita.models.Room;
 import by.nikita.models.RoomCategory;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoomCategoryDto extends AbstractIdAwareDto {
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String categoryName;
 
     private List<RoomDto> rooms;

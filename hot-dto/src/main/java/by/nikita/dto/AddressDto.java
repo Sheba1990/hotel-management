@@ -11,28 +11,22 @@ public class AddressDto extends AbstractIdAwareDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String postalCode;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String country;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String province;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String city;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String street;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String homeNumber;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String apartmentNumber;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userFirstName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userLastName;
 
     public static List<AddressDto> convertList(List<Address> addressList) {
@@ -89,6 +83,8 @@ public class AddressDto extends AbstractIdAwareDto {
         this.street = address.getStreet();
         this.homeNumber = address.getHomeNumber();
         this.apartmentNumber = address.getApartmentNumber();
+        this.userFirstName = address.getContactData().getUserDetails().getFirstName();
+        this.userLastName = address.getContactData().getUserDetails().getLastName();
     }
 
     public String getPostalCode() {

@@ -19,4 +19,5 @@ public interface IUserDao extends IAbstractGenericDao<User> {
     List<User> getUsersByResidenceCity(String residenceCity);
 
     List<User> getUsersByOccupiedRoomNumber(Integer roomNumber);
+
 }
