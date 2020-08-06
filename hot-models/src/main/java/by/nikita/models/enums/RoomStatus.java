@@ -2,7 +2,7 @@ package by.nikita.models.enums;
 
 public enum RoomStatus {
 
-    FREE,
+    VACANT,
     OCCUPIED;
 
     RoomStatus() {

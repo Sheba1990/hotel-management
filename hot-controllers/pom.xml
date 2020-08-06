@@ -10,11 +10,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hot-controllers</artifactId>
+
     <dependencies>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
+        <dependency>
+            <groupId>by.nikita</groupId>
+            <artifactId>hot-services</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
 

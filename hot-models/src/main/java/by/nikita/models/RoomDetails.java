@@ -18,7 +18,7 @@ public class RoomDetails extends AbstractIdAwareEntity {
     @Column(name = "capacity")
     private Integer capacity;
 
-    @Column(name = "description")
+    @Column(name = "description",length = 2000)
     private String description;
 
     @Column(name = "picture")

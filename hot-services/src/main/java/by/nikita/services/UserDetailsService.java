@@ -1,8 +1,8 @@
 package by.nikita.services;
 
-import by.nikita.dao.AddressDao;
-import by.nikita.dao.ContactDataDao;
-import by.nikita.dao.PassportDataDao;
+import by.nikita.dao.api.IAddressDao;
+import by.nikita.dao.api.IContactDataDao;
+import by.nikita.dao.api.IPassportDataDao;
 import by.nikita.dao.api.IUserDetailsDao;
 import by.nikita.dto.AddressDto;
 import by.nikita.dto.ContactDataDto;
@@ -28,13 +28,13 @@ public class UserDetailsService implements IUserDetailsService {
     IUserDetailsDao userDetailsDao;
 
     @Autowired
-    ContactDataDao contactDataDao;
+    IContactDataDao contactDataDao;
 
     @Autowired
-    PassportDataDao passportDataDao;
+    IPassportDataDao passportDataDao;
 
     @Autowired
-    AddressDao addressDao;
+    IAddressDao addressDao;
 
     @Override
     public UserDetailsDto addUserDetails(UserDetailsDto userDetailsDto,

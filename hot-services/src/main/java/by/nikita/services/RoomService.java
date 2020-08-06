@@ -2,11 +2,13 @@ package by.nikita.services;
 
 import by.nikita.dao.api.IRoomCategoryDao;
 import by.nikita.dao.api.IRoomDao;
+import by.nikita.dao.api.IRoomDetailsDao;
 import by.nikita.dto.RoomCategoryDto;
 import by.nikita.dto.RoomDetailsDto;
 import by.nikita.dto.RoomDto;
 import by.nikita.models.Room;
 import by.nikita.models.RoomCategory;
+import by.nikita.models.RoomDetails;
 import by.nikita.models.enums.RoomStatus;
 import by.nikita.services.api.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class RoomService implements IRoomService {
     @Autowired
     IRoomCategoryDao roomCategoryDao;
 
+    @Autowired
+    IRoomDetailsDao roomDetailsDao;
+
     @Override
     public RoomDto addRoom(RoomDto roomDto, RoomCategoryDto roomCategoryDto) {
 
@@ -31,7 +36,7 @@ public class RoomService implements IRoomService {
 
         Room room = new Room();
         room.setRoomNumber(roomDto.getRoomNumber());
-        room.setRoomStatus(RoomStatus.FREE);
+        room.setRoomStatus(RoomStatus.VACANT);
         room.setRoomCategory(roomCategory);
         return RoomDto.entityToDto(roomDao.create(room));
     }
@@ -82,6 +87,47 @@ public class RoomService implements IRoomService {
 
     @Override
     public RoomDto addRoomDetailsToRoom(long roomId, RoomDetailsDto roomDetailsDto) {
-        return null;
+
+        Room room = roomDao.get(roomId);
+
+        RoomDetails roomDetails = new RoomDetails();
+        roomDetails.setPricePerNight(roomDetailsDto.getPricePerNight());
+        roomDetails.setFloor(roomDetailsDto.getFloor());
+        roomDetails.setAmountOfRooms(roomDetailsDto.getAmountOfRooms());
+        roomDetails.setCapacity(roomDetailsDto.getCapacity());
+        roomDetails.setDescription(roomDetailsDto.getDescription());
+        roomDetails.setPicture(roomDetailsDto.getPicture());
+        roomDetails.setHasWifi(true);
+        if (room.getRoomCategory().getCategoryName().equalsIgnoreCase("luxury")) {
+            roomDetails.setHasSeaView(true);
+            roomDetails.setHasBabyBed(true);
+            roomDetails.setHasBreakfast(true);
+            roomDetails.setHasBath(true);
+        }
+        if (room.getRoomCategory().getCategoryName().equalsIgnoreCase("business")) {
+            roomDetails.setHasSeaView(false);
+            roomDetails.setHasBabyBed(false);
+            roomDetails.setHasBreakfast(true);
+            roomDetails.setHasBath(true);
+        }
+        if(room.getRoomCategory().getCategoryName().equalsIgnoreCase("standard")) {
+            roomDetails.setHasSeaView(false);
+            roomDetails.setHasBabyBed(false);
+            roomDetails.setHasBreakfast(false);
+            roomDetails.setHasBath(true);
+        }
+        if(room.getRoomCategory().getCategoryName().equalsIgnoreCase("economic")) {
+            roomDetails.setHasSeaView(false);
+            roomDetails.setHasBabyBed(false);
+            roomDetails.setHasBreakfast(false);
+            roomDetails.setHasBath(false);
+        }
+        roomDetailsDao.create(roomDetails);
+
+        room.setRoomDetails(roomDetails);
+
+        roomDao.update(room);
+
+        return RoomDto.entityToDto(room);
     }
 }
