@@ -36,7 +36,7 @@ public class OrderDto extends AbstractIdAwareDto {
         List<OrderDto> orders = new ArrayList<>();
         for (Order order : orderList) {
             OrderDto orderDto = new OrderDto();
-            orderDto.setOrderNumber(order.getNumber());
+            orderDto.setOrderNumber(order.getOrderNumber());
             orderDto.setUserName(order.getUser().getUsername());
             orderDto.setRoomNumber(order.getRoom().getRoomNumber());
             orderDto.setAmountOfGuests(order.getAmountOfGuests());
@@ -49,7 +49,7 @@ public class OrderDto extends AbstractIdAwareDto {
     public static OrderDto entityToDto(Order order) {
         OrderDto orderDto = new OrderDto();
         orderDto.setId(order.getId());
-        orderDto.setOrderNumber(order.getNumber());
+        orderDto.setOrderNumber(order.getOrderNumber());
         orderDto.setAmountOfGuests(order.getAmountOfGuests());
         orderDto.setDateOfCheckIn(order.getDateOfCheckIn());
         orderDto.setDateOfCheckOut(order.getDateOfCheckOut());
@@ -67,7 +67,7 @@ public class OrderDto extends AbstractIdAwareDto {
 
     public OrderDto(Order order) {
         this.id = order.getId();
-        this.orderNumber = order.getNumber();
+        this.orderNumber = order.getOrderNumber();
         this.amountOfGuests = order.getAmountOfGuests();
         this.dateOfCheckIn = order.getDateOfCheckIn();
         this.dateOfCheckOut = order.getDateOfCheckOut();

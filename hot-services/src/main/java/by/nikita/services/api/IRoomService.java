@@ -16,11 +16,15 @@ public interface IRoomService {
 
     List<RoomDto> getRoomsByCategory(String roomCategory);
 
-    List<RoomDto> getRoomsByStatus(String roomStatus);
+    List<RoomDto> getRoomsWhereStatusIsVacant();
+
+    List<RoomDto> getRoomsWhereStatusIsOccupied();
 
     List<RoomDto> getRoomsByCapacity(Integer roomCapacity);
 
     List<RoomDto> getRoomByAmountOfRoom(Integer amountOfRooms);
+
+    List<RoomDto> getRoomsSuitableByOrder(long orderId);
 
     void deleteRoom(long id);
 

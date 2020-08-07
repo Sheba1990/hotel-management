@@ -21,22 +21,19 @@ public class RoomDetails extends AbstractIdAwareEntity {
     @Column(name = "description",length = 2000)
     private String description;
 
-    @Column(name = "picture")
-    private String picture;
-
-    @Column(name = "has_see_view")
+    @Column(name = "see_view")
     private boolean hasSeaView;
 
-    @Column(name = "has_bath")
+    @Column(name = "bath")
     private boolean hasBath;
 
-    @Column(name = "has_babybed")
+    @Column(name = "babybed")
     private boolean hasBabyBed;
 
-    @Column(name = "has_wifi")
+    @Column(name = "wifi")
     private boolean hasWifi;
 
-    @Column(name = "has_breakfast")
+    @Column(name = "breakfast")
     private boolean hasBreakfast;
 
     @OneToOne(mappedBy = "roomDetails", fetch = FetchType.LAZY)
@@ -51,7 +48,6 @@ public class RoomDetails extends AbstractIdAwareEntity {
             Integer amountOfRooms,
             Integer capacity,
             String description,
-            String picture,
             boolean hasSeaView,
             boolean hasBath,
             boolean hasBabyBed,
@@ -63,7 +59,6 @@ public class RoomDetails extends AbstractIdAwareEntity {
         this.amountOfRooms = amountOfRooms;
         this.capacity = capacity;
         this.description = description;
-        this.picture = picture;
         this.hasSeaView = hasSeaView;
         this.hasBath = hasBath;
         this.hasBabyBed = hasBabyBed;
@@ -110,14 +105,6 @@ public class RoomDetails extends AbstractIdAwareEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
     }
 
     public boolean isHasSeaView() {

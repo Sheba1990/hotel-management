@@ -26,7 +26,7 @@ public class OrderDao extends AbstractGenericDao<Order> implements IOrderDao {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Order> query = criteriaBuilder.createQuery(Order.class);
             Root<Order> root = query.from(Order.class);
-            query.select(root).where(criteriaBuilder.equal(root.get(Order_.NUMBER), orderNumber));
+            query.select(root).where(criteriaBuilder.equal(root.get(Order_.ORDER_NUMBER), orderNumber));
             TypedQuery<Order> result = entityManager.createQuery(query);
             return result.getSingleResult();
         } catch (NoResultException e) {

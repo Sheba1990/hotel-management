@@ -3,7 +3,7 @@ package by.nikita.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "passport_table")
+@Table(name = "passport_data_table")
 public class PassportData extends AbstractIdAwareEntity {
 
     @Column(name = "passport_number")
@@ -15,7 +15,7 @@ public class PassportData extends AbstractIdAwareEntity {
     @Column(name = "date_of_expiry")
     private String dateOfExpiry;
 
-    @Column(name = "country")
+    @Column(name = "country_of_issue")
     private String countryOfIssue;
 
     @OneToOne(mappedBy = "passportData", fetch = FetchType.LAZY)

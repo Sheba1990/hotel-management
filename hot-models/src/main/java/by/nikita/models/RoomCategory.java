@@ -10,14 +10,18 @@ public class RoomCategory extends AbstractIdAwareEntity {
     @Column(name = "category_name")
     private String categoryName;
 
+    @Column(name = "description")
+    private String description;
+
     @OneToMany(mappedBy = "roomCategory", fetch = FetchType.LAZY)
     private List<Room> rooms;
 
     public RoomCategory() {
     }
 
-    public RoomCategory(String categoryName, List<Room> rooms) {
+    public RoomCategory(String categoryName, String description, List<Room> rooms) {
         this.categoryName = categoryName;
+        this.description = description;
         this.rooms = rooms;
     }
 
@@ -27,6 +31,14 @@ public class RoomCategory extends AbstractIdAwareEntity {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Room> getRooms() {

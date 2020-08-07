@@ -1,11 +1,13 @@
 package by.nikita.services;
 
+import by.nikita.dao.api.IOrderDao;
 import by.nikita.dao.api.IRoomCategoryDao;
 import by.nikita.dao.api.IRoomDao;
 import by.nikita.dao.api.IRoomDetailsDao;
 import by.nikita.dto.RoomCategoryDto;
 import by.nikita.dto.RoomDetailsDto;
 import by.nikita.dto.RoomDto;
+import by.nikita.models.Order;
 import by.nikita.models.Room;
 import by.nikita.models.RoomCategory;
 import by.nikita.models.RoomDetails;
@@ -22,10 +24,20 @@ public class RoomService implements IRoomService {
     IRoomDao roomDao;
 
     @Autowired
+    IOrderDao orderDao;
+
+    @Autowired
     IRoomCategoryDao roomCategoryDao;
 
     @Autowired
     IRoomDetailsDao roomDetailsDao;
+
+
+    public List<RoomDto> getRoomsSuitableByOrder(long orderId) {
+        Order order = orderDao.get(orderId);
+        List<Room> rooms = roomDao.getRoomByCategoryAndCapacity(order.getRoomCategory(), order.getAmountOfGuests());
+        return RoomDto.convertList(rooms);
+    }
 
     @Override
     public RoomDto addRoom(RoomDto roomDto, RoomCategoryDto roomCategoryDto) {
@@ -57,8 +69,13 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public List<RoomDto> getRoomsByStatus(String roomStatus) {
-        return RoomDto.convertList(roomDao.getRoomsByStatus(roomStatus));
+    public List<RoomDto> getRoomsWhereStatusIsVacant() {
+        return RoomDto.convertList(roomDao.getRoomsWhereStatusIsVacant());
+    }
+
+    @Override
+    public List<RoomDto> getRoomsWhereStatusIsOccupied() {
+        return RoomDto.convertList(roomDao.getRoomsWhereStatusIsOccupied());
     }
 
     @Override
@@ -82,6 +99,11 @@ public class RoomService implements IRoomService {
         if (roomDto.getRoomNumber() != null && !StringUtils.isEmpty(roomDto.getRoomNumber())) {
             room.setRoomNumber(roomDto.getRoomNumber());
         }
+        if (room.getOrder().getUser() == null) {
+            room.setRoomStatus(RoomStatus.VACANT);
+        } else {
+            room.setRoomStatus(RoomStatus.OCCUPIED);
+        }
         roomDao.update(room);
     }
 
@@ -96,7 +118,6 @@ public class RoomService implements IRoomService {
         roomDetails.setAmountOfRooms(roomDetailsDto.getAmountOfRooms());
         roomDetails.setCapacity(roomDetailsDto.getCapacity());
         roomDetails.setDescription(roomDetailsDto.getDescription());
-        roomDetails.setPicture(roomDetailsDto.getPicture());
         roomDetails.setHasWifi(true);
         if (room.getRoomCategory().getCategoryName().equalsIgnoreCase("luxury")) {
             roomDetails.setHasSeaView(true);

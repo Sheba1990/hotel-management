@@ -8,20 +8,20 @@ public abstract class AbstractIdAwareEntity {
     @Id
     @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    protected Integer id;
 
     public AbstractIdAwareEntity() {
     }
 
-    public AbstractIdAwareEntity(Long id) {
+    public AbstractIdAwareEntity(Integer id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }

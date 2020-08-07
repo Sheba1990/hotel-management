@@ -7,10 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 @Repository
@@ -34,6 +31,24 @@ public class RoomDao extends AbstractGenericDao<Room> implements IRoomDao {
         }
     }
 
+    public List<Room> getRoomByCategoryAndCapacity(String roomCategory, Integer capacity) {
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
+            Root<Room> root = query.from(Room.class);
+            Join<Room, RoomDetails> roomDetails = root.join(Room_.ROOM_DETAILS);
+            Join<Room, RoomCategory> category = root.join(Room_.ROOM_CATEGORY);
+            Predicate predicateForRoomCapacity = criteriaBuilder.equal(roomDetails.get(RoomDetails_.CAPACITY), capacity);
+            Predicate predicateForRoomCategory = criteriaBuilder.equal(category.get(RoomCategory_.CATEGORY_NAME), roomCategory);
+            Predicate predicateForFullName = criteriaBuilder.and(predicateForRoomCapacity, predicateForRoomCategory);
+            query.select(root).where(predicateForFullName);
+            TypedQuery<Room> result = entityManager.createQuery(query);
+            return result.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
     @Override
     public List<Room> getRoomsByCategory(String roomCategory) {
         try {
@@ -50,12 +65,26 @@ public class RoomDao extends AbstractGenericDao<Room> implements IRoomDao {
     }
 
     @Override
-    public List<Room> getRoomsByStatus(String roomStatus) {
+    public List<Room> getRoomsWhereStatusIsVacant() {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
             Root<Room> root = query.from(Room.class);
-            query.select(root).where(criteriaBuilder.equal(root.get(RoomStatus.class.toString()), roomStatus));
+            query.select(root).where(criteriaBuilder.equal(root.get(Room_.roomStatus), RoomStatus.VACANT));
+            TypedQuery<Room> result = entityManager.createQuery(query);
+            return result.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Room> getRoomsWhereStatusIsOccupied() {
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
+            Root<Room> root = query.from(Room.class);
+            query.select(root).where(criteriaBuilder.equal(root.get(Room_.roomStatus), RoomStatus.OCCUPIED));
             TypedQuery<Room> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {

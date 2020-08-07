@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -70,6 +72,12 @@ public class UserDetailsService implements IUserDetailsService {
         userDetails.setLastName(userDetailsDto.getUserLastName());
         userDetails.setGender(userDetailsDto.getGender());
         userDetails.setBirthDate(userDetailsDto.getUserBirthDate());
+        if (userDetailsDto.getUserBirthDate() != null) {
+            LocalDate birthDate = userDetailsDto.getUserBirthDate();
+            LocalDate now = LocalDate.now();
+            long yearsBetween = ChronoUnit.YEARS.between(birthDate, now);
+            userDetails.setAge(yearsBetween);
+        }
         userDetails.setPassportData(passportData);
         userDetails.setContactData(contactData);
 

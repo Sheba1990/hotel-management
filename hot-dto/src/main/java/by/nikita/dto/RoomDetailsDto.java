@@ -26,9 +26,6 @@ public class RoomDetailsDto extends AbstractIdAwareDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String description;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String picture;
-
     private boolean hasSeaView;
 
     private boolean hasBath;
@@ -68,7 +65,6 @@ public class RoomDetailsDto extends AbstractIdAwareDto {
         roomDetailsDto.setAmountOfRooms(roomDetails.getAmountOfRooms());
         roomDetailsDto.setCapacity(roomDetails.getCapacity());
         roomDetailsDto.setDescription(roomDetails.getDescription());
-        roomDetailsDto.setPicture(roomDetails.getPicture());
         roomDetailsDto.setHasSeaView(roomDetails.isHasSeaView());
         roomDetailsDto.setHasBath(roomDetails.isHasBath());
         roomDetailsDto.setHasBabyBed(roomDetails.isHasBabyBed());
@@ -90,7 +86,6 @@ public class RoomDetailsDto extends AbstractIdAwareDto {
         this.amountOfRooms = roomDetails.getAmountOfRooms();
         this.capacity = roomDetails.getCapacity();
         this.description = roomDetails.getDescription();
-        this.picture = roomDetails.getPicture();
         this.hasSeaView = roomDetails.isHasSeaView();
         this.hasBath = roomDetails.isHasBath();
         this.hasBabyBed = roomDetails.isHasBabyBed();
@@ -161,14 +156,6 @@ public class RoomDetailsDto extends AbstractIdAwareDto {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
     }
 
     public boolean isHasSeaView() {

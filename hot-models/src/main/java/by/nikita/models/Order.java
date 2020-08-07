@@ -1,5 +1,7 @@
 package by.nikita.models;
 
+import by.nikita.models.utils.StringToDateSQLConverter;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -7,21 +9,29 @@ import java.time.LocalDate;
 @Table(name = "order_table")
 public class Order extends AbstractIdAwareEntity {
 
-    @Column(name = "number", unique = true)
+    @Column(name = "order_number", unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer number;
+    private Integer orderNumber;
 
-    @Column(name = "roomCategory")
+    @Column(name = "room_category")
     private String roomCategory;
 
     @Column(name = "amount_of_guests")
     private Integer amountOfGuests;
 
-    @Column(name = "date_of_check_in")
+    @Column(name = "date_of_check_in", columnDefinition = "DATE")
+    @Convert(converter = StringToDateSQLConverter.class)
     private LocalDate dateOfCheckIn;
 
-    @Column(name = "date_of_check_out")
+    @Column(name = "date_of_check_out", columnDefinition = "DATE")
+    @Convert(converter = StringToDateSQLConverter.class)
     private LocalDate dateOfCheckOut;
+
+    @Column(name = "staying_period")
+    private Long stayingPeriod;
+
+    @Column(name = "approved")
+    private boolean approved;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -34,22 +44,32 @@ public class Order extends AbstractIdAwareEntity {
     public Order() {
     }
 
-    public Order(Integer number, String roomCategory, Integer amountOfGuests, LocalDate dateOfCheckIn, LocalDate dateOfCheckOut, User user, Room room) {
-        this.number = number;
+    public Order(Integer orderNumber,
+                 String roomCategory,
+                 Integer amountOfGuests,
+                 LocalDate dateOfCheckIn,
+                 LocalDate dateOfCheckOut,
+                 Long stayingPeriod,
+                 boolean approved,
+                 User user,
+                 Room room) {
+        this.orderNumber = orderNumber;
         this.roomCategory = roomCategory;
         this.amountOfGuests = amountOfGuests;
         this.dateOfCheckIn = dateOfCheckIn;
         this.dateOfCheckOut = dateOfCheckOut;
+        this.stayingPeriod = stayingPeriod;
+        this.approved = approved;
         this.user = user;
         this.room = room;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setOrderNumber(Integer orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public String getRoomCategory() {
@@ -82,6 +102,22 @@ public class Order extends AbstractIdAwareEntity {
 
     public void setDateOfCheckOut(LocalDate dateOfCheckOut) {
         this.dateOfCheckOut = dateOfCheckOut;
+    }
+
+    public Long getStayingPeriod() {
+        return stayingPeriod;
+    }
+
+    public void setStayingPeriod(Long stayingPeriod) {
+        this.stayingPeriod = stayingPeriod;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 
     public User getUser() {

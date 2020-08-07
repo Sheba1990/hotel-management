@@ -1,15 +1,22 @@
 package by.nikita.services;
 
 import by.nikita.dao.api.IOrderDao;
+import by.nikita.dao.api.IRoomDao;
 import by.nikita.dto.OrderDto;
 import by.nikita.models.Order;
+import by.nikita.models.Room;
 import by.nikita.services.api.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -18,6 +25,9 @@ public class OrderService implements IOrderService {
     @Autowired
     IOrderDao orderDao;
 
+    @Autowired
+    IRoomDao roomDao;
+
     @Override
     public OrderDto addOrderByUser(OrderDto orderDto) {
         Order order = new Order();
@@ -25,7 +35,21 @@ public class OrderService implements IOrderService {
         order.setAmountOfGuests(orderDto.getAmountOfGuests());
         order.setDateOfCheckIn(orderDto.getDateOfCheckIn());
         order.setDateOfCheckOut(orderDto.getDateOfCheckOut());
+        if (orderDto.getDateOfCheckIn() != null && orderDto.getDateOfCheckOut() != null) {
+            LocalDate date1 = orderDto.getDateOfCheckIn();
+            LocalDate date2 = orderDto.getDateOfCheckOut();
+            Long daysBetween = ChronoUnit.DAYS.between(date1, date2);
+            order.setStayingPeriod(daysBetween);
+        }
+        order.setApproved(false);
         return OrderDto.entityToDto(orderDao.create(order));
+    }
+
+    public OrderDto acceptOrderByAdmin(long orderId, OrderDto orderDto) {
+        Order order = orderDao.get(orderId);
+        order.setApproved(true);
+        orderDao.update(order);
+        return OrderDto.entityToDto(order);
     }
 
     @Override
