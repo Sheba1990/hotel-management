@@ -11,12 +11,6 @@ public class OrderDto extends AbstractIdAwareDto {
 
     private Integer orderNumber;
 
-    private Integer amountOfGuests;
-
-    private LocalDate dateOfCheckIn;
-
-    private LocalDate dateOfCheckOut;
-
     private String userName;
 
     private String userEmail;
@@ -26,6 +20,12 @@ public class OrderDto extends AbstractIdAwareDto {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userLastName;
+
+    private Integer amountOfGuests;
+
+    private LocalDate dateOfCheckIn;
+
+    private LocalDate dateOfCheckOut;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer roomNumber;

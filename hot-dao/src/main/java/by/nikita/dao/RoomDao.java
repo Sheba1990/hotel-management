@@ -108,7 +108,7 @@ public class RoomDao extends AbstractGenericDao<Room> implements IRoomDao {
     }
 
     @Override
-    public List<Room> getRoomByAmountOfRoom(Integer amountOfRooms) {
+    public List<Room> getRoomByAmountOfRooms(Integer amountOfRooms) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);

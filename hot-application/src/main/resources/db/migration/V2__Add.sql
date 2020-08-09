@@ -1,6 +1,6 @@
 insert into address_table (id, postal_code, country, province, city, street, home_number, apartment_number)
 values
-(1, '94304','USA','CA','Palo Alto','Deep Creek Road','3500','');
+(1, '94304','USA','CA','Palo Alto','Deep Creek Road','3500',null);
 
 insert into contact_data_table (id, phone_number, address_id)
   values

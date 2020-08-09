@@ -8,6 +8,10 @@ import java.util.List;
 
 public class AddressDto extends AbstractIdAwareDto {
 
+    private String userFirstName;
+
+    private String userLastName;
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String postalCode;
 
@@ -25,9 +29,6 @@ public class AddressDto extends AbstractIdAwareDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String apartmentNumber;
 
-    private String userFirstName;
-
-    private String userLastName;
 
     public static List<AddressDto> convertList(List<Address> addressList) {
         List<AddressDto> addresses = new ArrayList<>();
@@ -76,6 +77,8 @@ public class AddressDto extends AbstractIdAwareDto {
 
     public AddressDto(Address address) {
         this.id = address.getId();
+        this.userFirstName = address.getContactData().getUserDetails().getFirstName();
+        this.userLastName = address.getContactData().getUserDetails().getLastName();
         this.postalCode = address.getPostalCode();
         this.country = address.getCountry();
         this.province = address.getProvince();
@@ -83,8 +86,6 @@ public class AddressDto extends AbstractIdAwareDto {
         this.street = address.getStreet();
         this.homeNumber = address.getHomeNumber();
         this.apartmentNumber = address.getApartmentNumber();
-        this.userFirstName = address.getContactData().getUserDetails().getFirstName();
-        this.userLastName = address.getContactData().getUserDetails().getLastName();
     }
 
     public String getPostalCode() {

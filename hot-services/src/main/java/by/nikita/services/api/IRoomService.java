@@ -22,7 +22,7 @@ public interface IRoomService {
 
     List<RoomDto> getRoomsByCapacity(Integer roomCapacity);
 
-    List<RoomDto> getRoomByAmountOfRoom(Integer amountOfRooms);
+    List<RoomDto> getRoomByAmountOfRooms(Integer amountOfRooms);
 
     List<RoomDto> getRoomsSuitableByOrder(long orderId);
 

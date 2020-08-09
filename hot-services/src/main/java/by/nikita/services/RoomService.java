@@ -14,10 +14,14 @@ import by.nikita.models.RoomDetails;
 import by.nikita.models.enums.RoomStatus;
 import by.nikita.services.api.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Service
+@Transactional
 public class RoomService implements IRoomService {
 
     @Autowired
@@ -84,8 +88,8 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public List<RoomDto> getRoomByAmountOfRoom(Integer amountOfRooms) {
-        return RoomDto.convertList(roomDao.getRoomByAmountOfRoom(amountOfRooms));
+    public List<RoomDto> getRoomByAmountOfRooms(Integer amountOfRooms) {
+        return RoomDto.convertList(roomDao.getRoomByAmountOfRooms(amountOfRooms));
     }
 
     @Override

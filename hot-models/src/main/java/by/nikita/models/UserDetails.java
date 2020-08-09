@@ -20,7 +20,7 @@ public class UserDetails extends AbstractIdAwareEntity {
     private String middleName;
 
     @Column(name = "birth_date", columnDefinition = "DATE")
-    @Convert(converter = StringToDateSQLConverter.class)
+    //@Convert(converter = StringToDateSQLConverter.class)
     private LocalDate birthDate;
 
     @Column(name = "age")

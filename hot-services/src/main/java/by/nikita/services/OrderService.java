@@ -99,6 +99,12 @@ public class OrderService implements IOrderService {
         if (orderDto.getDateOfCheckOut() != null && !StringUtils.isEmpty(orderDto.getDateOfCheckOut())) {
             order.setDateOfCheckOut(orderDto.getDateOfCheckOut());
         }
+        if (orderDto.getDateOfCheckIn() != null && orderDto.getDateOfCheckOut() != null) {
+            LocalDate date1 = orderDto.getDateOfCheckIn();
+            LocalDate date2 = orderDto.getDateOfCheckOut();
+            Long daysBetween = ChronoUnit.DAYS.between(date1, date2);
+            order.setStayingPeriod(daysBetween);
+        }
         orderDao.update(order);
     }
 

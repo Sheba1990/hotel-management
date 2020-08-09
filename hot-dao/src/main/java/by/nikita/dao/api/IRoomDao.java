@@ -18,5 +18,5 @@ public interface IRoomDao extends IAbstractGenericDao<Room> {
 
     List<Room> getRoomByCategoryAndCapacity(String roomCategory, Integer capacity);
 
-    List<Room> getRoomByAmountOfRoom(Integer amountOfRooms);
+    List<Room> getRoomByAmountOfRooms(Integer amountOfRooms);
 }

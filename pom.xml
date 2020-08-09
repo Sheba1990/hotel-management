@@ -33,6 +33,7 @@
         <version.org.hibernate-validator>5.3.5.Final</version.org.hibernate-validator>
         <version.org.projectlombok>1.18.12</version.org.projectlombok>
         <version.org.flywaydb>6.5.0</version.org.flywaydb>
+        <version.com.h2database>1.4.200</version.com.h2database>
     </properties>
 
     <dependencyManagement>
@@ -57,7 +58,7 @@
                 <artifactId>spring-boot-starter-mail</artifactId>
                 <version>${version.org.springframework.boot}</version>
             </dependency>
-            <!-- Test -->
+            <!-- test -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
@@ -69,6 +70,14 @@
                         <artifactId>junit-vintage-engine</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <!-- Embedded in-memory database for tests -->
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${version.com.h2database}</version>
+                <scope>test</scope>
             </dependency>
 
             <!-- HIBERNATE -->

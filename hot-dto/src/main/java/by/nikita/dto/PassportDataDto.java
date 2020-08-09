@@ -8,6 +8,13 @@ import java.util.List;
 
 public class PassportDataDto extends AbstractIdAwareDto {
 
+    private String userFirstName;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String userMiddleName;
+
+    private String userLastName;
+
     private String passportNumber;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -18,12 +25,6 @@ public class PassportDataDto extends AbstractIdAwareDto {
 
     private String countryOfIssue;
 
-    private String userFirstName;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String userMiddleName;
-
-    private String userLastName;
 
     public static List<PassportDataDto> convertList(List<PassportData> passportDataList) {
         List<PassportDataDto> passports = new ArrayList<>();

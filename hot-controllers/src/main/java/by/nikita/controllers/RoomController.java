@@ -1,0 +1,76 @@
+package by.nikita.controllers;
+
+import by.nikita.dto.RoomCategoryDto;
+import by.nikita.dto.RoomDetailsDto;
+import by.nikita.dto.RoomDto;
+import by.nikita.services.api.IRoomService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/rooms")
+public class RoomController {
+
+    @Autowired
+    IRoomService roomService;
+
+    @PostMapping(value = "/",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public RoomDto addRoom(@RequestBody RoomDto roomDto, @RequestBody RoomCategoryDto roomCategoryDto) {
+        return roomService.addRoom(roomDto, roomCategoryDto);
+    }
+
+    @GetMapping
+    public List<RoomDto> getAllRooms() {
+        return roomService.getAllRooms();
+    }
+
+    @GetMapping(value = "/room_number/{roomNumber}")
+    public List<RoomDto> getRoomByNumber(@PathVariable Integer roomNumber) {
+        return roomService.getRoomByNumber(roomNumber);
+    }
+
+    @GetMapping(value = "/category/{roomCategory}")
+    public List<RoomDto> getRoomsByCategory(@PathVariable String roomCategory) {
+        return roomService.getRoomsByCategory(roomCategory);
+    }
+
+    @GetMapping(value = "/vacant")
+    public List<RoomDto> getRoomsWhereStatusIsVacant() {
+        return roomService.getRoomsWhereStatusIsVacant();
+    }
+
+    @GetMapping(value = "/occupied")
+    public List<RoomDto> getRoomsWhereStatusIsOccupied() {
+        return roomService.getRoomsWhereStatusIsOccupied();
+    }
+
+    @GetMapping(value = "/capacity/{roomCapacity}")
+    public List<RoomDto> getRoomsByCapacity(@PathVariable Integer roomCapacity) {
+        return roomService.getRoomsByCapacity(roomCapacity);
+    }
+
+    @GetMapping(value = "/amount_of_rooms/{amountOfRooms}")
+    public List<RoomDto> getRoomByAmountOfRooms(@PathVariable Integer amountOfRooms) {
+        return roomService.getRoomByAmountOfRooms(amountOfRooms);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void deleteRoom(long id) {
+        roomService.deleteRoom(id);
+    }
+
+    @PutMapping(value = "/{id}")
+    public void updateRoom(@PathVariable long id, @RequestBody RoomDto roomDto) {
+        roomService.updateRoom(id, roomDto);
+    }
+
+    @PutMapping(value = "/add_room_details/{roomId}")
+    public RoomDto addRoomDetailsToRoom(@PathVariable long roomId, @RequestBody RoomDetailsDto roomDetailsDto) {
+        return roomService.addRoomDetailsToRoom(roomId, roomDetailsDto);
+    }
+}

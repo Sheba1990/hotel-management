@@ -1,7 +1,7 @@
 create sequence hibernate_sequence start 1 increment 1;
 
 create table address_table (
-  id serial not null,
+  id bigserial not null,
   postal_code varchar(255),
   country varchar(255),
   province varchar(255),
@@ -13,14 +13,14 @@ create table address_table (
 );
 
 create table contact_data_table (
-  id serial not null,
+  id bigserial not null,
   phone_number varchar(255),
-  address_id int,
+  address_id int8,
   primary key (id)
 );
 
 create table passport_data_table (
-  id serial not null,
+  id bigserial not null,
   passport_number varchar(255),
   date_of_issue varchar(255),
   date_of_expiry varchar(255),
@@ -29,35 +29,35 @@ create table passport_data_table (
 );
 
 create table user_details_table (
-  id serial not null,
+  id bigserial not null,
   first_name varchar(255),
   last_name varchar(255),
   middle_name varchar(255),
   birth_date date,
   age int8,
   gender varchar(255),
-  passport_id int,
-  contact_data_id int,
+  passport_id int8,
+  contact_data_id int8,
   primary key (id)
 );
 
 create table user_table (
-  id serial not null,
+  id bigserial not null,
   username varchar(255),
   email varchar(255),
   password varchar(255),
   active boolean,
-  user_details_id int,
+  user_details_id int8,
   primary key (id)
 );
 
 create table user_role_table (
-  user_id int not null,
+  user_id int8 not null,
   roles varchar(255)
 );
 
 create table room_details_table (
-  id serial not null,
+  id bigserial not null,
   price_per_night money,
   floor int4,
   amount_of_rooms int4,
@@ -72,23 +72,23 @@ create table room_details_table (
 );
 
 create table room_category_table (
-  id serial not null,
+  id bigserial not null,
   category_name varchar(255),
   description varchar(2048),
   primary key (id)
 );
 
 create table room_table (
-  id serial not null,
+  id bigserial not null,
   room_number int4,
   room_status varchar(255),
-  room_category_id int,
-  room_details_id int,
+  room_category_id int8,
+  room_details_id int8,
   primary key (id)
 );
 
 create table order_table (
-  id serial not null,
+  id bigserial not null,
   order_number int4,
   room_category varchar(255),
   amount_of_guests int,
@@ -96,8 +96,8 @@ create table order_table (
   date_of_check_out date,
   staying_period int8,
   approved boolean,
-  user_id int,
-  room_id int,
+  user_id int8,
+  room_id int8,
   primary key (id)
 );
 

@@ -20,11 +20,11 @@ public class Order extends AbstractIdAwareEntity {
     private Integer amountOfGuests;
 
     @Column(name = "date_of_check_in", columnDefinition = "DATE")
-    @Convert(converter = StringToDateSQLConverter.class)
+    //@Convert(converter = StringToDateSQLConverter.class)
     private LocalDate dateOfCheckIn;
 
     @Column(name = "date_of_check_out", columnDefinition = "DATE")
-    @Convert(converter = StringToDateSQLConverter.class)
+    //@Convert(converter = StringToDateSQLConverter.class)
     private LocalDate dateOfCheckOut;
 
     @Column(name = "staying_period")
