@@ -121,31 +121,34 @@ public class RoomService implements IRoomService {
         roomDetails.setFloor(roomDetailsDto.getFloor());
         roomDetails.setAmountOfRooms(roomDetailsDto.getAmountOfRooms());
         roomDetails.setCapacity(roomDetailsDto.getCapacity());
-        roomDetails.setDescription(roomDetailsDto.getDescription());
         roomDetails.setHasWifi(true);
-        if (room.getRoomCategory().getCategoryName().equalsIgnoreCase("luxury")) {
+        if (room.getRoomCategory().getCategoryName().equalsIgnoreCase("deluxe")) {
             roomDetails.setHasSeaView(true);
             roomDetails.setHasBabyBed(true);
             roomDetails.setHasBreakfast(true);
             roomDetails.setHasBath(true);
+            roomDetails.setPricePerNight(200.00);
         }
         if (room.getRoomCategory().getCategoryName().equalsIgnoreCase("business")) {
             roomDetails.setHasSeaView(false);
             roomDetails.setHasBabyBed(false);
             roomDetails.setHasBreakfast(true);
             roomDetails.setHasBath(true);
+            roomDetails.setPricePerNight(150.00);
         }
         if(room.getRoomCategory().getCategoryName().equalsIgnoreCase("standard")) {
             roomDetails.setHasSeaView(false);
             roomDetails.setHasBabyBed(false);
             roomDetails.setHasBreakfast(false);
             roomDetails.setHasBath(true);
+            roomDetails.setPricePerNight(100.00);
         }
         if(room.getRoomCategory().getCategoryName().equalsIgnoreCase("economic")) {
             roomDetails.setHasSeaView(false);
             roomDetails.setHasBabyBed(false);
             roomDetails.setHasBreakfast(false);
             roomDetails.setHasBath(false);
+            roomDetails.setPricePerNight(50.00);
         }
         roomDetailsDao.create(roomDetails);
 

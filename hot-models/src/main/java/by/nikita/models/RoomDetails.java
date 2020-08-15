@@ -18,9 +18,6 @@ public class RoomDetails extends AbstractIdAwareEntity {
     @Column(name = "capacity")
     private Integer capacity;
 
-    @Column(name = "description",length = 2000)
-    private String description;
-
     @Column(name = "see_view")
     private boolean hasSeaView;
 
@@ -47,7 +44,6 @@ public class RoomDetails extends AbstractIdAwareEntity {
             Integer floor,
             Integer amountOfRooms,
             Integer capacity,
-            String description,
             boolean hasSeaView,
             boolean hasBath,
             boolean hasBabyBed,
@@ -58,7 +54,6 @@ public class RoomDetails extends AbstractIdAwareEntity {
         this.floor = floor;
         this.amountOfRooms = amountOfRooms;
         this.capacity = capacity;
-        this.description = description;
         this.hasSeaView = hasSeaView;
         this.hasBath = hasBath;
         this.hasBabyBed = hasBabyBed;
@@ -97,14 +92,6 @@ public class RoomDetails extends AbstractIdAwareEntity {
 
     public void setCapacity(Integer capacity) {
         this.capacity = capacity;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public boolean isHasSeaView() {

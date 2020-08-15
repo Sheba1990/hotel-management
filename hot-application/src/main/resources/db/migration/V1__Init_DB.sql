@@ -62,7 +62,6 @@ create table room_details_table (
   floor int4,
   amount_of_rooms int4,
   capacity int4,
-  description varchar(2048),
   see_view boolean,
   bath boolean,
   babybed boolean,
