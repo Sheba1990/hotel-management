@@ -27,8 +27,8 @@ public class UserDto extends AbstractIdAwareDto {
 
     public static List<UserDto> convertList(List<User> userList) {
         List<UserDto> users = new ArrayList<>();
-        Set<RoleDto> roles = new HashSet<>();
         for (User user : userList) {
+            Set<RoleDto> roles = new HashSet<>();
             UserDto userDto = new UserDto();
             userDto.setId(user.getId());
             userDto.setUserName(user.getUsername());

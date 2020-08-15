@@ -7,26 +7,33 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserDetailsDto extends AbstractIdAwareDto {
 
     private String userName;
 
-    private List<RoleDto> userRoles;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Set<RoleDto> userRoles;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userFirstName;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userMiddleName;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userLastName;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userFullName;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDate userBirthDate;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Gender gender;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -82,7 +89,7 @@ public class UserDetailsDto extends AbstractIdAwareDto {
 
     public static UserDetailsDto entityToDto(UserDetails userDetails) {
         UserDetailsDto userDetailsDto = new UserDetailsDto();
-        List<RoleDto> roles = new ArrayList<>();
+        Set<RoleDto> roles = new HashSet<>();
         userDetailsDto.setId(userDetails.getId());
         userDetailsDto.setUserName(userDetails.getUser().getUsername());
         for (Role role : userDetails.getUser().getRoles()) {
@@ -100,10 +107,12 @@ public class UserDetailsDto extends AbstractIdAwareDto {
         userDetailsDto.setUserLastName(userDetails.getLastName());
         userDetailsDto.setGender(userDetails.getGender());
         userDetailsDto.setUserBirthDate(userDetails.getBirthDate());
-        userDetailsDto.setUserPassportNumber(userDetails.getPassportData().getPassportNumber());
-        userDetailsDto.setUserPassportCountryOfIssue(userDetails.getPassportData().getCountryOfIssue());
-        userDetailsDto.setUserPassportDateOfIssue(userDetails.getPassportData().getDateOfIssue());
-        userDetailsDto.setUserPassportDateOfExpiry(userDetails.getPassportData().getDateOfExpiry());
+        if (userDetails.getPassportData() != null) {
+            userDetailsDto.setUserPassportNumber(userDetails.getPassportData().getPassportNumber());
+            userDetailsDto.setUserPassportCountryOfIssue(userDetails.getPassportData().getCountryOfIssue());
+            userDetailsDto.setUserPassportDateOfIssue(userDetails.getPassportData().getDateOfIssue());
+            userDetailsDto.setUserPassportDateOfExpiry(userDetails.getPassportData().getDateOfExpiry());
+        }
         userDetailsDto.setUserPhoneNumber(userDetails.getContactData().getPhoneNumber());
         userDetailsDto.setUserEmail(userDetails.getUser().getEmail());
         userDetailsDto.setUserPostalCode(userDetails.getContactData().getAddress().getPostalCode());
@@ -294,11 +303,11 @@ public class UserDetailsDto extends AbstractIdAwareDto {
         this.userResidenceApartmentNumber = userResidenceApartmentNumber;
     }
 
-    public List<RoleDto> getUserRoles() {
+    public Set<RoleDto> getUserRoles() {
         return userRoles;
     }
 
-    public void setUserRoles(List<RoleDto> userRoles) {
+    public void setUserRoles(Set<RoleDto> userRoles) {
         this.userRoles = userRoles;
     }
 
