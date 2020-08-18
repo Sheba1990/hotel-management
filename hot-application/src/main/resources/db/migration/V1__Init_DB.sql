@@ -34,7 +34,6 @@ create table user_details_table (
   last_name varchar(255),
   middle_name varchar(255),
   birth_date date,
-  age int8,
   gender varchar(255),
   passport_id int8,
   contact_data_id int8,
@@ -93,7 +92,6 @@ create table order_table (
   amount_of_guests int,
   date_of_check_in date,
   date_of_check_out date,
-  staying_period int8,
   approved boolean,
   user_id int8,
   room_id int8,
@@ -135,4 +133,3 @@ alter table order_table
 alter table user_role_table
   add constraint user_role_user_fk
   foreign key (user_id) references user_table;
-

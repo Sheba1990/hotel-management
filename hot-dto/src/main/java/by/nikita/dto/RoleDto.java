@@ -19,7 +19,7 @@ public class RoleDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoleDto roleDto = (RoleDto) o;
-        return Objects.equals(roleName, roleDto.roleName);
+        return roleName.equals(roleDto.roleName);
     }
 
     @Override

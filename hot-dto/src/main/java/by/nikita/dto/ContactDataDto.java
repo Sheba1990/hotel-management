@@ -6,27 +6,23 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContactDataDto extends AbstractIdAwareDto {
 
     private String userName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userFirstName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userLastName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userPhoneNumber;
 
     private String userEmail;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String postalCode;
 
     private String country;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String province;
 
     private String city;
@@ -35,7 +31,6 @@ public class ContactDataDto extends AbstractIdAwareDto {
 
     private String homeNumber;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String apartmentNumber;
 
     public static List<ContactDataDto> convertList(List<ContactData> contactDataList) {

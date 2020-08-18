@@ -29,7 +29,12 @@ public class RoomController {
         return roomService.getAllRooms();
     }
 
-    @GetMapping(value = "/room_number/{roomNumber}")
+    @GetMapping(value = "/{id}")
+    public RoomDto getRoomById(@PathVariable long id) {
+        return roomService.getRoomById(id);
+    }
+
+    @GetMapping(value = "/number/{roomNumber}")
     public List<RoomDto> getRoomByNumber(@PathVariable Integer roomNumber) {
         return roomService.getRoomByNumber(roomNumber);
     }
@@ -64,12 +69,16 @@ public class RoomController {
         roomService.deleteRoom(id);
     }
 
-    @PutMapping(value = "/{id}")
-    public void updateRoom(@PathVariable long id, @RequestBody RoomDto roomDto) {
-        roomService.updateRoom(id, roomDto);
+    @PutMapping(value = "/{id}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updateRoom(@PathVariable long id, @RequestBody RoomDto roomDto, @RequestBody RoomCategoryDto roomCategoryDto) {
+        roomService.updateRoom(id, roomDto, roomCategoryDto);
     }
 
-    @PutMapping(value = "/add_room_details/{roomId}")
+    @PutMapping(value = "/add_room_details/{roomId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public RoomDto addRoomDetailsToRoom(@PathVariable long roomId, @RequestBody RoomDetailsDto roomDetailsDto) {
         return roomService.addRoomDetailsToRoom(roomId, roomDetailsDto);
     }

@@ -1,7 +1,6 @@
 package by.nikita.models;
 
 import by.nikita.models.enums.Gender;
-import by.nikita.models.utils.StringToDateSQLConverter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,9 +21,6 @@ public class UserDetails extends AbstractIdAwareEntity {
     @Column(name = "birth_date", columnDefinition = "DATE")
     //@Convert(converter = StringToDateSQLConverter.class)
     private LocalDate birthDate;
-
-    @Column(name = "age")
-    private Long age;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
@@ -50,7 +46,6 @@ public class UserDetails extends AbstractIdAwareEntity {
             String middleName,
             Gender gender,
             LocalDate birthDate,
-            Long age,
             PassportData passportData,
             ContactData contactData,
             User user) {
@@ -59,7 +54,6 @@ public class UserDetails extends AbstractIdAwareEntity {
         this.middleName = middleName;
         this.gender = gender;
         this.birthDate = birthDate;
-        this.age = age;
         this.passportData = passportData;
         this.contactData = contactData;
         this.user = user;
@@ -103,14 +97,6 @@ public class UserDetails extends AbstractIdAwareEntity {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
-    }
-
-    public Long getAge() {
-        return age;
-    }
-
-    public void setAge(Long age) {
-        this.age = age;
     }
 
     public PassportData getPassportData() {

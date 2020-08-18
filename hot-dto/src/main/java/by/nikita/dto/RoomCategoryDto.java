@@ -2,10 +2,14 @@ package by.nikita.dto;
 
 import by.nikita.models.Room;
 import by.nikita.models.RoomCategory;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RoomCategoryDto extends AbstractIdAwareDto {
 
     private String categoryName;
@@ -21,10 +25,11 @@ public class RoomCategoryDto extends AbstractIdAwareDto {
             roomCategoryDto.setCategoryName(roomCategory.getCategoryName());
             for (Room room : roomCategory.getRooms()) {
                 RoomDto roomDto = new RoomDto();
+                Set<RoomStatusDto> roomStatuses = new HashSet<>();
                 if (roomCategory.getRooms() != null) {
                     roomDto.setId(room.getId());
                     roomDto.setRoomNumber(room.getRoomNumber());
-                    roomDto.setRoomStatus(room.getRoomStatus().toString());
+                    roomDto.setRoomStatus(room.getRoomStatus());
                     rooms.add(roomDto);
                 } else {
                     roomCategory.setRooms(null);
@@ -46,7 +51,7 @@ public class RoomCategoryDto extends AbstractIdAwareDto {
             if (roomCategory.getRooms() != null) {
                 roomDto.setId(room.getId());
                 roomDto.setRoomNumber(room.getRoomNumber());
-                roomDto.setRoomStatus(room.getRoomStatus().toString());
+                roomDto.setRoomStatus(room.getRoomStatus());
                 rooms.add(roomDto);
             } else {
                 roomCategory.setRooms(null);

@@ -6,21 +6,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PassportDataDto extends AbstractIdAwareDto {
 
     private String userFirstName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userMiddleName;
 
     private String userLastName;
 
     private String passportNumber;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String dateOfIssue;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String dateOfExpiry;
 
     private String countryOfIssue;

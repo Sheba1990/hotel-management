@@ -12,6 +12,8 @@ public interface IRoomService {
 
     List<RoomDto> getAllRooms();
 
+    RoomDto getRoomById(long id);
+
     List<RoomDto> getRoomByNumber(Integer roomNumber);
 
     List<RoomDto> getRoomsByCategory(String roomCategory);
@@ -28,7 +30,7 @@ public interface IRoomService {
 
     void deleteRoom(long id);
 
-    void updateRoom(long id, RoomDto roomDto);
+    void updateRoom(long id, RoomDto roomDto, RoomCategoryDto roomCategoryDto);
 
     RoomDto addRoomDetailsToRoom(long roomId, RoomDetailsDto roomDetailsDto);
 }

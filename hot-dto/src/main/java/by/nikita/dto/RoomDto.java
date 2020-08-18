@@ -1,17 +1,20 @@
 package by.nikita.dto;
 
 import by.nikita.models.Room;
+import by.nikita.models.enums.RoomStatus;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RoomDto extends AbstractIdAwareDto {
 
     private Integer roomNumber;
 
     private String roomCategory;
 
-    private String roomStatus;
+    private RoomStatus roomStatus;
 
 
     public static List<RoomDto> convertList(List<Room> roomList) {
@@ -21,7 +24,7 @@ public class RoomDto extends AbstractIdAwareDto {
             roomDto.setId(room.getId());
             roomDto.setRoomNumber(room.getRoomNumber());
             roomDto.setRoomCategory(room.getRoomCategory().getCategoryName());
-            roomDto.setRoomStatus(room.getRoomStatus().toString());
+            roomDto.setRoomStatus(room.getRoomStatus());
             rooms.add(roomDto);
         }
         return rooms;
@@ -32,7 +35,7 @@ public class RoomDto extends AbstractIdAwareDto {
         roomDto.setId(room.getId());
         roomDto.setRoomNumber(room.getRoomNumber());
         roomDto.setRoomCategory(room.getRoomCategory().getCategoryName());
-        roomDto.setRoomStatus(room.getRoomStatus().toString());
+        roomDto.setRoomStatus(room.getRoomStatus());
         return roomDto;
     }
 
@@ -43,7 +46,7 @@ public class RoomDto extends AbstractIdAwareDto {
         this.id = room.getId();
         this.roomNumber = room.getRoomNumber();
         this.roomCategory = room.getRoomCategory().getCategoryName();
-        this.roomStatus = room.getRoomStatus().toString();
+        this.roomStatus = room.getRoomStatus();
     }
 
     public Integer getRoomNumber() {
@@ -62,12 +65,11 @@ public class RoomDto extends AbstractIdAwareDto {
         this.roomCategory = roomCategory;
     }
 
-    public String getRoomStatus() {
+    public RoomStatus getRoomStatus() {
         return roomStatus;
     }
 
-    public void setRoomStatus(String roomStatus) {
+    public void setRoomStatus(RoomStatus roomStatus) {
         this.roomStatus = roomStatus;
     }
-
 }

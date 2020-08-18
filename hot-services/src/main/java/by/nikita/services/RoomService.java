@@ -46,20 +46,44 @@ public class RoomService implements IRoomService {
     @Override
     public RoomDto addRoom(RoomDto roomDto, RoomCategoryDto roomCategoryDto) {
 
+        RoomDetails roomDetails = new RoomDetails();
+        roomDetailsDao.create(roomDetails);
+
         RoomCategory roomCategory = new RoomCategory();
         roomCategory.setCategoryName(roomCategoryDto.getCategoryName());
+        if (roomCategoryDto.getCategoryName().equalsIgnoreCase("deluxe")) {
+            roomCategory.setDescription("Deluxe room 20 – 25 m² for two to four persons with en suite shower/WC, hair dryer, balcony, double bed and bunk bed, cable TV, radio, safe and free WiFi");
+        }
+        if (roomCategoryDto.getCategoryName().equalsIgnoreCase("business")) {
+            roomCategory.setDescription("Business double room 20 – 25 m² for two persons with en suite bath/shower/WC, hair dryer, balcony, double bed, cable TV, radio, safe and free WiFi");
+        }
+        if (roomCategoryDto.getCategoryName().equalsIgnoreCase("standard")) {
+            roomCategory.setDescription("Standard room 30 m² for two to four persons with en suite bath/shower/WC, hair dryer, balcony, double bed and bunk bed or sofa bed, cable TV, radio, safe and free WiFi");
+        }
+        if (roomCategoryDto.getCategoryName().equalsIgnoreCase("econom")) {
+            roomCategory.setDescription("Economy single room 11 m² for one person with en suite shower/WC, hair dryer, cable TV, radio, safe and free WiFi");
+        }
         roomCategoryDao.create(roomCategory);
 
         Room room = new Room();
         room.setRoomNumber(roomDto.getRoomNumber());
         room.setRoomStatus(RoomStatus.VACANT);
         room.setRoomCategory(roomCategory);
-        return RoomDto.entityToDto(roomDao.create(room));
+        room.setRoomDetails(roomDetails);
+
+        Room newRoom = roomDao.create(room);
+
+        return RoomDto.entityToDto(newRoom);
     }
 
     @Override
     public List<RoomDto> getAllRooms() {
         return RoomDto.convertList(roomDao.getAll());
+    }
+
+    @Override
+    public RoomDto getRoomById(long id) {
+        return RoomDto.entityToDto(roomDao.get(id));
     }
 
     @Override
@@ -98,8 +122,16 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void updateRoom(long id, RoomDto roomDto) {
+    public void updateRoom(long id, RoomDto roomDto, RoomCategoryDto roomCategoryDto) {
         Room room = roomDao.get(id);
+        RoomCategory roomCategory = room.getRoomCategory();
+
+        if (roomDto.getRoomCategory() != null && !StringUtils.isEmpty(roomDto.getRoomCategory())) {
+            roomCategory.setCategoryName(roomCategoryDto.getCategoryName());
+        }
+        roomCategoryDao.update(roomCategory);
+
+        room.setRoomCategory(roomCategory);
         if (roomDto.getRoomNumber() != null && !StringUtils.isEmpty(roomDto.getRoomNumber())) {
             room.setRoomNumber(roomDto.getRoomNumber());
         }
@@ -108,6 +140,7 @@ public class RoomService implements IRoomService {
         } else {
             room.setRoomStatus(RoomStatus.OCCUPIED);
         }
+
         roomDao.update(room);
     }
 
@@ -117,7 +150,6 @@ public class RoomService implements IRoomService {
         Room room = roomDao.get(roomId);
 
         RoomDetails roomDetails = new RoomDetails();
-        roomDetails.setPricePerNight(roomDetailsDto.getPricePerNight());
         roomDetails.setFloor(roomDetailsDto.getFloor());
         roomDetails.setAmountOfRooms(roomDetailsDto.getAmountOfRooms());
         roomDetails.setCapacity(roomDetailsDto.getCapacity());
@@ -136,14 +168,14 @@ public class RoomService implements IRoomService {
             roomDetails.setHasBath(true);
             roomDetails.setPricePerNight(150.00);
         }
-        if(room.getRoomCategory().getCategoryName().equalsIgnoreCase("standard")) {
+        if (room.getRoomCategory().getCategoryName().equalsIgnoreCase("standard")) {
             roomDetails.setHasSeaView(false);
             roomDetails.setHasBabyBed(false);
             roomDetails.setHasBreakfast(false);
             roomDetails.setHasBath(true);
             roomDetails.setPricePerNight(100.00);
         }
-        if(room.getRoomCategory().getCategoryName().equalsIgnoreCase("economic")) {
+        if (room.getRoomCategory().getCategoryName().equalsIgnoreCase("economic")) {
             roomDetails.setHasSeaView(false);
             roomDetails.setHasBabyBed(false);
             roomDetails.setHasBreakfast(false);

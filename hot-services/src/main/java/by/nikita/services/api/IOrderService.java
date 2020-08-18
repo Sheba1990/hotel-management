@@ -26,5 +26,4 @@ public interface IOrderService {
 
     void deleteOrder(long id);
 
-
 }

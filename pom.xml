@@ -34,6 +34,7 @@
         <version.org.projectlombok>1.18.12</version.org.projectlombok>
         <version.org.flywaydb>6.5.0</version.org.flywaydb>
         <version.com.h2database>1.4.200</version.com.h2database>
+        <version.org.thymeleaf>3.0.11.RELEASE</version.org.thymeleaf>
     </properties>
 
     <dependencyManagement>
@@ -71,6 +72,15 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+
+
+            <!-- Thymeleaf -->
+            <dependency>
+                <groupId>org.thymeleaf</groupId>
+                <artifactId>thymeleaf</artifactId>
+                <version>${version.org.thymeleaf}</version>
+            </dependency>
+
 
             <!-- Embedded in-memory database for tests -->
             <dependency>

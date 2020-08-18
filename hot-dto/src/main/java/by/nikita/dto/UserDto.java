@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto extends AbstractIdAwareDto {
 
     private String userName;
@@ -17,7 +18,6 @@ public class UserDto extends AbstractIdAwareDto {
 
     private String userEmail;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userPassword;
 
     private String userFirstName;
@@ -64,8 +64,6 @@ public class UserDto extends AbstractIdAwareDto {
                 userDto.setRoles(null);
             }
         }
-        userDto.setId(user.getId());
-        userDto.setUserName(user.getUsername());
         userDto.setRoles(roles);
         userDto.setUserFirstName(user.getUserDetails().getFirstName());
         userDto.setUserLastName(user.getUserDetails().getLastName());

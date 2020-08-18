@@ -4,9 +4,11 @@ import by.nikita.models.Order;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDto extends AbstractIdAwareDto {
 
     private Integer orderNumber;
@@ -15,10 +17,8 @@ public class OrderDto extends AbstractIdAwareDto {
 
     private String userEmail;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userFirstName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userLastName;
 
     private Integer amountOfGuests;
@@ -27,7 +27,8 @@ public class OrderDto extends AbstractIdAwareDto {
 
     private LocalDate dateOfCheckOut;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Long stayingPeriod;
+
     private Integer roomNumber;
 
     private String roomCategory;
@@ -53,6 +54,12 @@ public class OrderDto extends AbstractIdAwareDto {
         orderDto.setAmountOfGuests(order.getAmountOfGuests());
         orderDto.setDateOfCheckIn(order.getDateOfCheckIn());
         orderDto.setDateOfCheckOut(order.getDateOfCheckOut());
+        if (orderDto.getDateOfCheckIn() != null && orderDto.getDateOfCheckOut() != null) {
+            LocalDate date1 = orderDto.getDateOfCheckIn();
+            LocalDate date2 = orderDto.getDateOfCheckOut();
+            Long amountOfDays = ChronoUnit.DAYS.between(date1, date2);
+            orderDto.setStayingPeriod(amountOfDays);
+        }
         orderDto.setUserName(order.getUser().getUsername());
         orderDto.setUserEmail(order.getUser().getEmail());
         orderDto.setUserFirstName(order.getUser().getUserDetails().getFirstName());
@@ -109,6 +116,14 @@ public class OrderDto extends AbstractIdAwareDto {
 
     public void setDateOfCheckOut(LocalDate dateOfCheckOut) {
         this.dateOfCheckOut = dateOfCheckOut;
+    }
+
+    public Long getStayingPeriod() {
+        return stayingPeriod;
+    }
+
+    public void setStayingPeriod(Long stayingPeriod) {
+        this.stayingPeriod = stayingPeriod;
     }
 
     public String getUserName() {

@@ -6,73 +6,57 @@ import by.nikita.models.enums.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDetailsDto extends AbstractIdAwareDto {
 
     private String userName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Set<RoleDto> userRoles;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userFirstName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userMiddleName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userLastName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userFullName;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDate userBirthDate;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Long age;
+
     private Gender gender;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userPassportNumber;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userPassportCountryOfIssue;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userPassportDateOfIssue;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userPassportDateOfExpiry;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userPhoneNumber;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userEmail;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userPostalCode;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userResidenceCountry;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userResidenceProvince;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userResidenceCity;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userResidenceStreet;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userResidenceHomeNumber;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String userResidenceApartmentNumber;
 
     public static List<UserDetailsDto> convertList(List<UserDetails> userDetailsList) {
@@ -107,6 +91,12 @@ public class UserDetailsDto extends AbstractIdAwareDto {
         userDetailsDto.setUserLastName(userDetails.getLastName());
         userDetailsDto.setGender(userDetails.getGender());
         userDetailsDto.setUserBirthDate(userDetails.getBirthDate());
+        if (userDetailsDto.getUserBirthDate() != null) {
+            LocalDate date1 = userDetailsDto.userBirthDate;
+            LocalDate date2 = LocalDate.now();
+            Long amountOfYears = ChronoUnit.YEARS.between(date1, date2);
+            userDetailsDto.setAge(amountOfYears);
+        }
         if (userDetails.getPassportData() != null) {
             userDetailsDto.setUserPassportNumber(userDetails.getPassportData().getPassportNumber());
             userDetailsDto.setUserPassportCountryOfIssue(userDetails.getPassportData().getCountryOfIssue());
@@ -151,12 +141,24 @@ public class UserDetailsDto extends AbstractIdAwareDto {
         this.userResidenceApartmentNumber = userDetails.getContactData().getAddress().getApartmentNumber();
     }
 
+
+    //Getters & Setters
+
+
     public String getUserName() {
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public Set<RoleDto> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<RoleDto> userRoles) {
+        this.userRoles = userRoles;
     }
 
     public String getUserFirstName() {
@@ -167,20 +169,20 @@ public class UserDetailsDto extends AbstractIdAwareDto {
         this.userFirstName = userFirstName;
     }
 
-    public String getUserLastName() {
-        return userLastName;
-    }
-
-    public void setUserLastName(String userLastName) {
-        this.userLastName = userLastName;
-    }
-
     public String getUserMiddleName() {
         return userMiddleName;
     }
 
     public void setUserMiddleName(String userMiddleName) {
         this.userMiddleName = userMiddleName;
+    }
+
+    public String getUserLastName() {
+        return userLastName;
+    }
+
+    public void setUserLastName(String userLastName) {
+        this.userLastName = userLastName;
     }
 
     public String getUserFullName() {
@@ -191,20 +193,28 @@ public class UserDetailsDto extends AbstractIdAwareDto {
         this.userFullName = userFullName;
     }
 
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
     public LocalDate getUserBirthDate() {
         return userBirthDate;
     }
 
     public void setUserBirthDate(LocalDate userBirthDate) {
         this.userBirthDate = userBirthDate;
+    }
+
+    public Long getAge() {
+        return age;
+    }
+
+    public void setAge(Long age) {
+        this.age = age;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public String getUserPassportNumber() {
@@ -245,6 +255,14 @@ public class UserDetailsDto extends AbstractIdAwareDto {
 
     public void setUserPhoneNumber(String userPhoneNumber) {
         this.userPhoneNumber = userPhoneNumber;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getUserPostalCode() {
@@ -301,21 +319,5 @@ public class UserDetailsDto extends AbstractIdAwareDto {
 
     public void setUserResidenceApartmentNumber(String userResidenceApartmentNumber) {
         this.userResidenceApartmentNumber = userResidenceApartmentNumber;
-    }
-
-    public Set<RoleDto> getUserRoles() {
-        return userRoles;
-    }
-
-    public void setUserRoles(Set<RoleDto> userRoles) {
-        this.userRoles = userRoles;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
     }
 }

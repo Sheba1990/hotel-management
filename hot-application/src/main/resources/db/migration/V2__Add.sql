@@ -15,11 +15,11 @@ values
   (1, '453716397', '2017-04-13', '2027-04-12', 'USA'),
   (2, '292-000', '2014-05-20', '2024-05-19', 'RUSSIA');
 
-insert into user_details_table(id, first_name, last_name, middle_name, birth_date, age, gender, passport_id, contact_data_id)
+insert into user_details_table(id, first_name, last_name, middle_name, birth_date, gender, passport_id, contact_data_id)
 values
-  (1, 'Elon', 'Musk', 'Reeve', '1971-06-28', 49, 'MALE', 1, 1),
-  (2, 'Иван', 'Иванов', 'Иванович', '1992-08-09', 28, 'MALE', 2, 2),
-  (3, 'Никита', 'Шебин', 'Андреевич', '1990-11-02', 29, 'MALE', null, 3);
+  (1, 'Elon', 'Musk', 'Reeve', '1971-06-28', 'MALE', 1, 1),
+  (2, 'Иван', 'Иванов', 'Иванович', '1992-08-09', 'MALE', 2, 2),
+  (3, 'Никита', 'Шебин', 'Андреевич', '1990-11-02', 'MALE', null, 3);
 
 insert into user_table (id, username, email, password, active, user_details_id)
   values
@@ -43,18 +43,18 @@ values
 insert into room_category_table (id, category_name, description)
   values
   (1, 'DELUXE', 'Deluxe room 20 – 25 m² for two to four persons with en suite shower/WC, hair dryer, balcony, double bed and bunk bed, cable TV, radio, safe and free WiFi'),
-  (2, 'BUSINESS','Buiness double room 20 – 25 m² for two persons with en suite bath/shower/WC, hair dryer, balcony, double bed, cable TV, radio, safe and free WiFi'),
-  (3, 'STANDART','Standard room 30 m² for two to four persons with en suite bath/shower/WC, hair dryer, balcony, double bed and bunk bed or sofa bed, cable TV, radio, safe and free WiFi'),
+  (2, 'BUSINESS','Business double room 20 – 25 m² for two persons with en suite bath/shower/WC, hair dryer, balcony, double bed, cable TV, radio, safe and free WiFi'),
+  (3, 'STANDARD','Standard room 30 m² for two to four persons with en suite bath/shower/WC, hair dryer, balcony, double bed and bunk bed or sofa bed, cable TV, radio, safe and free WiFi'),
   (4, 'ECONOM','Economy single room 11 m² for one person with en suite shower/WC, hair dryer, cable TV, radio, safe and free WiFi');
 
 insert into room_table (id, room_number, room_status, room_category_id, room_details_id)
   values
   (1, 20, 'OCCUPIED', 1, 1),
   (2, 15, 'OCCUPIED', 2, 2),
-  (3, 10, 'FREE', 3, 3),
-  (4, 5, 'FREE', 4, 4);
+  (3, 10, 'VACANT', 3, 3),
+  (4, 5, 'VACANT', 4, 4);
 
-insert into order_table (id, order_number, room_category, amount_of_guests, date_of_check_in, date_of_check_out, staying_period, approved, user_id, room_id)
+insert into order_table (id, order_number, room_category, amount_of_guests, date_of_check_in, date_of_check_out, approved, user_id, room_id)
 values
-  (1, 1, 'DELUXE', 4, '2020-08-01', '2020-08-06', 5, true, 1, 1),
-  (2, 2, 'BUSINESS', 2, '2020-08-03', '2020-08-09', 6, true, 2, 2);
+  (1, 1, 'DELUXE', 4, '2020-08-01', '2020-08-06', true, 1, 1),
+  (2, 2, 'BUSINESS', 2, '2020-08-03', '2020-08-09', true, 2, 2);

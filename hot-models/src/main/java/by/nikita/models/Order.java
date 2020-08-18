@@ -1,7 +1,5 @@
 package by.nikita.models;
 
-import by.nikita.models.utils.StringToDateSQLConverter;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -27,9 +25,6 @@ public class Order extends AbstractIdAwareEntity {
     //@Convert(converter = StringToDateSQLConverter.class)
     private LocalDate dateOfCheckOut;
 
-    @Column(name = "staying_period")
-    private Long stayingPeriod;
-
     @Column(name = "approved")
     private boolean approved;
 
@@ -49,7 +44,6 @@ public class Order extends AbstractIdAwareEntity {
                  Integer amountOfGuests,
                  LocalDate dateOfCheckIn,
                  LocalDate dateOfCheckOut,
-                 Long stayingPeriod,
                  boolean approved,
                  User user,
                  Room room) {
@@ -58,7 +52,6 @@ public class Order extends AbstractIdAwareEntity {
         this.amountOfGuests = amountOfGuests;
         this.dateOfCheckIn = dateOfCheckIn;
         this.dateOfCheckOut = dateOfCheckOut;
-        this.stayingPeriod = stayingPeriod;
         this.approved = approved;
         this.user = user;
         this.room = room;
@@ -102,14 +95,6 @@ public class Order extends AbstractIdAwareEntity {
 
     public void setDateOfCheckOut(LocalDate dateOfCheckOut) {
         this.dateOfCheckOut = dateOfCheckOut;
-    }
-
-    public Long getStayingPeriod() {
-        return stayingPeriod;
-    }
-
-    public void setStayingPeriod(Long stayingPeriod) {
-        this.stayingPeriod = stayingPeriod;
     }
 
     public boolean isApproved() {
