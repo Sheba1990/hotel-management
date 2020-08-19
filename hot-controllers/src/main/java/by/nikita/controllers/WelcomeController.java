@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/welcome")
+@RequestMapping(value = "/")
 public class WelcomeController {
 
     @GetMapping
