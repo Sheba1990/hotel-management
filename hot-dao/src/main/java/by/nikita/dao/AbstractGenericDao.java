@@ -28,29 +28,24 @@ public abstract class AbstractGenericDao<T extends AbstractIdAwareEntity> implem
     @Autowired
     protected EntityManager entityManager;
 
-    @Override
     public T create(T entity) {
         entityManager.persist(entity);
         return entity;
     }
 
-    @Override
     public T get(Long id) {
         return entityManager.find(getGenericClass(), id);
     }
 
-    @Override
     public void update(T entity) {
         entityManager.merge(entity);
         entityManager.flush();
     }
 
-    @Override
     public void delete(T entity) {
         entityManager.remove(entity);
     }
 
-    @Override
     public List<T> getAll() {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

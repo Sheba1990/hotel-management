@@ -3,20 +3,27 @@ package by.nikita.services.api;
 import by.nikita.dto.RoomCategoryDto;
 import by.nikita.dto.RoomDetailsDto;
 import by.nikita.dto.RoomDto;
+import by.nikita.models.Room;
 
 import java.util.List;
 
 public interface IRoomService {
 
-    RoomDto addRoom(RoomDto roomDto, RoomCategoryDto roomCategoryDto);
+    RoomDto addRoom(RoomDto roomDto, RoomCategoryDto roomCategoryDto, RoomDetailsDto roomDetailsDto);
 
     List<RoomDto> getAllRooms();
 
     RoomDto getRoomById(long id);
 
-    List<RoomDto> getRoomByNumber(Integer roomNumber);
+    RoomDto getRoomByNumber(Integer roomNumber);
 
-    List<RoomDto> getRoomsByCategory(String roomCategory);
+    List<RoomDto> getRoomsByDeluxeCategory();
+
+    List<RoomDto> getRoomsByBusinessCategory();
+
+    List<RoomDto> getRoomsByStandardCategory();
+
+    List<RoomDto> getRoomsByEconomCategory();
 
     List<RoomDto> getRoomsWhereStatusIsVacant();
 

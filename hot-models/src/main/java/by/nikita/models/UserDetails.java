@@ -27,7 +27,7 @@ public class UserDetails extends AbstractIdAwareEntity {
     private Gender gender;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "passport_id", referencedColumnName = "id")
+    @JoinColumn(name = "passport_data_id", referencedColumnName = "id")
     private PassportData passportData;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

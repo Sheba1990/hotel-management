@@ -43,10 +43,6 @@ public class RoomDetailsDto extends AbstractIdAwareDto {
             roomDetailsDto.setRoomNumber(roomDetails.getRoom().getRoomNumber());
             roomDetailsDto.setRoomCategory(roomDetails.getRoom().getRoomCategory().getCategoryName());
             roomDetailsDto.setRoomStatus(roomDetails.getRoom().getRoomStatus());
-            roomDetailsDto.setPricePerNight(roomDetails.getPricePerNight());
-            roomDetailsDto.setFloor(roomDetails.getFloor());
-            roomDetailsDto.setAmountOfRooms(roomDetails.getAmountOfRooms());
-            roomDetailsDto.setCapacity(roomDetails.getCapacity());
             roomDetailss.add(roomDetailsDto);
         }
         return roomDetailss;

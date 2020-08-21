@@ -1,4 +1,4 @@
-create sequence hibernate_sequence start 1 increment 1;
+create sequence hibernate_sequence start 5 increment 1;
 
 create table address_table (
   id bigserial not null,
@@ -35,7 +35,7 @@ create table user_details_table (
   middle_name varchar(255),
   birth_date date,
   gender varchar(255),
-  passport_id int8,
+  passport_data_id int8,
   contact_data_id int8,
   primary key (id)
 );
@@ -57,7 +57,7 @@ create table user_role_table (
 
 create table room_details_table (
   id bigserial not null,
-  price_per_night money,
+  price_per_night float8,
   floor int4,
   amount_of_rooms int4,
   capacity int4,
@@ -100,35 +100,35 @@ create table order_table (
 
 alter table if exists contact_data_table
   add constraint contact_data_addres_fk
-  foreign key (address_id) references contact_data_table (id);
+  foreign key (address_id) references address_table (id);
 
 alter table user_details_table
   add constraint user_details_passport_fk
-  foreign key (passport_id) references user_details_table (id);
+  foreign key (passport_data_id) references passport_data_table (id);
 
 alter table user_details_table
   add constraint user_details_contact_data_fk
-  foreign key (contact_data_id) references user_details_table (id);
+  foreign key (contact_data_id) references contact_data_table (id);
 
 alter table user_table
   add constraint user_user_details_fk
-  foreign key (user_details_id) references user_table (id);
+  foreign key (user_details_id) references user_details_table (id);
 
 alter table room_table
   add constraint room_room_category_fk
-  foreign key (room_category_id) references room_table (id);
+  foreign key (room_category_id) references room_category_table (id);
 
 alter table room_table
   add constraint room_room_details_fk
-  foreign key (room_details_id) references room_table (id);
+  foreign key (room_details_id) references room_details_table (id);
 
 alter table order_table
   add constraint order_user_fk
-  foreign key (user_id) references order_table (id);
+  foreign key (user_id) references user_table (id);
 
 alter table order_table
   add constraint order_room_fk
-  foreign key (room_id) references order_table (id);
+  foreign key (room_id) references room_table (id);
 
 alter table user_role_table
   add constraint user_role_user_fk

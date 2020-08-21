@@ -6,9 +6,15 @@ import java.util.List;
 
 public interface IRoomDao extends IAbstractGenericDao<Room> {
 
-    List<Room> getRoomByNumber(Integer roomNumber);
+    Room getRoomByNumber(Integer roomNumber);
 
-    List<Room> getRoomsByCategory(String roomCategory);
+    List<Room> getRoomsByDeluxeCategory();
+
+    List<Room> getRoomsByBusinessCategory();
+
+    List<Room> getRoomsByStandardCategory();
+
+    List<Room> getRoomsByEconomCategory();
 
     List<Room> getRoomsWhereStatusIsVacant();
 

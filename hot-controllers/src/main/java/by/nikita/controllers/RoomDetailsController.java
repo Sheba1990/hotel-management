@@ -5,6 +5,7 @@ import by.nikita.services.api.IRoomDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -15,21 +16,40 @@ public class RoomDetailsController {
     @Autowired
     IRoomDetailsService roomDetailsService;
 
-    @PostMapping(value = "/",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    RoomDetailsDto addRoomDetails(@RequestBody RoomDetailsDto roomDetailsDto) {
-        return roomDetailsService.addRoomDetails(roomDetailsDto);
+    @GetMapping(value = "/new")
+    public ModelAndView showNewRoomDetailsForm() {
+        RoomDetailsDto roomDetailsDto = new RoomDetailsDto();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("room_details", roomDetailsDto);
+        modelAndView.setViewName("/views/room_details/new_room_details");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/save",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ModelAndView addRoomDetails(RoomDetailsDto roomDetailsDto) {
+        ModelAndView modelAndView = new ModelAndView();
+        roomDetailsService.addRoomDetails(roomDetailsDto);
+        modelAndView.setViewName("redirect:/rooms");
+        return modelAndView;
     }
 
     @GetMapping
-    List<RoomDetailsDto> getAllRoomDetails() {
-        return roomDetailsService.getAllRoomDetails();
+    public ModelAndView getAllRoomDetails() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<RoomDetailsDto> rooms = roomDetailsService.getAllRoomDetails();
+        modelAndView.setViewName("/views/rooms/all_rooms");
+        modelAndView.addObject("rooms", rooms);
+        return modelAndView;
     }
 
-    @GetMapping(value = "/{id}")
-    RoomDetailsDto getRoomDetailsById(@PathVariable long id) {
-        return roomDetailsService.getRoomDetailsById(id);
+    @GetMapping(value = "/get/{id}")
+    public ModelAndView getRoomDetailsById (@PathVariable long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        RoomDetailsDto roomDetailsDto = roomDetailsService.getRoomDetailsById(id);
+        modelAndView.setViewName("/views/rooms/room");
+        modelAndView.addObject("roomDetails", roomDetailsDto);
+        return modelAndView;
     }
 
     @GetMapping(value = "/room_number/{roomNumber}")

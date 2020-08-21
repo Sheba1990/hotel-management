@@ -7,6 +7,7 @@ import by.nikita.services.api.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -17,31 +18,75 @@ public class RoomController {
     @Autowired
     IRoomService roomService;
 
-    @PostMapping(value = "/",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public RoomDto addRoom(@RequestBody RoomDto roomDto, @RequestBody RoomCategoryDto roomCategoryDto) {
-        return roomService.addRoom(roomDto, roomCategoryDto);
+    @GetMapping("/new")
+    public ModelAndView showNewRoomForm() {
+        RoomDto roomDto = new RoomDto();
+        RoomCategoryDto roomCategoryDto = new RoomCategoryDto();
+        RoomDetailsDto roomDetailsDto = new RoomDetailsDto();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("room", roomDto);
+        modelAndView.addObject("category", roomCategoryDto);
+        modelAndView.addObject("details", roomDetailsDto);
+        modelAndView.setViewName("/views/rooms/new_room");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/save",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ModelAndView addRoom(RoomDto roomDto,
+                                RoomCategoryDto roomCategoryDto,
+                                RoomDetailsDto roomDetailsDto) {
+        ModelAndView modelAndView = new ModelAndView();
+        roomService.addRoom(roomDto, roomCategoryDto, roomDetailsDto);
+        modelAndView.setViewName("redirect:/rooms");
+        return modelAndView;
     }
 
     @GetMapping
-    public List<RoomDto> getAllRooms() {
-        return roomService.getAllRooms();
+    public ModelAndView getAllRooms() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<RoomDto> rooms = roomService.getAllRooms();
+        modelAndView.setViewName("/views/rooms/all_rooms");
+        modelAndView.addObject("rooms", rooms);
+        return modelAndView;
     }
 
-    @GetMapping(value = "/{id}")
-    public RoomDto getRoomById(@PathVariable long id) {
-        return roomService.getRoomById(id);
+    @GetMapping(value = "/get/{id}")
+    public ModelAndView getRoomById(@PathVariable long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        RoomDto room = roomService.getRoomById(id);
+        modelAndView.setViewName("/views/rooms/room");
+        modelAndView.addObject("room", room);
+        return modelAndView;
     }
 
     @GetMapping(value = "/number/{roomNumber}")
-    public List<RoomDto> getRoomByNumber(@PathVariable Integer roomNumber) {
-        return roomService.getRoomByNumber(roomNumber);
+    public ModelAndView getRoomByNumber(@PathVariable Integer roomNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        RoomDto room = roomService.getRoomByNumber(roomNumber);
+        modelAndView.setViewName("/views/rooms/room");
+        modelAndView.addObject("room", room);
+        return modelAndView;
     }
 
-    @GetMapping(value = "/category/{roomCategory}")
-    public List<RoomDto> getRoomsByCategory(@PathVariable String roomCategory) {
-        return roomService.getRoomsByCategory(roomCategory);
+    @GetMapping(value = "/deluxe")
+    public List<RoomDto> getRoomsByDeluxeCategory() {
+        return roomService.getRoomsByDeluxeCategory();
+    }
+
+    @GetMapping(value = "/business")
+    public List<RoomDto> getRoomsByBusinessCategory() {
+        return roomService.getRoomsByBusinessCategory();
+    }
+
+    @GetMapping(value = "/standard")
+    public List<RoomDto> getRoomsByStandardCategory() {
+        return roomService.getRoomsByStandardCategory();
+    }
+
+    @GetMapping(value = "/econom")
+    public List<RoomDto> getRoomsByEconomCategory() {
+        return roomService.getRoomsByEconomCategory();
     }
 
     @GetMapping(value = "/vacant")

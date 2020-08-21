@@ -15,7 +15,7 @@ values
   (1, '453716397', '2017-04-13', '2027-04-12', 'USA'),
   (2, '292-000', '2014-05-20', '2024-05-19', 'RUSSIA');
 
-insert into user_details_table(id, first_name, last_name, middle_name, birth_date, gender, passport_id, contact_data_id)
+insert into user_details_table(id, first_name, last_name, middle_name, birth_date, gender, passport_data_id, contact_data_id)
 values
   (1, 'Elon', 'Musk', 'Reeve', '1971-06-28', 'MALE', 1, 1),
   (2, 'Иван', 'Иванов', 'Иванович', '1992-08-09', 'MALE', 2, 2),
