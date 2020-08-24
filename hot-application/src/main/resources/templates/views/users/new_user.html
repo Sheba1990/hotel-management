@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Резюме менеджер</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="../../../resources/static/css/core.css" rel="stylesheet" media="screen"
+          th:href="@{/resources/static/css/core.css}"/>
+</head>
+<style>
+    body::before {
+    content: '';
+    position: fixed; /* Фиксируем на одном месте */
+    left: 0; right: 0; /* Вся ширин */
+    top: 0; bottom: 0; /* Вся высота */
+    z-index: -1; /* Фон ниже текста */
+    /* Параметры фона */
+    background: url(/img/background.jpg) center / cover no-repeat;
+    filter: blur(5px); /* Размытие */
+   }
+
+
+</style>
+<body>
+<div th:replace="~{fragments/header :: header}">Header</div>
+<div align="center">
+    <h1>Add new room</h1>
+    <br/>
+    <form th:action="@{/rooms/save}" method="post">
+        <div>
+            <form>
+                <div class="form-row mx-auto">
+                    <div class="col-md-3 mb-3 mx-auto">
+                        <label>Room number</label>
+                        <input type="text" th:field="*{room.roomNumber}" class="form-control"
+                               placeholder="Hotel room number">
+                    </div>
+                    <div class="col-md-2 mb-3 mx-auto">
+                        <label>Category</label>
+                        <select class="form-control" id="categoryName" th:field="*{category.categoryName}">
+                            <option th:value="DELUXE"
+                                    th:text="DELUXE"></option>
+                            <option th:value="BUSINESS"
+                                    th:text="BUSINESS"></option>
+                            <option th:value="STANDARD"
+                                    th:text="STANDARD"></option>
+                            <option th:value="ECONOM"
+                                    th:text="ECONOM"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-3 mx-auto">
+                        <label>Category</label>
+                        <select class="form-control" id="floor" th:field="*{details.floor}">
+                            <option th:value="5"
+                                    th:text="5"></option>
+                            <option th:value="4"
+                                    th:text="4"></option>
+                            <option th:value="3"
+                                    th:text="3"></option>
+                            <option th:value="2"
+                                    th:text="2"></option>
+                            <option th:value="1"
+                                    th:text="1"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-3 mx-auto">
+                        <label>Category</label>
+                        <select class="form-control" id="capacity" th:field="*{details.capacity}">
+                            <option th:value="5"
+                                    th:text="5"></option>
+                            <option th:value="4"
+                                    th:text="4"></option>
+                            <option th:value="3"
+                                    th:text="3"></option>
+                            <option th:value="2"
+                                    th:text="2"></option>
+                            <option th:value="1"
+                                    th:text="1"></option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div class="form-inline justify-content-center">
+                <div>
+                    <button type="submit" class="btn btn-primary">
+                        Save
+                    </button>
+                </div>
+                <div class="ml-2">
+                    <form th:action="@{/rooms/}" th:method="get">
+                        <button class="btn btn-danger">
+                            Cancel
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+</html>

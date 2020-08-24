@@ -13,7 +13,7 @@ public class StringToDateSQLConverter implements AttributeConverter<String, Date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate localDate = LocalDate.parse(entityValue, formatter).plusDays(1);
 //        return Optional.ofNullable(localDate).map(Date::valueOf).orElse(null);
-        if(localDate == null)
+        if (localDate == null)
             return null;
         return Date.valueOf(localDate);
     }

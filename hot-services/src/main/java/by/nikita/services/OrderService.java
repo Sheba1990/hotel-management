@@ -4,6 +4,8 @@ import by.nikita.dao.api.IOrderDao;
 import by.nikita.dao.api.IRoomDao;
 import by.nikita.dto.OrderDto;
 import by.nikita.models.Order;
+import by.nikita.models.Room;
+import by.nikita.models.enums.RoomStatus;
 import by.nikita.services.api.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -35,6 +38,15 @@ public class OrderService implements IOrderService {
 
     public OrderDto acceptOrderByAdmin(long orderId, OrderDto orderDto) {
         Order order = orderDao.get(orderId);
+        List<Room> rooms = roomDao.getRoomsWhereStatusIsVacant();
+        Optional<Room> matchingRoom = rooms.stream().
+                filter(room -> room.getRoomCategory().getCategoryName().
+                        equals(order.getRoomCategory())).findAny();
+        Room room = matchingRoom.orElse(null);
+        if (room != null) {
+            room.setRoomStatus(RoomStatus.OCCUPIED);
+        }
+        order.setRoom(room);
         order.setApproved(true);
         orderDao.update(order);
         return OrderDto.entityToDto(order);
@@ -71,8 +83,18 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<OrderDto> getOrdersByRoomNumber(Integer roomNumber) {
-        return OrderDto.convertList(orderDao.getOrdersByRoomNumber(roomNumber));
+    public OrderDto getOrderByRoomNumber(Integer roomNumber) {
+        return OrderDto.entityToDto(orderDao.getOrderByRoomNumber(roomNumber));
+    }
+
+    @Override
+    public List<OrderDto> getAllNotApprovedOrders() {
+        return OrderDto.convertList(orderDao.getAllNotApprovedOrders());
+    }
+
+    @Override
+    public List<OrderDto> getAllApprovedOrders() {
+        return OrderDto.convertList(orderDao.getAllApprovedOrders());
     }
 
     @Override

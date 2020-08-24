@@ -1,7 +1,6 @@
 package by.nikita.dao.api;
 
 import by.nikita.models.User;
-import org.springframework.data.domain.Example;
 
 import java.util.List;
 

@@ -5,6 +5,7 @@ import by.nikita.services.api.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -15,56 +16,126 @@ public class OrderController {
     @Autowired
     IOrderService orderService;
 
-    @PostMapping(value = "/",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    OrderDto addOrderByUser(OrderDto orderDto) {
-        return orderService.addOrderByUser(orderDto);
+    @GetMapping(value = "/new")
+    public ModelAndView showNewOrderFormForUser() {
+        OrderDto orderDto = new OrderDto();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("order", orderDto);
+        modelAndView.setViewName("/views/orders/new_order");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/save",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ModelAndView addOrderByUser(OrderDto orderDto) {
+        ModelAndView modelAndView = new ModelAndView();
+        orderService.addOrderByUser(orderDto);
+        modelAndView.setViewName("redirect/orders");
+        return modelAndView;
     }
 
     @GetMapping
-    List<OrderDto> getAllOrders() {
-        return orderService.getAllOrders();
+    public ModelAndView getAllOrders() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<OrderDto> orders = orderService.getAllOrders();
+        modelAndView.addObject("orders", orders);
+        modelAndView.setViewName("/views/orders/orders");
+        return modelAndView;
     }
 
-    @GetMapping(value = "/{id}")
-    OrderDto getOrderById(@PathVariable long id) {
-        return orderService.getOrderById(id);
+    @GetMapping(value = "/get/{id}")
+    public ModelAndView getOrderById(@PathVariable long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        OrderDto order = orderService.getOrderById(id);
+        modelAndView.addObject("order", order);
+        modelAndView.setViewName("/views/orders/order");
+        return modelAndView;
     }
 
     @GetMapping(value = "/number/{orderNumber}")
-    OrderDto getOrderByNumber(@PathVariable Integer orderNumber) {
-        return orderService.getOrderByNumber(orderNumber);
+    public ModelAndView getOrderByNumber(@PathVariable Integer orderNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        OrderDto order = orderService.getOrderByNumber(orderNumber);
+        modelAndView.addObject("order", order);
+        modelAndView.setViewName("/views/orders/order");
+        return modelAndView;
     }
 
     @GetMapping(value = "/room_category/{roomCategory}")
-    List<OrderDto> getOrdersByRoomCategory(@PathVariable String roomCategory) {
-        return orderService.getOrdersByRoomCategory(roomCategory);
+    public ModelAndView getOrdersByRoomCategory(@RequestParam String roomCategory) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<OrderDto> orders = orderService.getOrdersByRoomCategory(roomCategory);
+        modelAndView.addObject("orders", orders);
+        modelAndView.setViewName("/views/orders/orders");
+        return modelAndView;
     }
 
     @GetMapping(value = "/user_first_name/{firstName}")
-    List<OrderDto> getOrdersByUserFirstName(@PathVariable String firstName) {
-        return orderService.getOrdersByUserFirstName(firstName);
+    public ModelAndView getOrdersByUserFirstName(@RequestParam String firstName) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<OrderDto> orders = orderService.getOrdersByUserFirstName(firstName);
+        modelAndView.addObject("orders", orders);
+        modelAndView.setViewName("/views/orders/orders");
+        return modelAndView;
     }
 
     @GetMapping(value = "/user_last_name/{lastName}")
-    List<OrderDto> getOrdersByUserLastName(@PathVariable String lastName) {
-        return orderService.getOrdersByUserLastName(lastName);
+    public ModelAndView getOrdersByUserLastName(@RequestParam String lastName) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<OrderDto> orders = orderService.getOrdersByUserLastName(lastName);
+        modelAndView.addObject("orders", orders);
+        modelAndView.setViewName("/views/orders/orders");
+        return modelAndView;
     }
 
     @GetMapping(value = "/room_number/{roomNumber}")
-    List<OrderDto> getOrdersByRoomNumber(@PathVariable Integer roomNumber) {
-        return orderService.getOrdersByRoomNumber(roomNumber);
+    OrderDto getOrderByRoomNumber(@PathVariable Integer roomNumber) {
+        return orderService.getOrderByRoomNumber(roomNumber);
     }
 
-    @PutMapping(value = "/edit/{id}")
-    void updateOrder(@PathVariable long id, @RequestBody OrderDto orderDto) {
+    @GetMapping(value = "/not_approved")
+    public ModelAndView getAllNotApprovedOrders() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<OrderDto> notApprovedOrders = orderService.getAllNotApprovedOrders();
+        modelAndView.addObject("orders", notApprovedOrders);
+        modelAndView.setViewName("/views/orders/orders");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/approved")
+    public ModelAndView getAllApprovedOrders() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<OrderDto> approvedOrders = orderService.getAllApprovedOrders();
+        modelAndView.addObject("orders", approvedOrders);
+        modelAndView.setViewName("/views/orders/orders");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/edit_order/{id}")
+    public ModelAndView showEditOrderForm(@PathVariable long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/views/orders/edit_order");
+        OrderDto orderDto = orderService.getOrderById(id);
+        modelAndView.addObject("order", orderDto);
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/edit/{id}",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ModelAndView editOrder(@PathVariable("id") long id,
+                                  OrderDto orderDto) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/orders/get/" + id);
         orderService.updateOrder(id, orderDto);
+        return modelAndView;
     }
 
-    @DeleteMapping(value = "/{id}")
-    void deleteOrder(long id) {
+    @PostMapping(value = "/delete/{id}")
+    public ModelAndView deleteOrder(@PathVariable("id") long id) {
+        ModelAndView modelAndView = new ModelAndView();
         orderService.deleteOrder(id);
+        modelAndView.setViewName("redirect:/orders");
+        return modelAndView;
     }
 
 }

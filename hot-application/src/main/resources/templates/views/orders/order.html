@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Резюме менеджер</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="../../../resources/static/css/core.css" rel="stylesheet" media="screen"
+          th:href="@{/resources/static/css/core.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}">Header</div>
+<br/>
+<div class="form-row mx-auto">
+    <div class="form-group mx-auto">
+        <form method="get" action="/cvs/first_name/{firstName}" class="form-inline">
+            <input type="text" name="firstName" class="form-control" placeholder="По имени">
+            <button type="submit" class="btn btn-primary ml-2">
+                Найти
+            </button>
+        </form>
+    </div>
+    <div class="form-group">
+        <form method="get" action="/cvs/last_name/{lastName}" class="form-inline">
+            <input type="text" name="lastName" class="form-control" placeholder="По фамилии">
+            <button type="submit" class="btn btn-primary ml-2">
+                Найти
+            </button>
+        </form>
+    </div>
+    <div class="form-group mx-auto">
+        <form method="get" action="/cvs/get_by_technology_name/{name}" class="form-inline">
+            <input type="text" name="name" class="form-control" placeholder="По технологии">
+            <button type="submit" class="btn btn-primary ml-2">
+                Найти
+            </button>
+        </form>
+    </div>
+</div>
+<br/>
+<div class="table-responsive-lg ">
+    <table class="table">
+        <tr class="thead-dark">
+        <tr>
+            <td scope="col" class="align-middle">Number</td>
+            <td class="align-middle" th:text="${roomDetails.roomNumber}"></td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Category</td>
+            <td class="align-middle" th:text="${roomDetails.roomCategory}"></td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Status</td>
+            <td class="align-middle" th:text="${roomDetails.roomStatus}"></td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Price per night</td>
+            <td class="align-middle" th:text="${roomDetails.pricePerNight} + ' $'"></td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Floor</td>
+            <td class="align-middle" th:text="${roomDetails.floor}"></td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Amount of rooms</td>
+            <td class="align-middle" th:text="${roomDetails.amountOfRooms}"></td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Capacity</td>
+            <td class="align-middle" th:text="${roomDetails.capacity}"></td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Sea view</td>
+            <td class="align-middle">
+                <span th:if="${roomDetails.hasSeaView == true}">Yes</span>
+                <span th:unless="${roomDetails.hasSeaView == true}">No</span>
+            </td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Bath</td>
+            <td class="align-middle">
+                <span th:if="${roomDetails.hasBath == true}">Yes</span>
+                <span th:unless="${roomDetails.hasBath == true}">No</span>
+            </td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Baby bed</td>
+            <td class="align-middle">
+                <span th:if="${roomDetails.hasBabyBed == true}">Yes</span>
+                <span th:unless="${roomDetails.hasBabyBed == true}">No</span>
+            </td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Wi-Fi</td>
+            <td class="align-middle">
+                <span th:if="${roomDetails.hasWifi == true}">Yes</span>
+                <span th:unless="${roomDetails.hasWifi == true}">No</span>
+            </td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Breakfast</td>
+            <td class="align-middle">
+                <span th:if="${roomDetails.hasBreakfast == true}">Yes</span>
+                <span th:unless="${roomDetails.hasBreakfast == true}">No</span>
+            </td>
+        </tr>
+
+
+    </table>
+</div>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

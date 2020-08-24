@@ -3,6 +3,8 @@ package by.nikita.models;
 import by.nikita.models.enums.Role;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
@@ -10,12 +12,16 @@ import java.util.Set;
 public class User extends AbstractIdAwareEntity {
 
     @Column(name = "username")
+    @NotBlank(message = "Username can not be empty")
     private String username;
 
+    @Email(message = "Email is not correct")
+    @NotBlank(message = "Email can not be empty")
     @Column(name = "email")
     private String email;
 
     @Column(name = "password")
+    @NotBlank(message = "Password can not be empty")
     private String password;
 
     private boolean active;
@@ -32,6 +38,9 @@ public class User extends AbstractIdAwareEntity {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    public boolean isAdmin() {
+        return roles.contains(Role.ADMIN);
+    }
 
     //Constructors
 
@@ -52,10 +61,6 @@ public class User extends AbstractIdAwareEntity {
         this.order = order;
         this.userDetails = userDetails;
         this.roles = roles;
-    }
-
-    public boolean isAdmin() {
-        return roles.contains(Role.ADMIN);
     }
 
 

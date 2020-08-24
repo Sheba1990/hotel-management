@@ -57,6 +57,7 @@ public class RoomDao extends AbstractGenericDao<Room> implements IRoomDao {
             Root<Room> root = query.from(Room.class);
             Join<Room, RoomCategory> category = root.join(Room_.ROOM_CATEGORY);
             query.select(root).where(criteriaBuilder.equal(category.get(RoomCategory_.CATEGORY_NAME), "DELUXE"));
+            query.orderBy(criteriaBuilder.asc(category.get(RoomCategory_.CATEGORY_NAME)));
             TypedQuery<Room> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {

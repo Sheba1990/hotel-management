@@ -52,7 +52,7 @@ public class OrderDao extends AbstractGenericDao<Order> implements IOrderDao {
     }
 
     @Override
-    public List<Order> getOrdersByRoomNumber(Integer roomNumber) {
+    public Order getOrderByRoomNumber(Integer roomNumber) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Order> query = criteriaBuilder.createQuery(Order.class);
@@ -60,7 +60,7 @@ public class OrderDao extends AbstractGenericDao<Order> implements IOrderDao {
             Join<Order, Room> room = root.join(Order_.ROOM);
             query.select(root).where(criteriaBuilder.equal(room.get(Room_.ROOM_NUMBER), roomNumber));
             TypedQuery<Order> result = entityManager.createQuery(query);
-            return result.getResultList();
+            return result.getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
@@ -93,6 +93,32 @@ public class OrderDao extends AbstractGenericDao<Order> implements IOrderDao {
             List<Predicate> conditions = new ArrayList<>();
             conditions.add(criteriaBuilder.equal(userDetails.get(UserDetails_.LAST_NAME), lastName));
             query.select(root).where(conditions.toArray(new Predicate[]{}));
+            TypedQuery<Order> result = entityManager.createQuery(query);
+            return result.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public List<Order> getAllNotApprovedOrders() {
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Order> query = criteriaBuilder.createQuery(Order.class);
+            Root<Order> root = query.from(Order.class);
+            query.select(root).where(criteriaBuilder.equal(root.get(Order_.APPROVED), false));
+            TypedQuery<Order> result = entityManager.createQuery(query);
+            return result.getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public List<Order> getAllApprovedOrders() {
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Order> query = criteriaBuilder.createQuery(Order.class);
+            Root<Order> root = query.from(Order.class);
+            query.select(root).where(criteriaBuilder.equal(root.get(Order_.APPROVED), true));
             TypedQuery<Order> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {

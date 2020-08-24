@@ -44,7 +44,7 @@ public class RoomDetailsController {
     }
 
     @GetMapping(value = "/get/{id}")
-    public ModelAndView getRoomDetailsById (@PathVariable long id) {
+    public ModelAndView getRoomDetailsById(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView();
         RoomDetailsDto roomDetailsDto = roomDetailsService.getRoomDetailsById(id);
         modelAndView.setViewName("/views/rooms/room");

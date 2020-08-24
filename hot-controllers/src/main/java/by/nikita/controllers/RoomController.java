@@ -18,7 +18,7 @@ public class RoomController {
     @Autowired
     IRoomService roomService;
 
-    @GetMapping("/new")
+    @GetMapping(value = "/new")
     public ModelAndView showNewRoomForm() {
         RoomDto roomDto = new RoomDto();
         RoomCategoryDto roomCategoryDto = new RoomCategoryDto();
@@ -66,65 +66,116 @@ public class RoomController {
         RoomDto room = roomService.getRoomByNumber(roomNumber);
         modelAndView.setViewName("/views/rooms/room");
         modelAndView.addObject("room", room);
+        modelAndView.addObject("number", roomNumber);
         return modelAndView;
     }
 
     @GetMapping(value = "/deluxe")
-    public List<RoomDto> getRoomsByDeluxeCategory() {
-        return roomService.getRoomsByDeluxeCategory();
+    public ModelAndView getRoomsByDeluxeCategory() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<RoomDto> rooms = roomService.getRoomsByDeluxeCategory();
+        modelAndView.setViewName("/views/rooms/all_rooms");
+        modelAndView.addObject("rooms", rooms);
+        return modelAndView;
     }
 
     @GetMapping(value = "/business")
-    public List<RoomDto> getRoomsByBusinessCategory() {
-        return roomService.getRoomsByBusinessCategory();
+    public ModelAndView getRoomsByBusinessCategory() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<RoomDto> rooms = roomService.getRoomsByBusinessCategory();
+        modelAndView.setViewName("/views/rooms/all_rooms");
+        modelAndView.addObject("rooms", rooms);
+        return modelAndView;
     }
 
     @GetMapping(value = "/standard")
-    public List<RoomDto> getRoomsByStandardCategory() {
-        return roomService.getRoomsByStandardCategory();
+    public ModelAndView getRoomsByStandardCategory() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<RoomDto> rooms = roomService.getRoomsByStandardCategory();
+        modelAndView.setViewName("/views/rooms/all_rooms");
+        modelAndView.addObject("rooms", rooms);
+        return modelAndView;
     }
 
     @GetMapping(value = "/econom")
-    public List<RoomDto> getRoomsByEconomCategory() {
-        return roomService.getRoomsByEconomCategory();
+    public ModelAndView getRoomsByEconomCategory() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<RoomDto> rooms = roomService.getRoomsByEconomCategory();
+        modelAndView.setViewName("/views/rooms/all_rooms");
+        modelAndView.addObject("rooms", rooms);
+        return modelAndView;
     }
 
     @GetMapping(value = "/vacant")
-    public List<RoomDto> getRoomsWhereStatusIsVacant() {
-        return roomService.getRoomsWhereStatusIsVacant();
+    public ModelAndView getRoomsWhereStatusIsVacant() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<RoomDto> rooms = roomService.getRoomsWhereStatusIsVacant();
+        modelAndView.setViewName("/views/rooms/all_rooms");
+        modelAndView.addObject("rooms", rooms);
+        return modelAndView;
     }
 
     @GetMapping(value = "/occupied")
-    public List<RoomDto> getRoomsWhereStatusIsOccupied() {
-        return roomService.getRoomsWhereStatusIsOccupied();
+    public ModelAndView getRoomsWhereStatusIsOccupied() {
+        ModelAndView modelAndView = new ModelAndView();
+        List<RoomDto> rooms = roomService.getRoomsWhereStatusIsOccupied();
+        modelAndView.setViewName("/views/rooms/all_rooms");
+        modelAndView.addObject("rooms", rooms);
+        return modelAndView;
     }
 
     @GetMapping(value = "/capacity/{roomCapacity}")
-    public List<RoomDto> getRoomsByCapacity(@PathVariable Integer roomCapacity) {
-        return roomService.getRoomsByCapacity(roomCapacity);
+    public ModelAndView getRoomsByCapacity(@PathVariable Integer roomCapacity) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<RoomDto> rooms = roomService.getRoomsByCapacity(roomCapacity);
+        modelAndView.setViewName("/views/rooms/all_rooms");
+        modelAndView.addObject("rooms", rooms);
+        return modelAndView;
     }
 
     @GetMapping(value = "/amount_of_rooms/{amountOfRooms}")
-    public List<RoomDto> getRoomByAmountOfRooms(@PathVariable Integer amountOfRooms) {
-        return roomService.getRoomByAmountOfRooms(amountOfRooms);
+    public ModelAndView getRoomByAmountOfRooms(@PathVariable Integer amountOfRooms) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<RoomDto> rooms = roomService.getRoomByAmountOfRooms(amountOfRooms);
+        modelAndView.setViewName("/views/rooms/all_rooms");
+        modelAndView.addObject("rooms", rooms);
+        return modelAndView;
     }
 
-    @DeleteMapping(value = "/{id}")
-    public void deleteRoom(long id) {
+    @PostMapping(value = "/delete/{id}")
+    public ModelAndView deleteRoom(@PathVariable("id") long id) {
+        ModelAndView modelAndView = new ModelAndView();
         roomService.deleteRoom(id);
+        modelAndView.setViewName("redirect:/rooms");
+        return modelAndView;
     }
 
-    @PutMapping(value = "/{id}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public void updateRoom(@PathVariable long id, @RequestBody RoomDto roomDto, @RequestBody RoomCategoryDto roomCategoryDto) {
+
+    @GetMapping(value = "/edit_room/{id}")
+    public ModelAndView showRoomEditForm(@PathVariable long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/views/rooms/edit_room");
+        RoomDto roomDto = roomService.getRoomById(id);
+        modelAndView.addObject("room", roomDto);
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/edit/{id}",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ModelAndView editRoom(@PathVariable("id") long id,
+                           RoomDto roomDto,
+                           RoomCategoryDto roomCategoryDto) {
+        ModelAndView modelAndView = new ModelAndView();
         roomService.updateRoom(id, roomDto, roomCategoryDto);
+        modelAndView.setViewName("redirect:/rooms/get/" + id);
+        return modelAndView;
     }
 
     @PutMapping(value = "/add_room_details/{roomId}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public RoomDto addRoomDetailsToRoom(@PathVariable long roomId, @RequestBody RoomDetailsDto roomDetailsDto) {
+    public RoomDto addRoomDetailsToRoom(@PathVariable long roomId,
+                                        @RequestBody RoomDetailsDto roomDetailsDto) {
         return roomService.addRoomDetailsToRoom(roomId, roomDetailsDto);
     }
 }

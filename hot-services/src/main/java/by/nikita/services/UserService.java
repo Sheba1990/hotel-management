@@ -5,9 +5,7 @@ import by.nikita.dto.*;
 import by.nikita.models.*;
 import by.nikita.models.enums.Role;
 import by.nikita.services.api.IUserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

@@ -14,6 +14,10 @@ public interface IOrderDao extends IAbstractGenericDao<Order> {
 
     List<Order> getOrdersByUserLastName(String lastName);
 
-    List<Order> getOrdersByRoomNumber(Integer roomNumber);
+    Order getOrderByRoomNumber(Integer roomNumber);
+
+    List<Order> getAllNotApprovedOrders();
+
+    List<Order> getAllApprovedOrders();
 
 }

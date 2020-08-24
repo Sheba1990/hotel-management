@@ -22,7 +22,11 @@ public interface IOrderService {
 
     List<OrderDto> getOrdersByUserLastName(String lastName);
 
-    List<OrderDto> getOrdersByRoomNumber(Integer roomNumber);
+    OrderDto getOrderByRoomNumber(Integer roomNumber);
+
+    List<OrderDto> getAllNotApprovedOrders();
+
+    List<OrderDto> getAllApprovedOrders();
 
     void updateOrder(long id, OrderDto orderDto);
 
