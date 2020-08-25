@@ -70,9 +70,9 @@
             <td class="align-middle col-xs-1 text-center" th:text="${room.roomCategory}"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${room.roomStatus}"></td>
             <td class="h6 small align-middle col-xs-1 text-center">
-                <a th:href="@{'/room_details/get/' + ${room.id}}">Details</a>
+                <a th:href="@{'/rooms/get/' + ${room.id}}">Details</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <a th:href="@{'/cvs/edit_cv/' + ${room.id}}">Edit</a>
+                <a th:href="@{'/rooms/edit_room/' + ${room.id}}">Edit</a>
             </td>
         </tr>
         </tbody>

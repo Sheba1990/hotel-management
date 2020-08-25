@@ -4,6 +4,7 @@ import by.nikita.models.UserDetails;
 import by.nikita.models.enums.Gender;
 import by.nikita.models.enums.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -64,8 +65,12 @@ public class UserDetailsDto extends AbstractIdAwareDto {
         for (UserDetails userDetails : userDetailsList) {
             UserDetailsDto userDetailsDto = new UserDetailsDto();
             userDetailsDto.setId(userDetails.getId());
-            userDetailsDto.setUserFullName(userDetails.getFirstName().concat(" " + userDetails.getMiddleName() + " " + userDetails.getLastName()));
             userDetailsDto.setUserName(userDetails.getUser().getUsername());
+            if (userDetails.getMiddleName() != null && !StringUtils.isEmpty(userDetails.getMiddleName())) {
+                userDetailsDto.setUserFullName(userDetails.getFirstName().concat(" " + userDetails.getMiddleName() + " " + userDetails.getLastName()));
+            } else {
+                userDetailsDto.setUserFullName(userDetails.getFirstName().concat(" " + userDetails.getLastName()));
+            }
             userDetailss.add(userDetailsDto);
         }
         return userDetailss;

@@ -20,10 +20,10 @@ public class RoomController {
 
     @GetMapping(value = "/new")
     public ModelAndView showNewRoomForm() {
+        ModelAndView modelAndView = new ModelAndView();
         RoomDto roomDto = new RoomDto();
         RoomCategoryDto roomCategoryDto = new RoomCategoryDto();
         RoomDetailsDto roomDetailsDto = new RoomDetailsDto();
-        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("room", roomDto);
         modelAndView.addObject("category", roomCategoryDto);
         modelAndView.addObject("details", roomDetailsDto);
@@ -154,7 +154,7 @@ public class RoomController {
     @GetMapping(value = "/edit_room/{id}")
     public ModelAndView showRoomEditForm(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/views/rooms/edit_room");
+        modelAndView.setViewName("/views/rooms/room_edit");
         RoomDto roomDto = roomService.getRoomById(id);
         modelAndView.addObject("room", roomDto);
         return modelAndView;
@@ -163,11 +163,12 @@ public class RoomController {
     @PostMapping(value = "/edit/{id}",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ModelAndView editRoom(@PathVariable("id") long id,
-                           RoomDto roomDto,
-                           RoomCategoryDto roomCategoryDto) {
+                                 RoomDto roomDto,
+                                 RoomCategoryDto roomCategoryDto,
+                                 RoomDetailsDto roomDetailsDto) {
         ModelAndView modelAndView = new ModelAndView();
-        roomService.updateRoom(id, roomDto, roomCategoryDto);
         modelAndView.setViewName("redirect:/rooms/get/" + id);
+        roomService.updateRoom(id, roomDto, roomCategoryDto, roomDetailsDto);
         return modelAndView;
     }
 

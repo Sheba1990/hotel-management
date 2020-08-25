@@ -10,12 +10,6 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RoomDetailsDto extends AbstractIdAwareDto {
 
-    private Integer roomNumber;
-
-    private String roomCategory;
-
-    private RoomStatus roomStatus;
-
     private Double pricePerNight;
 
     private Integer floor;
@@ -40,9 +34,6 @@ public class RoomDetailsDto extends AbstractIdAwareDto {
         for (RoomDetails roomDetails : roomDetailsList) {
             RoomDetailsDto roomDetailsDto = new RoomDetailsDto();
             roomDetailsDto.setId(roomDetails.getId());
-            roomDetailsDto.setRoomNumber(roomDetails.getRoom().getRoomNumber());
-            roomDetailsDto.setRoomCategory(roomDetails.getRoom().getRoomCategory().getCategoryName());
-            roomDetailsDto.setRoomStatus(roomDetails.getRoom().getRoomStatus());
             roomDetailss.add(roomDetailsDto);
         }
         return roomDetailss;
@@ -51,9 +42,6 @@ public class RoomDetailsDto extends AbstractIdAwareDto {
     public static RoomDetailsDto entityToDto(RoomDetails roomDetails) {
         RoomDetailsDto roomDetailsDto = new RoomDetailsDto();
         roomDetailsDto.setId(roomDetails.getId());
-        roomDetailsDto.setRoomNumber(roomDetails.getRoom().getRoomNumber());
-        roomDetailsDto.setRoomCategory(roomDetails.getRoom().getRoomCategory().getCategoryName());
-        roomDetailsDto.setRoomStatus(roomDetails.getRoom().getRoomStatus());
         roomDetailsDto.setPricePerNight(roomDetails.getPricePerNight());
         roomDetailsDto.setFloor(roomDetails.getFloor());
         roomDetailsDto.setAmountOfRooms(roomDetails.getAmountOfRooms());
@@ -71,8 +59,6 @@ public class RoomDetailsDto extends AbstractIdAwareDto {
     }
 
     public RoomDetailsDto(RoomDetails roomDetails) {
-        this.roomNumber = roomDetails.getRoom().getRoomNumber();
-        this.roomCategory = roomDetails.getRoom().getRoomCategory().getCategoryName();
         this.pricePerNight = roomDetails.getPricePerNight();
         this.floor = roomDetails.getFloor();
         this.amountOfRooms = roomDetails.getAmountOfRooms();
@@ -84,30 +70,6 @@ public class RoomDetailsDto extends AbstractIdAwareDto {
         this.hasBreakfast = roomDetails.isHasBreakfast();
     }
 
-
-    public Integer getRoomNumber() {
-        return roomNumber;
-    }
-
-    public void setRoomNumber(Integer roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-
-    public String getRoomCategory() {
-        return roomCategory;
-    }
-
-    public void setRoomCategory(String roomCategory) {
-        this.roomCategory = roomCategory;
-    }
-
-    public RoomStatus getRoomStatus() {
-        return roomStatus;
-    }
-
-    public void setRoomStatus(RoomStatus roomStatus) {
-        this.roomStatus = roomStatus;
-    }
 
     public Double getPricePerNight() {
         return pricePerNight;

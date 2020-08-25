@@ -1,6 +1,8 @@
 package by.nikita.controllers;
 
+import by.nikita.dto.RoomCategoryDto;
 import by.nikita.dto.RoomDetailsDto;
+import by.nikita.dto.RoomDto;
 import by.nikita.services.api.IRoomDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -43,15 +45,6 @@ public class RoomDetailsController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/get/{id}")
-    public ModelAndView getRoomDetailsById(@PathVariable long id) {
-        ModelAndView modelAndView = new ModelAndView();
-        RoomDetailsDto roomDetailsDto = roomDetailsService.getRoomDetailsById(id);
-        modelAndView.setViewName("/views/rooms/room");
-        modelAndView.addObject("roomDetails", roomDetailsDto);
-        return modelAndView;
-    }
-
     @GetMapping(value = "/room_number/{roomNumber}")
     RoomDetailsDto getRoomDetailsByRoomNumber(@PathVariable Integer roomNumber) {
         return roomDetailsService.getRoomDetailsByRoomNumber(roomNumber);
@@ -62,8 +55,20 @@ public class RoomDetailsController {
         roomDetailsService.deleteRoomDetails(id);
     }
 
-    @PutMapping(value = "/{id}")
-    void updateRoomDetails(@PathVariable long id, @RequestBody RoomDetailsDto roomDetailsDto) {
+    @GetMapping(value = "/edit_room/{id}")
+    public ModelAndView showRoomEditForm(@PathVariable long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/views/rooms/room_edit");
+        RoomDetailsDto roomDetailsDto = roomDetailsService.getRoomDetailsById(id);
+        modelAndView.addObject("room", roomDetailsDto);
+        return modelAndView;
+    }
+
+
+    @PutMapping(value = "/{id}",
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    void editRoomDetails(@PathVariable("id") long id,
+                         RoomDetailsDto roomDetailsDto) {
         roomDetailsService.updateRoomDetails(id, roomDetailsDto);
     }
 }

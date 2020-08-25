@@ -36,7 +36,7 @@ public interface IRoomService {
 
     void deleteRoom(long id);
 
-    void updateRoom(long id, RoomDto roomDto, RoomCategoryDto roomCategoryDto);
+    void updateRoom(long id, RoomDto roomDto, RoomCategoryDto roomCategoryDto, RoomDetailsDto roomDetailsDto);
 
     RoomDto addRoomDetailsToRoom(long roomId, RoomDetailsDto roomDetailsDto);
 }

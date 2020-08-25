@@ -16,6 +16,24 @@ public class RoomDto extends AbstractIdAwareDto {
 
     private RoomStatus roomStatus;
 
+    private Double pricePerNight;
+
+    private Integer floor;
+
+    private Integer amountOfRooms;
+
+    private Integer capacity;
+
+    private boolean hasSeaView;
+
+    private boolean hasBath;
+
+    private boolean hasBabyBed;
+
+    private boolean hasWifi;
+
+    private boolean hasBreakfast;
+
 
     public static List<RoomDto> convertList(List<Room> roomList) {
         List<RoomDto> rooms = new ArrayList<>();
@@ -36,6 +54,15 @@ public class RoomDto extends AbstractIdAwareDto {
         roomDto.setRoomNumber(room.getRoomNumber());
         roomDto.setRoomCategory(room.getRoomCategory().getCategoryName());
         roomDto.setRoomStatus(room.getRoomStatus());
+        roomDto.setPricePerNight(room.getRoomDetails().getPricePerNight());
+        roomDto.setFloor(room.getRoomDetails().getFloor());
+        roomDto.setAmountOfRooms(room.getRoomDetails().getAmountOfRooms());
+        roomDto.setCapacity(room.getRoomDetails().getCapacity());
+        roomDto.setHasSeaView(room.getRoomDetails().isHasSeaView());
+        roomDto.setHasBath(room.getRoomDetails().isHasBath());
+        roomDto.setHasBabyBed(room.getRoomDetails().isHasBabyBed());
+        roomDto.setHasWifi(room.getRoomDetails().isHasWifi());
+        roomDto.setHasBreakfast(room.getRoomDetails().isHasBreakfast());
         return roomDto;
     }
 
@@ -47,6 +74,15 @@ public class RoomDto extends AbstractIdAwareDto {
         this.roomNumber = room.getRoomNumber();
         this.roomCategory = room.getRoomCategory().getCategoryName();
         this.roomStatus = room.getRoomStatus();
+        this.pricePerNight = room.getRoomDetails().getPricePerNight();
+        this.floor = room.getRoomDetails().getFloor();
+        this.amountOfRooms = room.getRoomDetails().getAmountOfRooms();
+        this.capacity = room.getRoomDetails().getCapacity();
+        this.hasSeaView = room.getRoomDetails().isHasSeaView();
+        this.hasBath = room.getRoomDetails().isHasBath();
+        this.hasBabyBed = room.getRoomDetails().isHasBabyBed();
+        this.hasWifi = room.getRoomDetails().isHasWifi();
+        this.hasBreakfast = room.getRoomDetails().isHasBreakfast();
     }
 
     public Integer getRoomNumber() {
@@ -71,5 +107,77 @@ public class RoomDto extends AbstractIdAwareDto {
 
     public void setRoomStatus(RoomStatus roomStatus) {
         this.roomStatus = roomStatus;
+    }
+
+    public Double getPricePerNight() {
+        return pricePerNight;
+    }
+
+    public void setPricePerNight(Double pricePerNight) {
+        this.pricePerNight = pricePerNight;
+    }
+
+    public Integer getFloor() {
+        return floor;
+    }
+
+    public void setFloor(Integer floor) {
+        this.floor = floor;
+    }
+
+    public Integer getAmountOfRooms() {
+        return amountOfRooms;
+    }
+
+    public void setAmountOfRooms(Integer amountOfRooms) {
+        this.amountOfRooms = amountOfRooms;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public boolean isHasSeaView() {
+        return hasSeaView;
+    }
+
+    public void setHasSeaView(boolean hasSeaView) {
+        this.hasSeaView = hasSeaView;
+    }
+
+    public boolean isHasBath() {
+        return hasBath;
+    }
+
+    public void setHasBath(boolean hasBath) {
+        this.hasBath = hasBath;
+    }
+
+    public boolean isHasBabyBed() {
+        return hasBabyBed;
+    }
+
+    public void setHasBabyBed(boolean hasBabyBed) {
+        this.hasBabyBed = hasBabyBed;
+    }
+
+    public boolean isHasWifi() {
+        return hasWifi;
+    }
+
+    public void setHasWifi(boolean hasWifi) {
+        this.hasWifi = hasWifi;
+    }
+
+    public boolean isHasBreakfast() {
+        return hasBreakfast;
+    }
+
+    public void setHasBreakfast(boolean hasBreakfast) {
+        this.hasBreakfast = hasBreakfast;
     }
 }

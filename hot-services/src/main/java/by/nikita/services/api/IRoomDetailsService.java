@@ -1,6 +1,8 @@
 package by.nikita.services.api;
 
+import by.nikita.dto.RoomCategoryDto;
 import by.nikita.dto.RoomDetailsDto;
+import by.nikita.dto.RoomDto;
 
 import java.util.List;
 
@@ -16,5 +18,6 @@ public interface IRoomDetailsService {
 
     void deleteRoomDetails(long id);
 
-    void updateRoomDetails(long id, RoomDetailsDto roomDetailsDto);
+    void updateRoomDetails(long id,
+                           RoomDetailsDto roomDetailsDto);
 }

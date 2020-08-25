@@ -43,65 +43,65 @@
         <tr class="thead-dark">
         <tr>
             <td scope="col" class="align-middle">Number</td>
-            <td class="align-middle" th:text="${roomDetails.roomNumber}"></td>
+            <td class="align-middle" th:text="${room.roomNumber}"></td>
         </tr>
         <tr>
             <td scope="col" class="align-middle">Category</td>
-            <td class="align-middle" th:text="${roomDetails.roomCategory}"></td>
+            <td class="align-middle" th:text="${room.roomCategory}"></td>
         </tr>
         <tr>
             <td scope="col" class="align-middle">Status</td>
-            <td class="align-middle" th:text="${roomDetails.roomStatus}"></td>
+            <td class="align-middle" th:text="${room.roomStatus}"></td>
         </tr>
         <tr>
             <td scope="col" class="align-middle">Price per night</td>
-            <td class="align-middle" th:text="${roomDetails.pricePerNight} + ' $'"></td>
+            <td class="align-middle" th:text="${room.pricePerNight} + ' $'"></td>
         </tr>
         <tr>
             <td scope="col" class="align-middle">Floor</td>
-            <td class="align-middle" th:text="${roomDetails.floor}"></td>
+            <td class="align-middle" th:text="${room.floor}"></td>
         </tr>
         <tr>
             <td scope="col" class="align-middle">Amount of rooms</td>
-            <td class="align-middle" th:text="${roomDetails.amountOfRooms}"></td>
+            <td class="align-middle" th:text="${room.amountOfRooms}"></td>
         </tr>
         <tr>
             <td scope="col" class="align-middle">Capacity</td>
-            <td class="align-middle" th:text="${roomDetails.capacity}"></td>
+            <td class="align-middle" th:text="${room.capacity}"></td>
         </tr>
         <tr>
             <td scope="col" class="align-middle">Sea view</td>
             <td class="align-middle">
-                <span th:if="${roomDetails.hasSeaView == true}">Yes</span>
-                <span th:unless="${roomDetails.hasSeaView == true}">No</span>
+                <span th:if="${room.hasSeaView == true}">Yes</span>
+                <span th:unless="${room.hasSeaView == true}">No</span>
             </td>
         </tr>
         <tr>
             <td scope="col" class="align-middle">Bath</td>
             <td class="align-middle">
-                <span th:if="${roomDetails.hasBath == true}">Yes</span>
-                <span th:unless="${roomDetails.hasBath == true}">No</span>
+                <span th:if="${room.hasBath == true}">Yes</span>
+                <span th:unless="${room.hasBath == true}">No</span>
             </td>
         </tr>
         <tr>
             <td scope="col" class="align-middle">Baby bed</td>
             <td class="align-middle">
-                <span th:if="${roomDetails.hasBabyBed == true}">Yes</span>
-                <span th:unless="${roomDetails.hasBabyBed == true}">No</span>
+                <span th:if="${room.hasBabyBed == true}">Yes</span>
+                <span th:unless="${room.hasBabyBed == true}">No</span>
             </td>
         </tr>
         <tr>
             <td scope="col" class="align-middle">Wi-Fi</td>
             <td class="align-middle">
-                <span th:if="${roomDetails.hasWifi == true}">Yes</span>
-                <span th:unless="${roomDetails.hasWifi == true}">No</span>
+                <span th:if="${room.hasWifi == true}">Yes</span>
+                <span th:unless="${room.hasWifi == true}">No</span>
             </td>
         </tr>
         <tr>
             <td scope="col" class="align-middle">Breakfast</td>
             <td class="align-middle">
-                <span th:if="${roomDetails.hasBreakfast == true}">Yes</span>
-                <span th:unless="${roomDetails.hasBreakfast == true}">No</span>
+                <span th:if="${room.hasBreakfast == true}">Yes</span>
+                <span th:unless="${room.hasBreakfast == true}">No</span>
             </td>
         </tr>
 

@@ -21,14 +21,16 @@
    }
 
 
+
+
 </style>
 <body>
 <div th:replace="~{fragments/header :: header}">Header</div>
 <div align="center">
     <br/>
-    <h1>Add new room</h1>
+    <h1>Edit room</h1>
     <br/>
-    <form th:action="@{/rooms/save}" method="post">
+    <form action="#" th:action="@{/rooms/edit/{id}(id=${room.id})}" method="post">
         <div>
             <form>
                 <div class="form-row mx-auto">
@@ -39,7 +41,7 @@
                     </div>
                     <div class="col-md-2 mb-3 mx-auto">
                         <label>Category</label>
-                        <select class="form-control" id="categoryName" th:field="*{category.categoryName}">
+                        <select class="form-control" id="roomCategory" th:field="*{room.roomCategory}">
                             <option th:value="DELUXE"
                                     th:text="DELUXE"></option>
                             <option th:value="BUSINESS"
@@ -51,8 +53,21 @@
                         </select>
                     </div>
                     <div class="col-md-2 mb-3 mx-auto">
+                        <label>Amount of rooms</label>
+                        <select class="form-control" id="amountOfRooms" th:field="*{room.amountOfRooms}">
+                            <option th:value="4"
+                                    th:text="4"></option>
+                            <option th:value="3"
+                                    th:text="3"></option>
+                            <option th:value="2"
+                                    th:text="2"></option>
+                            <option th:value="1"
+                                    th:text="1"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 mb-3 mx-auto">
                         <label>Floor</label>
-                        <select class="form-control" id="floor" th:field="*{details.floor}">
+                        <select class="form-control" id="floor" th:field="*{room.floor}">
                             <option th:value="5"
                                     th:text="5"></option>
                             <option th:value="4"
@@ -67,7 +82,7 @@
                     </div>
                     <div class="col-md-2 mb-3 mx-auto">
                         <label>Capacity</label>
-                        <select class="form-control" id="capacity" th:field="*{details.capacity}">
+                        <select class="form-control" id="capacity" th:field="*{room.capacity}">
                             <option th:value="5"
                                     th:text="5"></option>
                             <option th:value="4"
@@ -86,13 +101,13 @@
             <div class="form-inline justify-content-center">
                 <div>
                     <button type="submit" class="btn btn-primary">
-                        Save
+                        Save changes
                     </button>
                 </div>
                 <div class="ml-2">
-                    <form th:action="@{/rooms/}" th:method="get">
+                    <form th:action="@{'/rooms/delete/' + ${room.id}}" th:method="delete">
                         <button class="btn btn-danger">
-                            Cancel
+                            Delete room
                         </button>
                     </form>
                 </div>
@@ -100,7 +115,6 @@
         </div>
     </form>
 </div>
-<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
