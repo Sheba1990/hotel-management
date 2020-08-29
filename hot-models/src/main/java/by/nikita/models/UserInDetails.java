@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "user_details_table")
-public class UserDetails extends AbstractIdAwareEntity {
+public class UserInDetails extends AbstractIdAwareEntity {
 
     @Column(name = "first_name")
     private String firstName;
@@ -34,13 +34,13 @@ public class UserDetails extends AbstractIdAwareEntity {
     @JoinColumn(name = "contact_data_id", referencedColumnName = "id")
     private ContactData contactData;
 
-    @OneToOne(mappedBy = "userDetails", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "userInDetails", fetch = FetchType.LAZY)
     private User user;
 
-    public UserDetails() {
+    public UserInDetails() {
     }
 
-    public UserDetails(
+    public UserInDetails(
             String firstName,
             String lastName,
             String middleName,

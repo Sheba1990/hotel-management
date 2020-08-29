@@ -28,9 +28,9 @@ public class AddressDao extends AbstractGenericDao<Address> implements IAddressD
             CriteriaQuery<Address> query = criteriaBuilder.createQuery(Address.class);
             Root<Address> root = query.from(Address.class);
             Join<Address, ContactData> contactData = root.join(Address_.CONTACT_DATA);
-            Join<ContactData, UserDetails> userDetails = contactData.join(ContactData_.USER_DETAILS);
+            Join<ContactData, UserInDetails> userDetails = contactData.join(ContactData_.USER_IN_DETAILS);
             List<Predicate> conditions = new ArrayList<>();
-            conditions.add(criteriaBuilder.equal(userDetails.get(UserDetails_.FIRST_NAME), userFirstName));
+            conditions.add(criteriaBuilder.equal(userDetails.get(UserInDetails_.FIRST_NAME), userFirstName));
             query.select(root).where(conditions.toArray(new Predicate[]{}));
             TypedQuery<Address> result = entityManager.createQuery(query);
             return result.getResultList();
@@ -46,9 +46,9 @@ public class AddressDao extends AbstractGenericDao<Address> implements IAddressD
             CriteriaQuery<Address> query = criteriaBuilder.createQuery(Address.class);
             Root<Address> root = query.from(Address.class);
             Join<Address, ContactData> contactData = root.join(Address_.CONTACT_DATA);
-            Join<ContactData, UserDetails> userDetails = contactData.join(ContactData_.USER_DETAILS);
+            Join<ContactData, UserInDetails> userDetails = contactData.join(ContactData_.USER_IN_DETAILS);
             List<Predicate> conditions = new ArrayList<>();
-            conditions.add(criteriaBuilder.equal(userDetails.get(UserDetails_.LAST_NAME), userLastName));
+            conditions.add(criteriaBuilder.equal(userDetails.get(UserInDetails_.LAST_NAME), userLastName));
             query.select(root).where(conditions.toArray(new Predicate[]{}));
             TypedQuery<Address> result = entityManager.createQuery(query);
             return result.getResultList();

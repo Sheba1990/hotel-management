@@ -1,7 +1,6 @@
 package by.nikita.dto;
 
 import by.nikita.models.RoomDetails;
-import by.nikita.models.enums.RoomStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.ArrayList;

@@ -19,7 +19,7 @@ public class PassportData extends AbstractIdAwareEntity {
     private String countryOfIssue;
 
     @OneToOne(mappedBy = "passportData", fetch = FetchType.LAZY)
-    private UserDetails userDetails;
+    private UserInDetails userInDetails;
 
     public PassportData() {
     }
@@ -29,12 +29,12 @@ public class PassportData extends AbstractIdAwareEntity {
             String dateOfIssue,
             String dateOfExpiry,
             String countryOfIssue,
-            UserDetails userDetails) {
+            UserInDetails userInDetails) {
         this.passportNumber = passportNumber;
         this.dateOfIssue = dateOfIssue;
         this.dateOfExpiry = dateOfExpiry;
         this.countryOfIssue = countryOfIssue;
-        this.userDetails = userDetails;
+        this.userInDetails = userInDetails;
 
     }
 
@@ -70,12 +70,12 @@ public class PassportData extends AbstractIdAwareEntity {
         this.countryOfIssue = countryOfIssue;
     }
 
-    public UserDetails getUserDetails() {
-        return userDetails;
+    public UserInDetails getUserInDetails() {
+        return userInDetails;
     }
 
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
+    public void setUserInDetails(UserInDetails userInDetails) {
+        this.userInDetails = userInDetails;
     }
 }
 

@@ -3,8 +3,8 @@ package by.nikita.controllers;
 import by.nikita.dto.AddressDto;
 import by.nikita.dto.ContactDataDto;
 import by.nikita.dto.PassportDataDto;
-import by.nikita.dto.UserDetailsDto;
-import by.nikita.services.api.IUserDetailsService;
+import by.nikita.dto.UserInDetailsDto;
+import by.nikita.services.api.IUserInDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,48 +15,48 @@ import java.util.List;
 public class UserDetailsController {
 
     @Autowired
-    IUserDetailsService userDetailsService;
+    IUserInDetailsService userDetailsService;
 
     @PostMapping("/")
-    UserDetailsDto addUserDetails(@RequestBody UserDetailsDto userDetailsDto,
-                                  @RequestBody ContactDataDto contactDataDto,
-                                  @RequestBody AddressDto addressDto,
-                                  @RequestBody PassportDataDto passportDataDto) {
-        return userDetailsService.addUserDetails(userDetailsDto, contactDataDto, addressDto, passportDataDto);
+    UserInDetailsDto addUserDetails(@RequestBody UserInDetailsDto userInDetailsDto,
+                                    @RequestBody ContactDataDto contactDataDto,
+                                    @RequestBody AddressDto addressDto,
+                                    @RequestBody PassportDataDto passportDataDto) {
+        return userDetailsService.addUserDetails(userInDetailsDto, contactDataDto, addressDto, passportDataDto);
     }
 
     @GetMapping("/{id}")
-    UserDetailsDto getUserDetailsById(@PathVariable long id) {
+    UserInDetailsDto getUserDetailsById(@PathVariable long id) {
         return userDetailsService.getUserDetailsById(id);
     }
 
     @GetMapping("/userId/{userId}")
-    UserDetailsDto getUserDetailsByUserId(@PathVariable long userId) {
+    UserInDetailsDto getUserDetailsByUserId(@PathVariable long userId) {
         return userDetailsService.getUserDetailsByUserId(userId);
     }
 
     @GetMapping
-    List<UserDetailsDto> getAllUserDetails() {
+    List<UserInDetailsDto> getAllUserDetails() {
         return userDetailsService.getAllUserDetails();
     }
 
     @GetMapping("/user_first_name/{firstName}")
-    List<UserDetailsDto> getUserDetailsByUserFirstName(@PathVariable String firstName) {
+    List<UserInDetailsDto> getUserDetailsByUserFirstName(@PathVariable String firstName) {
         return userDetailsService.getUserDetailsByUserFirstName(firstName);
     }
 
     @GetMapping("/user_last_name/{lastName}")
-    List<UserDetailsDto> getUserDetailsByUserLastName(@PathVariable String lastName) {
+    List<UserInDetailsDto> getUserDetailsByUserLastName(@PathVariable String lastName) {
         return userDetailsService.getUserDetailsByUserLastName(lastName);
     }
 
     @PutMapping("/{id}")
     void updateUserDetails(@PathVariable long id,
-                           @RequestBody UserDetailsDto userDetailsDto,
+                           @RequestBody UserInDetailsDto userInDetailsDto,
                            @RequestBody ContactDataDto contactDataDto,
                            @RequestBody AddressDto addressDto,
                            @RequestBody PassportDataDto passportDataDto) {
-        userDetailsService.updateUserDetails(id, userDetailsDto, contactDataDto, addressDto, passportDataDto);
+        userDetailsService.updateUserDetails(id, userInDetailsDto, contactDataDto, addressDto, passportDataDto);
     }
 
     @DeleteMapping("/{id}")
@@ -66,14 +66,14 @@ public class UserDetailsController {
     }
 
     @PutMapping("/add_contacts_to_details/{contactDataId}/{userDetailsId}")
-    UserDetailsDto addContactDataToUserDetails(@PathVariable long contactDataId,
-                                               @PathVariable long userDetailsId) {
+    UserInDetailsDto addContactDataToUserDetails(@PathVariable long contactDataId,
+                                                 @PathVariable long userDetailsId) {
         return userDetailsService.addContactDataToUserDetails(contactDataId, userDetailsId);
     }
 
     @PutMapping("/add_passport_to_details/{contactDataId}/{userDetailsId}")
-    UserDetailsDto addPassportDataToUserDetails(@PathVariable long passportDataId,
-                                                @PathVariable long userDetailsId) {
+    UserInDetailsDto addPassportDataToUserDetails(@PathVariable long passportDataId,
+                                                  @PathVariable long userDetailsId) {
         return userDetailsService.addPassportDataToUserDetails(passportDataId, userDetailsId);
     }
 

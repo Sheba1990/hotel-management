@@ -2,7 +2,7 @@ package by.nikita.dto;
 
 import java.util.Objects;
 
-public class RoleDto {
+public class RoleDto extends AbstractIdAwareDto {
 
     private String roleName;
 

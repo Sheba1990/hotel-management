@@ -30,9 +30,9 @@ public class PassportDataDto extends AbstractIdAwareDto {
             PassportDataDto passportDataDto = new PassportDataDto();
             passportDataDto.setId(passportData.getId());
             passportDataDto.setCountryOfIssue(passportData.getCountryOfIssue());
-            if (passportData.getUserDetails() != null) {
-                passportDataDto.setUserFirstName(passportData.getUserDetails().getFirstName());
-                passportDataDto.setUserLastName(passportData.getUserDetails().getLastName());
+            if (passportData.getUserInDetails() != null) {
+                passportDataDto.setUserFirstName(passportData.getUserInDetails().getFirstName());
+                passportDataDto.setUserLastName(passportData.getUserInDetails().getLastName());
             } else {
                 passportDataDto.setUserFirstName(null);
                 passportDataDto.setUserLastName(null);
@@ -49,10 +49,10 @@ public class PassportDataDto extends AbstractIdAwareDto {
         passportDataDto.setDateOfIssue(passportData.getDateOfIssue());
         passportDataDto.setDateOfExpiry(passportData.getDateOfExpiry());
         passportDataDto.setCountryOfIssue(passportData.getCountryOfIssue());
-        if (passportData.getUserDetails() != null) {
-            passportDataDto.setUserFirstName(passportData.getUserDetails().getFirstName());
-            passportDataDto.setUserMiddleName(passportData.getUserDetails().getMiddleName());
-            passportDataDto.setUserLastName(passportData.getUserDetails().getLastName());
+        if (passportData.getUserInDetails() != null) {
+            passportDataDto.setUserFirstName(passportData.getUserInDetails().getFirstName());
+            passportDataDto.setUserMiddleName(passportData.getUserInDetails().getMiddleName());
+            passportDataDto.setUserLastName(passportData.getUserInDetails().getLastName());
         } else {
             passportDataDto.setUserFirstName(null);
             passportDataDto.setUserLastName(null);
@@ -69,8 +69,8 @@ public class PassportDataDto extends AbstractIdAwareDto {
         this.dateOfIssue = passportData.getDateOfIssue();
         this.dateOfExpiry = passportData.getDateOfExpiry();
         this.countryOfIssue = passportData.getCountryOfIssue();
-        this.userFirstName = passportData.getUserDetails().getFirstName();
-        this.userLastName = passportData.getUserDetails().getLastName();
+        this.userFirstName = passportData.getUserInDetails().getFirstName();
+        this.userLastName = passportData.getUserInDetails().getLastName();
     }
 
     public String getPassportNumber() {

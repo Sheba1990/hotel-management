@@ -62,8 +62,6 @@ public class OrderDto extends AbstractIdAwareDto {
         }
         orderDto.setUserName(order.getUser().getUsername());
         orderDto.setUserEmail(order.getUser().getEmail());
-        orderDto.setUserFirstName(order.getUser().getUserDetails().getFirstName());
-        orderDto.setUserLastName(order.getUser().getUserDetails().getLastName());
         orderDto.setRoomNumber(order.getRoom().getRoomNumber());
         orderDto.setRoomCategory(order.getRoom().getRoomCategory().getCategoryName());
         return orderDto;
@@ -80,8 +78,6 @@ public class OrderDto extends AbstractIdAwareDto {
         this.dateOfCheckOut = order.getDateOfCheckOut();
         this.userName = order.getUser().getUsername();
         this.userEmail = order.getUser().getEmail();
-        this.userFirstName = order.getUser().getUserDetails().getFirstName();
-        this.userLastName = order.getUser().getUserDetails().getLastName();
         this.roomNumber = order.getRoom().getRoomNumber();
         this.roomCategory = order.getRoom().getRoomCategory().getCategoryName();
     }

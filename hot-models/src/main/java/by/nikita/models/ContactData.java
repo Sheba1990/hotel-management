@@ -11,7 +11,7 @@ public class ContactData extends AbstractIdAwareEntity {
     private String phoneNumber;
 
     @OneToOne(mappedBy = "contactData", fetch = FetchType.LAZY)
-    private UserDetails userDetails;
+    private UserInDetails userInDetails;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
@@ -20,8 +20,8 @@ public class ContactData extends AbstractIdAwareEntity {
     public ContactData() {
     }
 
-    public ContactData(String phoneNumber, UserDetails userDetails, Address address) {
-        this.userDetails = userDetails;
+    public ContactData(String phoneNumber, UserInDetails userInDetails, Address address) {
+        this.userInDetails = userInDetails;
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
@@ -34,12 +34,12 @@ public class ContactData extends AbstractIdAwareEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public UserDetails getUserDetails() {
-        return userDetails;
+    public UserInDetails getUserInDetails() {
+        return userInDetails;
     }
 
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
+    public void setUserInDetails(UserInDetails userInDetails) {
+        this.userInDetails = userInDetails;
     }
 
     public Address getAddress() {

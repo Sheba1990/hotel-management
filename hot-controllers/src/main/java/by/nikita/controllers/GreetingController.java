@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping(value = "/")
-public class WelcomeController {
+public class GreetingController {
 
     @GetMapping
-    public String homePage(Model model) {
-        return "home/home";
+    public String greeting(Model model) {
+        return "greeting/greeting";
     }
 }

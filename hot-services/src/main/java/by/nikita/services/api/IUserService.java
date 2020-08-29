@@ -1,39 +1,19 @@
 package by.nikita.services.api;
 
-import by.nikita.dto.*;
+import by.nikita.dto.UserDto;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
 public interface IUserService {
 
-    UserDto addUser(UserDto userDto);
+    void addUser(UserDto userDto);
 
-    List<UserDto> getAllUsers();
+    UserDetails getUserByUsername(String username);
 
     UserDto getUserById(long id);
 
-    List<UserDto> getUsersByFirstName(String firstName);
+    List<UserDto> getAllUsers();
 
-    List<UserDto> getUsersByLastName(String lastName);
-
-    List<UserDto> getUsersByFullName(String firstName, String lastName);
-
-    List<UserDto> getUsersByPassportIssueCountry(String passportCountry);
-
-    List<UserDto> getUsersByResidenceCountry(String residenceCountry);
-
-    List<UserDto> getUsersByResidenceCity(String residenceCity);
-
-    List<UserDto> getUsersByOccupiedRoomNumber(Integer roomNumber);
-
-    void updateUser(long id, UserDto userDto);
-
-    void deleteUser(long id);
-
-    UserDto addUserDetailsToUser(long userId,
-                                 UserDetailsDto userDetailsDto,
-                                 ContactDataDto contactDataDto,
-                                 AddressDto addressDto,
-                                 PassportDataDto passportDataDto);
 
 }

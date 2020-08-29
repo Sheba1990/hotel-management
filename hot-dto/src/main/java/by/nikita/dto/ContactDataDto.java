@@ -38,9 +38,9 @@ public class ContactDataDto extends AbstractIdAwareDto {
         for (ContactData contactData : contactDataList) {
             ContactDataDto contactDataDto = new ContactDataDto();
             contactDataDto.setId(contactData.getId());
-            if (contactData.getUserDetails().getUser() != null) {
-                contactDataDto.setUserName(contactData.getUserDetails().getUser().getUsername());
-                contactDataDto.setUserEmail(contactData.getUserDetails().getUser().getEmail());
+            if (contactData.getUserInDetails().getUser() != null) {
+                contactDataDto.setUserName(contactData.getUserInDetails().getUser().getUsername());
+                contactDataDto.setUserEmail(contactData.getUserInDetails().getUser().getEmail());
             } else {
                 contactDataDto.setUserName(null);
                 contactDataDto.setUserEmail(null);
@@ -54,16 +54,16 @@ public class ContactDataDto extends AbstractIdAwareDto {
     public static ContactDataDto entityToDto(ContactData contactData) {
         ContactDataDto contactDataDto = new ContactDataDto();
         contactDataDto.setId(contactData.getId());
-        if (contactData.getUserDetails().getUser() != null) {
-            contactDataDto.setUserName(contactData.getUserDetails().getUser().getUsername());
-            contactDataDto.setUserEmail(contactData.getUserDetails().getUser().getEmail());
+        if (contactData.getUserInDetails().getUser() != null) {
+            contactDataDto.setUserName(contactData.getUserInDetails().getUser().getUsername());
+            contactDataDto.setUserEmail(contactData.getUserInDetails().getUser().getEmail());
         } else {
             contactDataDto.setUserName(null);
             contactDataDto.setUserEmail(null);
         }
-        if (contactData.getUserDetails() != null) {
-            contactDataDto.setUserFirstName(contactData.getUserDetails().getFirstName());
-            contactDataDto.setUserLastName(contactData.getUserDetails().getLastName());
+        if (contactData.getUserInDetails() != null) {
+            contactDataDto.setUserFirstName(contactData.getUserInDetails().getFirstName());
+            contactDataDto.setUserLastName(contactData.getUserInDetails().getLastName());
         } else {
             contactDataDto.setUserFirstName(null);
             contactDataDto.setUserLastName(null);
@@ -86,11 +86,11 @@ public class ContactDataDto extends AbstractIdAwareDto {
 
     public ContactDataDto(ContactData contactData) {
         this.id = contactData.getId();
-        this.userName = contactData.getUserDetails().getUser().getUsername();
-        this.userFirstName = contactData.getUserDetails().getFirstName();
-        this.userLastName = contactData.getUserDetails().getLastName();
+        this.userName = contactData.getUserInDetails().getUser().getUsername();
+        this.userFirstName = contactData.getUserInDetails().getFirstName();
+        this.userLastName = contactData.getUserInDetails().getLastName();
         this.userPhoneNumber = contactData.getPhoneNumber();
-        this.userEmail = contactData.getUserDetails().getUser().getEmail();
+        this.userEmail = contactData.getUserInDetails().getUser().getEmail();
         this.postalCode = contactData.getAddress().getPostalCode();
         this.country = contactData.getAddress().getCountry();
         this.province = contactData.getAddress().getProvince();

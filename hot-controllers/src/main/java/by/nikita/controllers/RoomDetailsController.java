@@ -1,8 +1,6 @@
 package by.nikita.controllers;
 
-import by.nikita.dto.RoomCategoryDto;
 import by.nikita.dto.RoomDetailsDto;
-import by.nikita.dto.RoomDto;
 import by.nikita.services.api.IRoomDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

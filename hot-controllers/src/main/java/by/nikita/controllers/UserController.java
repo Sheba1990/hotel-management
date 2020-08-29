@@ -1,91 +1,48 @@
 package by.nikita.controllers;
 
-import by.nikita.dto.*;
+import by.nikita.models.Role;
+import by.nikita.models.User;
 import by.nikita.services.api.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     @Autowired
-    IUserService userService;
+    private IUserService userService;
 
-    @PostMapping(value = "/",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    UserDto addUser(UserDto userDto) {
-        return userService.addUser(userDto);
+    public ModelAndView getUser(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        return modelAndView;
     }
 
-    @GetMapping
-    List<UserDto> getAllUsers() {
-        return userService.getAllUsers();
+    @GetMapping(value = "/edit_user/{user}")
+    public ModelAndView showUserEditForm(User user) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("roles", Role.values());
+        modelAndView.setViewName("user_edit");
+        return modelAndView;
     }
 
-    @GetMapping(value = "/{id}")
-    UserDto getUserById(@PathVariable long id) {
-        return userService.getUserById(id);
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping
+    public ModelAndView userSave(
+            @RequestParam String username,
+            @RequestParam Map<String, String> form,
+            @RequestParam("userId") User user) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        userService.addUser(user, username, form);
+        modelAndView.setViewName("redirect:/user");
+        return modelAndView;
     }
 
-    @GetMapping(value = "/first_name/{firstName}")
-    List<UserDto> getUsersByFirstName(String firstName) {
-        return userService.getUsersByFirstName(firstName);
-    }
-
-    @GetMapping(value = "/last_name/{lastName}")
-    List<UserDto> getUsersByLastName(String lastName) {
-        return userService.getUsersByLastName(lastName);
-    }
-
-    @GetMapping(value = "/full_name/{firstName}/{lastName}")
-    List<UserDto> getUsersByFullName(@PathVariable String firstName, @PathVariable String lastName) {
-        return userService.getUsersByFullName(firstName, lastName);
-    }
-
-    @GetMapping(value = "/passport_country/{passportCountry}")
-    List<UserDto> getUsersByPassportIssueCountry(@PathVariable String passportCountry) {
-        return userService.getUsersByPassportIssueCountry(passportCountry);
-    }
-
-    @GetMapping(value = "/residence_country/{residenceCountry}")
-    List<UserDto> getUsersByResidenceCountry(@PathVariable String residenceCountry) {
-        return userService.getUsersByResidenceCountry(residenceCountry);
-    }
-
-    @GetMapping(value = "/residence_city/{residenceCity}")
-    List<UserDto> getUsersByResidenceCity(@PathVariable String residenceCity) {
-        return userService.getUsersByResidenceCity(residenceCity);
-    }
-
-    @GetMapping(value = "/room_number/{roomNumber}")
-    List<UserDto> getUsersByOccupiedRoomNumber(@PathVariable Integer roomNumber) {
-        return userService.getUsersByOccupiedRoomNumber(roomNumber);
-    }
-
-    @PutMapping(value = "/edit/{id}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    void updateUser(@PathVariable long id, @RequestBody UserDto userDto) {
-        userService.updateUser(id, userDto);
-
-    }
-
-    @DeleteMapping(value = "/{id}")
-    void deleteUser(@PathVariable long id) {
-        userService.deleteUser(id);
-    }
-
-    UserDto addUserDetailsToUser(long userId,
-                                 UserDetailsDto userDetailsDto,
-                                 ContactDataDto contactDataDto,
-                                 AddressDto addressDto,
-                                 PassportDataDto passportDataDto) {
-        return userService.addUserDetailsToUser(userId, userDetailsDto, contactDataDto, addressDto, passportDataDto);
-    }
 
 }

@@ -3,8 +3,8 @@ package by.nikita.dao;
 import by.nikita.dao.api.IPassportDataDao;
 import by.nikita.models.PassportData;
 import by.nikita.models.PassportData_;
-import by.nikita.models.UserDetails;
-import by.nikita.models.UserDetails_;
+import by.nikita.models.UserInDetails;
+import by.nikita.models.UserInDetails_;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
@@ -25,8 +25,8 @@ public class PassportDataDao extends AbstractGenericDao<PassportData> implements
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<PassportData> query = criteriaBuilder.createQuery(PassportData.class);
             Root<PassportData> root = query.from(PassportData.class);
-            Join<PassportData, UserDetails> userDetails = root.join(PassportData_.USER_DETAILS);
-            query.select(root).where(criteriaBuilder.equal(userDetails.get(UserDetails_.FIRST_NAME), userFirstName));
+            Join<PassportData, UserInDetails> userDetails = root.join(PassportData_.USER_IN_DETAILS);
+            query.select(root).where(criteriaBuilder.equal(userDetails.get(UserInDetails_.FIRST_NAME), userFirstName));
             TypedQuery<PassportData> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
@@ -40,8 +40,8 @@ public class PassportDataDao extends AbstractGenericDao<PassportData> implements
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<PassportData> query = criteriaBuilder.createQuery(PassportData.class);
             Root<PassportData> root = query.from(PassportData.class);
-            Join<PassportData, UserDetails> userDetails = root.join(PassportData_.USER_DETAILS);
-            query.select(root).where(criteriaBuilder.equal(userDetails.get(UserDetails_.LAST_NAME), userLastName));
+            Join<PassportData, UserInDetails> userDetails = root.join(PassportData_.USER_IN_DETAILS);
+            query.select(root).where(criteriaBuilder.equal(userDetails.get(UserInDetails_.LAST_NAME), userLastName));
             TypedQuery<PassportData> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
@@ -55,9 +55,9 @@ public class PassportDataDao extends AbstractGenericDao<PassportData> implements
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<PassportData> query = criteriaBuilder.createQuery(PassportData.class);
             Root<PassportData> root = query.from(PassportData.class);
-            Join<PassportData, UserDetails> userDetails = root.join(PassportData_.USER_DETAILS);
-            Predicate predicateForFirstName = criteriaBuilder.equal(userDetails.get(UserDetails_.FIRST_NAME), userFirstName);
-            Predicate predicateForLastName = criteriaBuilder.equal(userDetails.get(UserDetails_.LAST_NAME), userLastName);
+            Join<PassportData, UserInDetails> userDetails = root.join(PassportData_.USER_IN_DETAILS);
+            Predicate predicateForFirstName = criteriaBuilder.equal(userDetails.get(UserInDetails_.FIRST_NAME), userFirstName);
+            Predicate predicateForLastName = criteriaBuilder.equal(userDetails.get(UserInDetails_.LAST_NAME), userLastName);
             Predicate predicateForFullName = criteriaBuilder.and(predicateForFirstName, predicateForLastName);
             query.select(root).where(predicateForFullName);
             TypedQuery<PassportData> result = entityManager.createQuery(query);

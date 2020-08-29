@@ -1,8 +1,6 @@
 package by.nikita.services.api;
 
-import by.nikita.dto.RoomCategoryDto;
 import by.nikita.dto.RoomDetailsDto;
-import by.nikita.dto.RoomDto;
 
 import java.util.List;
 

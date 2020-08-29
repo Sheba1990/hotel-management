@@ -1,9 +1,12 @@
 package by.nikita.dto;
 
+import by.nikita.models.Role;
 import by.nikita.models.User;
-import by.nikita.models.enums.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,13 +15,20 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto extends AbstractIdAwareDto {
 
+    @NotBlank(message = "Username can not be empty")
     private String userName;
 
     private Set<RoleDto> roles;
 
+    @Email(message = "Email is not correct")
+    @NotBlank(message = "Email can not be empty")
     private String userEmail;
 
+    @NotBlank(message = "Password can not be empty and less than 8 symbols")
+    @Length(min = 5, message = "Password can not be less than 5 symbols")
     private String userPassword;
+
+    private String userPasswordConfirmation;
 
     private String userFirstName;
 
@@ -43,8 +53,6 @@ public class UserDto extends AbstractIdAwareDto {
             }
             userDto.setRoles(roles);
             userDto.setUserEmail(user.getEmail());
-            userDto.setUserFirstName(user.getUserDetails().getFirstName());
-            userDto.setUserLastName(user.getUserDetails().getLastName());
             users.add(userDto);
         }
         return users;
@@ -65,8 +73,6 @@ public class UserDto extends AbstractIdAwareDto {
             }
         }
         userDto.setRoles(roles);
-        userDto.setUserFirstName(user.getUserDetails().getFirstName());
-        userDto.setUserLastName(user.getUserDetails().getLastName());
         userDto.setUserEmail(user.getEmail());
         return userDto;
     }
@@ -78,8 +84,6 @@ public class UserDto extends AbstractIdAwareDto {
         this.id = user.getId();
         this.userName = user.getUsername();
         this.userEmail = user.getEmail();
-        this.userFirstName = user.getUserDetails().getFirstName();
-        this.userLastName = user.getUserDetails().getLastName();
     }
 
     public String getUserName() {
@@ -128,5 +132,13 @@ public class UserDto extends AbstractIdAwareDto {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public String getUserPasswordConfirmation() {
+        return userPasswordConfirmation;
+    }
+
+    public void setUserPasswordConfirmation(String userPasswordConfirmation) {
+        this.userPasswordConfirmation = userPasswordConfirmation;
     }
 }

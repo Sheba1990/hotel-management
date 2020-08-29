@@ -33,9 +33,9 @@ public class AddressDto extends AbstractIdAwareDto {
         for (Address address : addressList) {
             AddressDto addressDto = new AddressDto();
             addressDto.setId(address.getId());
-            if (address.getContactData().getUserDetails() != null) {
-                addressDto.setUserFirstName(address.getContactData().getUserDetails().getFirstName());
-                addressDto.setUserLastName(address.getContactData().getUserDetails().getLastName());
+            if (address.getContactData().getUserInDetails() != null) {
+                addressDto.setUserFirstName(address.getContactData().getUserInDetails().getFirstName());
+                addressDto.setUserLastName(address.getContactData().getUserInDetails().getLastName());
             } else {
                 addressDto.setUserFirstName(null);
                 addressDto.setUserLastName(null);
@@ -52,9 +52,9 @@ public class AddressDto extends AbstractIdAwareDto {
 
     public static AddressDto entityToDto(Address address) {
         AddressDto addressDto = new AddressDto();
-        if (address.getContactData().getUserDetails() != null) {
-            addressDto.setUserFirstName(address.getContactData().getUserDetails().getFirstName());
-            addressDto.setUserLastName(address.getContactData().getUserDetails().getLastName());
+        if (address.getContactData().getUserInDetails() != null) {
+            addressDto.setUserFirstName(address.getContactData().getUserInDetails().getFirstName());
+            addressDto.setUserLastName(address.getContactData().getUserInDetails().getLastName());
         } else {
             addressDto.setUserFirstName(null);
             addressDto.setUserLastName(null);
@@ -75,8 +75,8 @@ public class AddressDto extends AbstractIdAwareDto {
 
     public AddressDto(Address address) {
         this.id = address.getId();
-        this.userFirstName = address.getContactData().getUserDetails().getFirstName();
-        this.userLastName = address.getContactData().getUserDetails().getLastName();
+        this.userFirstName = address.getContactData().getUserInDetails().getFirstName();
+        this.userLastName = address.getContactData().getUserInDetails().getLastName();
         this.postalCode = address.getPostalCode();
         this.country = address.getCountry();
         this.province = address.getProvince();

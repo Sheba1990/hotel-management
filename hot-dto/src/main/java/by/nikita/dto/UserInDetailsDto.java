@@ -1,8 +1,8 @@
 package by.nikita.dto;
 
-import by.nikita.models.UserDetails;
+import by.nikita.models.Role;
+import by.nikita.models.UserInDetails;
 import by.nikita.models.enums.Gender;
-import by.nikita.models.enums.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.util.StringUtils;
 
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDetailsDto extends AbstractIdAwareDto {
+public class UserInDetailsDto extends AbstractIdAwareDto {
 
     private String userName;
 
@@ -60,94 +60,91 @@ public class UserDetailsDto extends AbstractIdAwareDto {
 
     private String userResidenceApartmentNumber;
 
-    public static List<UserDetailsDto> convertList(List<UserDetails> userDetailsList) {
-        List<UserDetailsDto> userDetailss = new ArrayList<>();
-        for (UserDetails userDetails : userDetailsList) {
-            UserDetailsDto userDetailsDto = new UserDetailsDto();
-            userDetailsDto.setId(userDetails.getId());
-            userDetailsDto.setUserName(userDetails.getUser().getUsername());
-            if (userDetails.getMiddleName() != null && !StringUtils.isEmpty(userDetails.getMiddleName())) {
-                userDetailsDto.setUserFullName(userDetails.getFirstName().concat(" " + userDetails.getMiddleName() + " " + userDetails.getLastName()));
+    public static List<UserInDetailsDto> convertList(List<UserInDetails> userInDetailsList) {
+        List<UserInDetailsDto> userDetailss = new ArrayList<>();
+        for (UserInDetails userInDetails : userInDetailsList) {
+            UserInDetailsDto userInDetailsDto = new UserInDetailsDto();
+            userInDetailsDto.setId(userInDetails.getId());
+            userInDetailsDto.setUserName(userInDetails.getUser().getUsername());
+            if (userInDetails.getMiddleName() != null && !StringUtils.isEmpty(userInDetails.getMiddleName())) {
+                userInDetailsDto.setUserFullName(userInDetails.getFirstName().concat(" " + userInDetails.getMiddleName() + " " + userInDetails.getLastName()));
             } else {
-                userDetailsDto.setUserFullName(userDetails.getFirstName().concat(" " + userDetails.getLastName()));
+                userInDetailsDto.setUserFullName(userInDetails.getFirstName().concat(" " + userInDetails.getLastName()));
             }
-            userDetailss.add(userDetailsDto);
+            userDetailss.add(userInDetailsDto);
         }
         return userDetailss;
     }
 
-    public static UserDetailsDto entityToDto(UserDetails userDetails) {
-        UserDetailsDto userDetailsDto = new UserDetailsDto();
+    public static UserInDetailsDto entityToDto(UserInDetails userInDetails) {
+        UserInDetailsDto userInDetailsDto = new UserInDetailsDto();
         Set<RoleDto> roles = new HashSet<>();
-        userDetailsDto.setId(userDetails.getId());
-        userDetailsDto.setUserName(userDetails.getUser().getUsername());
-        for (Role role : userDetails.getUser().getRoles()) {
+        userInDetailsDto.setId(userInDetails.getId());
+        userInDetailsDto.setUserName(userInDetails.getUser().getUsername());
+        for (Role role : userInDetails.getUser().getRoles()) {
             RoleDto roleDto = new RoleDto();
-            if (userDetails.getUser().getRoles() != null) {
+            if (userInDetails.getUser().getRoles() != null) {
                 roleDto.setRoleName(role.toString());
                 roles.add(roleDto);
             } else {
-                userDetailsDto.setUserRoles(null);
+                userInDetailsDto.setUserRoles(null);
             }
         }
-        userDetailsDto.setUserRoles(roles);
-        userDetailsDto.setUserFirstName(userDetails.getFirstName());
-        userDetailsDto.setUserMiddleName(userDetails.getMiddleName());
-        userDetailsDto.setUserLastName(userDetails.getLastName());
-        userDetailsDto.setGender(userDetails.getGender());
-        userDetailsDto.setUserBirthDate(userDetails.getBirthDate());
-        if (userDetailsDto.getUserBirthDate() != null) {
-            LocalDate date1 = userDetailsDto.userBirthDate;
+        userInDetailsDto.setUserRoles(roles);
+        userInDetailsDto.setUserFirstName(userInDetails.getFirstName());
+        userInDetailsDto.setUserMiddleName(userInDetails.getMiddleName());
+        userInDetailsDto.setUserLastName(userInDetails.getLastName());
+        userInDetailsDto.setGender(userInDetails.getGender());
+        userInDetailsDto.setUserBirthDate(userInDetails.getBirthDate());
+        if (userInDetailsDto.getUserBirthDate() != null) {
+            LocalDate date1 = userInDetailsDto.userBirthDate;
             LocalDate date2 = LocalDate.now();
             Long amountOfYears = ChronoUnit.YEARS.between(date1, date2);
-            userDetailsDto.setAge(amountOfYears);
+            userInDetailsDto.setAge(amountOfYears);
         }
-        if (userDetails.getPassportData() != null) {
-            userDetailsDto.setUserPassportNumber(userDetails.getPassportData().getPassportNumber());
-            userDetailsDto.setUserPassportCountryOfIssue(userDetails.getPassportData().getCountryOfIssue());
-            userDetailsDto.setUserPassportDateOfIssue(userDetails.getPassportData().getDateOfIssue());
-            userDetailsDto.setUserPassportDateOfExpiry(userDetails.getPassportData().getDateOfExpiry());
+        if (userInDetails.getPassportData() != null) {
+            userInDetailsDto.setUserPassportNumber(userInDetails.getPassportData().getPassportNumber());
+            userInDetailsDto.setUserPassportCountryOfIssue(userInDetails.getPassportData().getCountryOfIssue());
+            userInDetailsDto.setUserPassportDateOfIssue(userInDetails.getPassportData().getDateOfIssue());
+            userInDetailsDto.setUserPassportDateOfExpiry(userInDetails.getPassportData().getDateOfExpiry());
         }
-        userDetailsDto.setUserPhoneNumber(userDetails.getContactData().getPhoneNumber());
-        userDetailsDto.setUserEmail(userDetails.getUser().getEmail());
-        userDetailsDto.setUserPostalCode(userDetails.getContactData().getAddress().getPostalCode());
-        userDetailsDto.setUserResidenceCountry(userDetails.getContactData().getAddress().getCountry());
-        userDetailsDto.setUserResidenceProvince(userDetails.getContactData().getAddress().getProvince());
-        userDetailsDto.setUserResidenceCity(userDetails.getContactData().getAddress().getCity());
-        userDetailsDto.setUserResidenceStreet(userDetails.getContactData().getAddress().getStreet());
-        userDetailsDto.setUserResidenceHomeNumber(userDetails.getContactData().getAddress().getHomeNumber());
-        userDetailsDto.setUserResidenceApartmentNumber(userDetails.getContactData().getAddress().getApartmentNumber());
-        return userDetailsDto;
+        userInDetailsDto.setUserPhoneNumber(userInDetails.getContactData().getPhoneNumber());
+        userInDetailsDto.setUserEmail(userInDetails.getUser().getEmail());
+        userInDetailsDto.setUserPostalCode(userInDetails.getContactData().getAddress().getPostalCode());
+        userInDetailsDto.setUserResidenceCountry(userInDetails.getContactData().getAddress().getCountry());
+        userInDetailsDto.setUserResidenceProvince(userInDetails.getContactData().getAddress().getProvince());
+        userInDetailsDto.setUserResidenceCity(userInDetails.getContactData().getAddress().getCity());
+        userInDetailsDto.setUserResidenceStreet(userInDetails.getContactData().getAddress().getStreet());
+        userInDetailsDto.setUserResidenceHomeNumber(userInDetails.getContactData().getAddress().getHomeNumber());
+        userInDetailsDto.setUserResidenceApartmentNumber(userInDetails.getContactData().getAddress().getApartmentNumber());
+        return userInDetailsDto;
     }
 
-    public UserDetailsDto() {
+    public UserInDetailsDto() {
     }
 
-    public UserDetailsDto(UserDetails userDetails) {
-        this.id = userDetails.getId();
-        this.userName = userDetails.getUser().getUsername();
-        this.userFirstName = userDetails.getFirstName();
-        this.userMiddleName = userDetails.getMiddleName();
-        this.userLastName = userDetails.getLastName();
-        this.gender = userDetails.getGender();
-        this.userBirthDate = userDetails.getBirthDate();
-        this.userPassportNumber = userDetails.getPassportData().getPassportNumber();
-        this.userPassportCountryOfIssue = userDetails.getPassportData().getCountryOfIssue();
-        this.userPassportDateOfIssue = userDetails.getPassportData().getDateOfIssue();
-        this.userPassportDateOfExpiry = userDetails.getPassportData().getDateOfExpiry();
-        this.userPhoneNumber = userDetails.getContactData().getPhoneNumber();
-        this.userEmail = userDetails.getUser().getEmail();
-        this.userPostalCode = userDetails.getContactData().getAddress().getPostalCode();
-        this.userResidenceCountry = userDetails.getContactData().getAddress().getCountry();
-        this.userResidenceProvince = userDetails.getContactData().getAddress().getProvince();
-        this.userResidenceCity = userDetails.getContactData().getAddress().getCity();
-        this.userResidenceStreet = userDetails.getContactData().getAddress().getStreet();
-        this.userResidenceHomeNumber = userDetails.getContactData().getAddress().getHomeNumber();
-        this.userResidenceApartmentNumber = userDetails.getContactData().getAddress().getApartmentNumber();
+    public UserInDetailsDto(UserInDetails userInDetails) {
+        this.id = userInDetails.getId();
+        this.userName = userInDetails.getUser().getUsername();
+        this.userFirstName = userInDetails.getFirstName();
+        this.userMiddleName = userInDetails.getMiddleName();
+        this.userLastName = userInDetails.getLastName();
+        this.gender = userInDetails.getGender();
+        this.userBirthDate = userInDetails.getBirthDate();
+        this.userPassportNumber = userInDetails.getPassportData().getPassportNumber();
+        this.userPassportCountryOfIssue = userInDetails.getPassportData().getCountryOfIssue();
+        this.userPassportDateOfIssue = userInDetails.getPassportData().getDateOfIssue();
+        this.userPassportDateOfExpiry = userInDetails.getPassportData().getDateOfExpiry();
+        this.userPhoneNumber = userInDetails.getContactData().getPhoneNumber();
+        this.userEmail = userInDetails.getUser().getEmail();
+        this.userPostalCode = userInDetails.getContactData().getAddress().getPostalCode();
+        this.userResidenceCountry = userInDetails.getContactData().getAddress().getCountry();
+        this.userResidenceProvince = userInDetails.getContactData().getAddress().getProvince();
+        this.userResidenceCity = userInDetails.getContactData().getAddress().getCity();
+        this.userResidenceStreet = userInDetails.getContactData().getAddress().getStreet();
+        this.userResidenceHomeNumber = userInDetails.getContactData().getAddress().getHomeNumber();
+        this.userResidenceApartmentNumber = userInDetails.getContactData().getAddress().getApartmentNumber();
     }
-
-
-    //Getters & Setters
 
 
     public String getUserName() {
@@ -325,4 +322,6 @@ public class UserDetailsDto extends AbstractIdAwareDto {
     public void setUserResidenceApartmentNumber(String userResidenceApartmentNumber) {
         this.userResidenceApartmentNumber = userResidenceApartmentNumber;
     }
+
+
 }

@@ -72,9 +72,9 @@ public class OrderDao extends AbstractGenericDao<Order> implements IOrderDao {
             CriteriaQuery<Order> query = criteriaBuilder.createQuery(Order.class);
             Root<Order> root = query.from(Order.class);
             Join<Order, User> user = root.join(Order_.USER);
-            Join<User, UserDetails> userDetails = user.join(User_.USER_DETAILS);
+            Join<User, UserInDetails> userDetails = user.join(User_.USER_IN_DETAILS);
             List<Predicate> conditions = new ArrayList<>();
-            conditions.add(criteriaBuilder.equal(userDetails.get(UserDetails_.FIRST_NAME), firstName));
+            conditions.add(criteriaBuilder.equal(userDetails.get(UserInDetails_.FIRST_NAME), firstName));
             query.select(root).where(conditions.toArray(new Predicate[]{}));
             TypedQuery<Order> result = entityManager.createQuery(query);
             return result.getResultList();
@@ -89,9 +89,9 @@ public class OrderDao extends AbstractGenericDao<Order> implements IOrderDao {
             CriteriaQuery<Order> query = criteriaBuilder.createQuery(Order.class);
             Root<Order> root = query.from(Order.class);
             Join<Order, User> user = root.join(Order_.USER);
-            Join<User, UserDetails> userDetails = user.join(User_.USER_DETAILS);
+            Join<User, UserInDetails> userDetails = user.join(User_.USER_IN_DETAILS);
             List<Predicate> conditions = new ArrayList<>();
-            conditions.add(criteriaBuilder.equal(userDetails.get(UserDetails_.LAST_NAME), lastName));
+            conditions.add(criteriaBuilder.equal(userDetails.get(UserInDetails_.LAST_NAME), lastName));
             query.select(root).where(conditions.toArray(new Predicate[]{}));
             TypedQuery<Order> result = entityManager.createQuery(query);
             return result.getResultList();

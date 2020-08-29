@@ -3,8 +3,8 @@ package by.nikita.dao;
 import by.nikita.dao.api.IContactDataDao;
 import by.nikita.models.ContactData;
 import by.nikita.models.ContactData_;
-import by.nikita.models.UserDetails;
-import by.nikita.models.UserDetails_;
+import by.nikita.models.UserInDetails;
+import by.nikita.models.UserInDetails_;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
@@ -25,8 +25,8 @@ public class ContactDataDao extends AbstractGenericDao<ContactData> implements I
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<ContactData> query = criteriaBuilder.createQuery(ContactData.class);
             Root<ContactData> root = query.from(ContactData.class);
-            Join<ContactData, UserDetails> userDetails = root.join(ContactData_.USER_DETAILS);
-            query.select(root).where(criteriaBuilder.equal(userDetails.get(UserDetails_.FIRST_NAME), userFirstName));
+            Join<ContactData, UserInDetails> userDetails = root.join(ContactData_.USER_IN_DETAILS);
+            query.select(root).where(criteriaBuilder.equal(userDetails.get(UserInDetails_.FIRST_NAME), userFirstName));
             TypedQuery<ContactData> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
@@ -40,8 +40,8 @@ public class ContactDataDao extends AbstractGenericDao<ContactData> implements I
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<ContactData> query = criteriaBuilder.createQuery(ContactData.class);
             Root<ContactData> root = query.from(ContactData.class);
-            Join<ContactData, UserDetails> userDetails = root.join(ContactData_.USER_DETAILS);
-            query.select(root).where(criteriaBuilder.equal(userDetails.get(UserDetails_.LAST_NAME), userLastName));
+            Join<ContactData, UserInDetails> userDetails = root.join(ContactData_.USER_IN_DETAILS);
+            query.select(root).where(criteriaBuilder.equal(userDetails.get(UserInDetails_.LAST_NAME), userLastName));
             TypedQuery<ContactData> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
@@ -55,9 +55,9 @@ public class ContactDataDao extends AbstractGenericDao<ContactData> implements I
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<ContactData> query = criteriaBuilder.createQuery(ContactData.class);
             Root<ContactData> root = query.from(ContactData.class);
-            Join<ContactData, UserDetails> userDetails = root.join(ContactData_.USER_DETAILS);
-            Predicate predicateForFirstName = criteriaBuilder.equal(userDetails.get(UserDetails_.FIRST_NAME), userFirstName);
-            Predicate predicateForLastName = criteriaBuilder.equal(userDetails.get(UserDetails_.LAST_NAME), userLastName);
+            Join<ContactData, UserInDetails> userDetails = root.join(ContactData_.USER_IN_DETAILS);
+            Predicate predicateForFirstName = criteriaBuilder.equal(userDetails.get(UserInDetails_.FIRST_NAME), userFirstName);
+            Predicate predicateForLastName = criteriaBuilder.equal(userDetails.get(UserInDetails_.LAST_NAME), userLastName);
             Predicate predicateForFullName = criteriaBuilder.and(predicateForFirstName, predicateForLastName);
             query.select(root).where(predicateForFullName);
             TypedQuery<ContactData> result = entityManager.createQuery(query);

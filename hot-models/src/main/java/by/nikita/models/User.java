@@ -1,28 +1,29 @@
 package by.nikita.models;
 
-import by.nikita.models.enums.Role;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Table(name = "user_table")
-public class User extends AbstractIdAwareEntity {
+public class User extends AbstractIdAwareEntity implements UserDetails {
 
     @Column(name = "username")
-    @NotBlank(message = "Username can not be empty")
     private String username;
 
-    @Email(message = "Email is not correct")
-    @NotBlank(message = "Email can not be empty")
     @Column(name = "email")
     private String email;
 
     @Column(name = "password")
-    @NotBlank(message = "Password can not be empty")
     private String password;
+
+    @Transient
+    private String passwordConfirmation;
 
     private boolean active;
 
@@ -31,18 +32,13 @@ public class User extends AbstractIdAwareEntity {
 
     @OneToOne
     @JoinColumn(name = "user_details_id", referencedColumnName = "id")
-    private UserDetails userDetails;
+    private UserInDetails userInDetails;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role_table ", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public boolean isAdmin() {
-        return roles.contains(Role.ADMIN);
-    }
-
-    //Constructors
 
     public User() {
     }
@@ -50,21 +46,17 @@ public class User extends AbstractIdAwareEntity {
     public User(String username,
                 String email,
                 String password,
-                boolean active,
                 Order order,
-                UserDetails userDetails,
+                UserInDetails userInDetails,
                 Set<Role> roles) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.active = active;
         this.order = order;
-        this.userDetails = userDetails;
+        this.userInDetails = userInDetails;
         this.roles = roles;
     }
 
-
-    //Getters & Setters
 
     public String getUsername() {
         return username;
@@ -90,12 +82,12 @@ public class User extends AbstractIdAwareEntity {
         this.password = password;
     }
 
-    public boolean isActive() {
-        return active;
+    public String getPasswordConfirmation() {
+        return passwordConfirmation;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setPasswordConfirmation(String passwordConfirmation) {
+        this.passwordConfirmation = passwordConfirmation;
     }
 
     public Order getOrder() {
@@ -106,12 +98,12 @@ public class User extends AbstractIdAwareEntity {
         this.order = order;
     }
 
-    public UserDetails getUserDetails() {
-        return userDetails;
+    public UserInDetails getUserInDetails() {
+        return userInDetails;
     }
 
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
+    public void setUserInDetails(UserInDetails userInDetails) {
+        this.userInDetails = userInDetails;
     }
 
     public Set<Role> getRoles() {
@@ -120,6 +112,39 @@ public class User extends AbstractIdAwareEntity {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
 
