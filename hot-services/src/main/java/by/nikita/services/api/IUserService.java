@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface IUserService {
 
-    void addUser(UserDto userDto);
-
     UserDetails getUserByUsername(String username);
 
     UserDto getUserById(long id);

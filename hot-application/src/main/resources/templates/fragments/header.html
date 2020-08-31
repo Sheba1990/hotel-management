@@ -7,7 +7,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="header">
     <a class="navbar-brand">
         <img src="/img/hotel.svg" width="35" height="35" class="img-fluid d-inline-block align-middle" alt="">
-        Hotel Starfall
+        Hotel Horizon
     </a>
     <link rel="stylesheet" href="/static/css/style.css" class="text-primary">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -20,16 +20,18 @@
             <li class="nav-item active ml-1">
                 <a class="nav-link" href="/">Main page<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu1" role="button"
-                   aria-expanded="false">
-                    Rooms
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/rooms">All rooms</a>
-                    <a class="dropdown-item" href="/rooms/new">Add new room</a>
-                </div>
-            </li>
+            <span th:if="${username != null}">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu1" role="button"
+                       aria-expanded="false">
+                        Rooms
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/rooms">All rooms</a>
+                        <a class="dropdown-item" href="/rooms/new">Add new room</a>
+                    </div>
+                </li>
+            </span>
         </ul>
     </div>
 </nav>

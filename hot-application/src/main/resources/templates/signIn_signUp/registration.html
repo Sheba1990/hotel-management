@@ -25,15 +25,27 @@
 
 <div class="container">
     <div class="text-center">
-        <h1 class="display-3">Welcome!</h1>
+        <h1 class="display-3">Welcome new User!</h1>
         <br/>
-        <br/>
-        <span th:if="${username == null}">
-            <a href="/login">Sing in!</a>
-            <br/>
-            <br/>
-            <a href="/registration">Sign up!</a>
-        </span>
+        <form th:action="@{/registration}" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label> User Name : <input type="text" class="form-control" name="username"/>
+                    </label>
+                </div>
+                <div class="form-group col-md-6">
+                    <label> Password: <input type="password" class="form-control" name="password"/>
+                    </label>
+                </div>
+                <div class="form-group col-md-6">
+                    <label> Email: <input type="email" class="form-control" name="email"/>
+                    </label>
+                </div>
+            </div>
+            <div class="form-row">
+                <input type="submit" class="btn btn-primary" value="Register"/>
+            </div>
+        </form>
     </div>
 </div>
 <div class="fixed-bottom mb-5" th:insert="~{fragments/footer :: footer}">&copy; 2020 The Static Templates</div>

@@ -4,11 +4,11 @@ import by.nikita.models.Role;
 import by.nikita.models.User;
 import by.nikita.services.api.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -31,18 +31,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @PostMapping
-    public ModelAndView userSave(
-            @RequestParam String username,
-            @RequestParam Map<String, String> form,
-            @RequestParam("userId") User user) {
 
-        ModelAndView modelAndView = new ModelAndView();
-        userService.addUser(user, username, form);
-        modelAndView.setViewName("redirect:/user");
-        return modelAndView;
-    }
 
 
 }
