@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,18 +14,15 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto extends AbstractIdAwareDto {
 
-    @NotBlank(message = "Username can not be empty")
-    private String userName;
+    private String username;
 
     private Set<RoleDto> roles;
 
-    @Email(message = "Email is not correct")
-    @NotBlank(message = "Email can not be empty")
-    private String userEmail;
+    @Email
+    private String email;
 
-    @NotBlank(message = "Password can not be empty and less than 8 symbols")
     @Length(min = 5, message = "Password can not be less than 5 symbols")
-    private String userPassword;
+    private String password;
 
     private String userPasswordConfirmation;
 
@@ -41,7 +37,7 @@ public class UserDto extends AbstractIdAwareDto {
             Set<RoleDto> roles = new HashSet<>();
             UserDto userDto = new UserDto();
             userDto.setId(user.getId());
-            userDto.setUserName(user.getUsername());
+            userDto.setUsername(user.getUsername());
             for (Role role : user.getRoles()) {
                 RoleDto roleDto = new RoleDto();
                 if (user.getRoles() != null) {
@@ -52,7 +48,7 @@ public class UserDto extends AbstractIdAwareDto {
                 }
             }
             userDto.setRoles(roles);
-            userDto.setUserEmail(user.getEmail());
+            userDto.setEmail(user.getEmail());
             users.add(userDto);
         }
         return users;
@@ -62,7 +58,7 @@ public class UserDto extends AbstractIdAwareDto {
         UserDto userDto = new UserDto();
         Set<RoleDto> roles = new HashSet<>();
         userDto.setId(user.getId());
-        userDto.setUserName(user.getUsername());
+        userDto.setUsername(user.getUsername());
         for (Role role : user.getRoles()) {
             RoleDto roleDto = new RoleDto();
             if (user.getRoles() != null) {
@@ -73,7 +69,7 @@ public class UserDto extends AbstractIdAwareDto {
             }
         }
         userDto.setRoles(roles);
-        userDto.setUserEmail(user.getEmail());
+        userDto.setEmail(user.getEmail());
         return userDto;
     }
 
@@ -82,16 +78,16 @@ public class UserDto extends AbstractIdAwareDto {
 
     public UserDto(User user) {
         this.id = user.getId();
-        this.userName = user.getUsername();
-        this.userEmail = user.getEmail();
+        this.username = user.getUsername();
+        this.email = user.getEmail();
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Set<RoleDto> getRoles() {
@@ -102,12 +98,12 @@ public class UserDto extends AbstractIdAwareDto {
         this.roles = roles;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUserFirstName() {
@@ -126,12 +122,12 @@ public class UserDto extends AbstractIdAwareDto {
         this.userLastName = userLastName;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserPasswordConfirmation() {

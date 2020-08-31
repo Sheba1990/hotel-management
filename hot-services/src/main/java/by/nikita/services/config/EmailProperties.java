@@ -2,12 +2,12 @@ package by.nikita.services.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties
+@ConfigurationProperties(prefix = "email.config")
 public class EmailProperties {
 
     private String username;
 
-    private String pass;
+    private String password;
 
     private String host;
 
@@ -28,12 +28,12 @@ public class EmailProperties {
         this.username = username;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getHost() {

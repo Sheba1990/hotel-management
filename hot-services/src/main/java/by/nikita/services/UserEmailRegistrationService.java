@@ -4,16 +4,18 @@ import by.nikita.dto.UserDto;
 import by.nikita.services.api.IRegistrationService;
 import by.nikita.services.config.EmailProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+@Service
 public class UserEmailRegistrationService implements IRegistrationService {
 
     @Autowired
-    EmailProperties emailProperties;
+    private EmailProperties emailProperties;
 
     @Override
     public void registerUser(UserDto userDto) {
@@ -22,7 +24,7 @@ public class UserEmailRegistrationService implements IRegistrationService {
 
     private void sendEmail(UserDto userDto) {
         // Recipient's email ID needs to be mentioned.
-        String to = userDto.getUserEmail();
+        String to = userDto.getEmail();
         // Sender's email ID needs to be mentioned
         String from = "norply@gmail.com";
 
@@ -38,7 +40,9 @@ public class UserEmailRegistrationService implements IRegistrationService {
         // Get the Session object.// and pass username and password
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(emailProperties.getUsername(), emailProperties.getPass());
+                return new PasswordAuthentication(
+                        emailProperties.getUsername(),
+                        emailProperties.getPassword());
             }
         });
 
@@ -57,7 +61,7 @@ public class UserEmailRegistrationService implements IRegistrationService {
             message.setSubject("This is the Subject Line!");
 
             // Now set the actual message
-            message.setContent("<a href='http://localhost:8080/register/" + userDto.getUserName() + "'>Lets try</a>", "text/html");
+            message.setContent("<a href='http://localhost:8080/registration/" + userDto.getUsername() + "'>Press here to activate your account</a>", "text/html");
             // Send message
             Transport.send(message);
             System.out.println("Message has been sent successfully....");

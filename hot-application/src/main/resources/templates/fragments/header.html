@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/css/bootstrap.min.css}"/>
 </head>
@@ -22,13 +22,15 @@
             </li>
             <span th:if="${username != null}">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu1" role="button"
-                       aria-expanded="false">
-                        Rooms
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/rooms">All rooms</a>
-                        <a class="dropdown-item" href="/rooms/new">Add new room</a>
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu1" role="button"
+                           aria-expanded="false">
+                            Rooms
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/rooms">All rooms</a>
+                            <a class="dropdown-item" href="/rooms/new">Add new room</a>
+                        </div>
                     </div>
                 </li>
             </span>

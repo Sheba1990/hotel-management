@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Table(name = "user_table")
+@Table(name = "user_table", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class User extends AbstractIdAwareEntity implements UserDetails {
 
     @Column(name = "username")

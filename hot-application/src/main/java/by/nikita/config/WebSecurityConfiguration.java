@@ -18,8 +18,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .and().csrf()
-                .and().exceptionHandling()
-                .accessDeniedPage("/access_denied");
+                .and()
+                .csrf()
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/access_denied")
+                .and().
+                logout().
+                logoutSuccessUrl("/");
     }
 }

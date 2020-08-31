@@ -24,7 +24,7 @@ public class RegistrationController {
         return "/signIn_signUp/registration";
     }
 
-    @GetMapping("/{login}")
+    @GetMapping("/{username}")
     public String activateForm(@PathVariable String username) {
         registrationService.activateUser(username);
         return "redirect:/login";
