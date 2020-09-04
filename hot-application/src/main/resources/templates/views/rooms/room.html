@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Резюме менеджер</title>
+    <title>Hotel Horizon</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="../../../resources/static/css/core.css" rel="stylesheet" media="screen"
           th:href="@{/resources/static/css/core.css}"/>
 </head>
+<style>
+    body::before {
+    content: '';
+    position: fixed; /* Фиксируем на одном месте */
+    left: 0; right: 0; /* Вся ширин */
+    top: 0; bottom: 0; /* Вся высота */
+    z-index: -1; /* Фон ниже текста */
+    /* Параметры фона */
+    background: url(/img/rooms.jpg) center / cover no-repeat;
+    filter: blur(5px); /* Размытие */
+   }
+
+</style>
 <body>
 <div th:insert="~{fragments/header :: header}">Header</div>
 <br/>

@@ -54,10 +54,10 @@
                 Hello,<span th:text="${username} ?: 'guest!'" class="mr-3 ml-1"></span>
                 <span th:if="${username == null}">
                     <a class="btn btn-primary" href="/login">Log In</a>
-                    <a class="btn btn-secondary" href="/registration">Create New Account</a>
+                    <a class="btn btn-success" href="/registration">Create New Account</a>
                 </span>
                 <span th:if="${username != null}">
-                    <a class="btn btn-secondary" href="/logout">Log Out</a>
+                    <a class="btn btn-danger" href="/logout">Log Out</a>
                 </span>
             </form>
         </ul>

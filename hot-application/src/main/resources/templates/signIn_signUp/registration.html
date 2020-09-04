@@ -26,6 +26,36 @@
 <div th:replace="~{fragments/header :: header}">Header</div>
 
 <div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Create New Account</h5>
+                    <form class="form-signin" th:action="@{/registration}" method="post">
+                        <div class="form-label-group mt-3">
+                            <label for="username">Email</label>
+                            <input type="email" id="email" class="form-control" name="email"
+                                   placeholder="Input there your Email" required autofocus>
+                        </div>
+                        <div class="form-label-group mt-2">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" class="form-control" name="username"
+                                   placeholder="Input there your Username" required autofocus>
+                        </div>
+                        <div class="form-label-group mt-2">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" class="form-control" name="password"
+                                   placeholder="Input there your Password" required>
+                        </div>
+                        <br/>
+                        <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit">Sign up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--div class="container">
     <div class="text-center">
         <h1 class="display-3">Welcome new User!</h1>
         <br/>
@@ -49,7 +79,7 @@
             </div>
         </form>
     </div>
-</div>
+</div-->
 <div class="fixed-bottom mb-5" th:insert="~{fragments/footer :: footer}">&copy; 2020 The Static Templates</div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
