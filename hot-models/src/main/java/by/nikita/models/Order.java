@@ -1,5 +1,7 @@
 package by.nikita.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -18,11 +20,11 @@ public class Order extends AbstractIdAwareEntity {
     private Integer amountOfGuests;
 
     @Column(name = "date_of_check_in", columnDefinition = "DATE")
-    //@Convert(converter = StringToDateSQLConverter.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfCheckIn;
 
     @Column(name = "date_of_check_out", columnDefinition = "DATE")
-    //@Convert(converter = StringToDateSQLConverter.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfCheckOut;
 
     @Column(name = "approved")

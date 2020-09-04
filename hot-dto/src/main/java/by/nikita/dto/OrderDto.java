@@ -2,6 +2,10 @@ package by.nikita.dto;
 
 import by.nikita.models.Order;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -13,18 +17,20 @@ public class OrderDto extends AbstractIdAwareDto {
 
     private Integer orderNumber;
 
+    private boolean approved;
+
     private String userName;
 
     private String userEmail;
 
-    private String userFirstName;
-
-    private String userLastName;
+    private String userFullName;
 
     private Integer amountOfGuests;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfCheckIn;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfCheckOut;
 
     private Long stayingPeriod;
@@ -37,6 +43,7 @@ public class OrderDto extends AbstractIdAwareDto {
         List<OrderDto> orders = new ArrayList<>();
         for (Order order : orderList) {
             OrderDto orderDto = new OrderDto();
+            orderDto.setId(order.getId());
             orderDto.setOrderNumber(order.getOrderNumber());
             orderDto.setUserName(order.getUser().getUsername());
             orderDto.setRoomNumber(order.getRoom().getRoomNumber());
@@ -49,8 +56,20 @@ public class OrderDto extends AbstractIdAwareDto {
 
     public static OrderDto entityToDto(Order order) {
         OrderDto orderDto = new OrderDto();
-        orderDto.setId(order.getId());
         orderDto.setOrderNumber(order.getOrderNumber());
+        orderDto.setApproved(order.isApproved());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            orderDto.setUserName(((UserDetails) principal).getUsername());
+        } else {
+            orderDto.setUserName(principal.toString());
+        }
+        if (order.getUser().getUserInDetails().getMiddleName() != null && !StringUtils.isEmpty(order.getUser().getUserInDetails().getMiddleName())) {
+            orderDto.setUserFullName(order.getUser().getUserInDetails().getFirstName().concat(" " + order.getUser().getUserInDetails().getMiddleName() + " " + order.getUser().getUserInDetails().getLastName()));
+        } else {
+            orderDto.setUserFullName(order.getUser().getUserInDetails().getFirstName().concat(" " + order.getUser().getUserInDetails().getLastName()));
+        }
+        orderDto.setUserEmail(order.getUser().getEmail());
         orderDto.setAmountOfGuests(order.getAmountOfGuests());
         orderDto.setDateOfCheckIn(order.getDateOfCheckIn());
         orderDto.setDateOfCheckOut(order.getDateOfCheckOut());
@@ -60,8 +79,6 @@ public class OrderDto extends AbstractIdAwareDto {
             Long amountOfDays = ChronoUnit.DAYS.between(date1, date2);
             orderDto.setStayingPeriod(amountOfDays);
         }
-        orderDto.setUserName(order.getUser().getUsername());
-        orderDto.setUserEmail(order.getUser().getEmail());
         orderDto.setRoomNumber(order.getRoom().getRoomNumber());
         orderDto.setRoomCategory(order.getRoom().getRoomCategory().getCategoryName());
         return orderDto;
@@ -73,6 +90,7 @@ public class OrderDto extends AbstractIdAwareDto {
     public OrderDto(Order order) {
         this.id = order.getId();
         this.orderNumber = order.getOrderNumber();
+        this.approved = order.isApproved();
         this.amountOfGuests = order.getAmountOfGuests();
         this.dateOfCheckIn = order.getDateOfCheckIn();
         this.dateOfCheckOut = order.getDateOfCheckOut();
@@ -88,6 +106,14 @@ public class OrderDto extends AbstractIdAwareDto {
 
     public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 
     public Integer getAmountOfGuests() {
@@ -138,20 +164,12 @@ public class OrderDto extends AbstractIdAwareDto {
         this.userEmail = userEmail;
     }
 
-    public String getUserFirstName() {
-        return userFirstName;
+    public String getUserFullName() {
+        return userFullName;
     }
 
-    public void setUserFirstName(String userFirstName) {
-        this.userFirstName = userFirstName;
-    }
-
-    public String getUserLastName() {
-        return userLastName;
-    }
-
-    public void setUserLastName(String userLastName) {
-        this.userLastName = userLastName;
+    public void setUserFullName(String userFullName) {
+        this.userFullName = userFullName;
     }
 
     public Integer getRoomNumber() {

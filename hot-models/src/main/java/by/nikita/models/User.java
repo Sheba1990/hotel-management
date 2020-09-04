@@ -44,12 +44,15 @@ public class User extends AbstractIdAwareEntity implements UserDetails {
     public User(String username,
                 String email,
                 String password,
+                String passwordConfirmation,
+                boolean active,
                 Order order,
                 UserInDetails userInDetails,
                 Set<Role> roles) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.passwordConfirmation = passwordConfirmation;
         this.order = order;
         this.userInDetails = userInDetails;
         this.roles = roles;

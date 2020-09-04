@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Резюме менеджер</title>
+    <title>Hotel Horizon</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -21,9 +21,10 @@
    }
 
 
+
 </style>
 <body>
-<div th:replace="~{fragments/header :: header}">Header</div>
+<div th:insert="~{fragments/header :: header}">Header</div>
 <br/>
 <div class="form-row mx-auto">
     <div class="form-group mx-auto">
@@ -57,22 +58,26 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col" class="col-xs-1 text-center">ID</th>
-            <th scope="col" class="col-xs-1 text-center">Room Number</th>
-            <th scope="col" class="col-xs-1 text-center">Category</th>
-            <th scope="col" class="col-xs-1 text-center">Status</th>
+            <th scope="col" class="col-xs-1 text-center">Order number</th>
+            <th scope="col" class="col-xs-1 text-center">Username</th>
+            <th scope="col" class="col-xs-1 text-center">Room number</th>
+            <th scope="col" class="col-xs-1 text-center">Amount of guests</th>
+            <th scope="col" class="col-xs-1 text-center">Room category</th>
             <th scope="col" class="col-xs-1 text-center">More</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="order : ${orders}">
             <td class="align-middle col-xs-1 text-center" th:text="${order.id}"></td>
+            <td class="align-middle col-xs-1 text-center" th:text="${order.orderNumber}"></td>
+            <td class="align-middle col-xs-1 text-center" th:text="${order.userName}"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${order.roomNumber}"></td>
+            <td class="align-middle col-xs-1 text-center" th:text="${order.amountOfGuests}"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${order.roomCategory}"></td>
-            <td class="align-middle col-xs-1 text-center" th:text="${order.roomStatus}"></td>
             <td class="h6 small align-middle col-xs-1 text-center">
-                <a th:href="@{'/room_details/get/' + ${room.id}}">Details</a>
+                <a th:href="@{'/orders/get/' + ${order.id}}">Details</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <a th:href="@{'/room_details/edit/' + ${room.id}}">Edit</a>
+                <a th:href="@{'/orders/edit/' + ${order.id}}">Edit</a>
             </td>
         </tr>
         </tbody>

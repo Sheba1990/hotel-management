@@ -36,9 +36,11 @@
         <version.com.h2database>1.4.200</version.com.h2database>
         <version.org.thymeleaf>3.0.11.RELEASE</version.org.thymeleaf>
         <version.org.springframework.security>5.3.4.RELEASE</version.org.springframework.security>
-        <version.org.webjars>4.5.2</version.org.webjars>
+        <bootstrap.version>4.5.2</bootstrap.version>
         <version.com.sun.mail>1.6.2</version.com.sun.mail>
         <version.org.thymeleaf.extras>3.0.4.RELEASE</version.org.thymeleaf.extras>
+        <font-awesome.version>5.11.2</font-awesome.version>
+        <webjars-locator.version>0.30</webjars-locator.version>
     </properties>
 
     <dependencyManagement>
@@ -107,7 +109,17 @@
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>bootstrap</artifactId>
-                <version>${version.org.webjars}</version>
+                <version>${bootstrap.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>font-awesome</artifactId>
+                <version>${font-awesome.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>webjars-locator</artifactId>
+                <version>${webjars-locator.version}</version>
             </dependency>
 
 

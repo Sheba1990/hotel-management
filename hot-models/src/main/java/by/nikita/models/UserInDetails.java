@@ -1,6 +1,7 @@
 package by.nikita.models;
 
 import by.nikita.models.enums.Gender;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ public class UserInDetails extends AbstractIdAwareEntity {
     private String middleName;
 
     @Column(name = "birth_date", columnDefinition = "DATE")
-    //@Convert(converter = StringToDateSQLConverter.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
     @Enumerated(EnumType.STRING)

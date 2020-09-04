@@ -43,70 +43,52 @@
     <table class="table">
         <tr class="thead-dark">
         <tr>
-            <td scope="col" class="align-middle">Number</td>
-            <td class="align-middle" th:text="${roomDetails.roomNumber}"></td>
+            <td scope="col" class="align-middle">Order number</td>
+            <td class="align-middle" th:text="${order.orderNumber}"></td>
         </tr>
         <tr>
-            <td scope="col" class="align-middle">Category</td>
-            <td class="align-middle" th:text="${roomDetails.roomCategory}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Status</td>
-            <td class="align-middle" th:text="${roomDetails.roomStatus}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Price per night</td>
-            <td class="align-middle" th:text="${roomDetails.pricePerNight} + ' $'"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Floor</td>
-            <td class="align-middle" th:text="${roomDetails.floor}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Amount of rooms</td>
-            <td class="align-middle" th:text="${roomDetails.amountOfRooms}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Capacity</td>
-            <td class="align-middle" th:text="${roomDetails.capacity}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Sea view</td>
+            <td scope="col" class="align-middle">Order approved by administrator</td>
             <td class="align-middle">
-                <span th:if="${roomDetails.hasSeaView == true}">Yes</span>
-                <span th:unless="${roomDetails.hasSeaView == true}">No</span>
+                <span th:if="${order.approved == true}">Yes</span>
+                <span th:unless="${order.approved == true}">No</span>
             </td>
         </tr>
         <tr>
-            <td scope="col" class="align-middle">Bath</td>
-            <td class="align-middle">
-                <span th:if="${roomDetails.hasBath == true}">Yes</span>
-                <span th:unless="${roomDetails.hasBath == true}">No</span>
-            </td>
+            <td scope="col" class="align-middle">Username</td>
+            <td class="align-middle" th:text="${order.userName}"></td>
         </tr>
         <tr>
-            <td scope="col" class="align-middle">Baby bed</td>
-            <td class="align-middle">
-                <span th:if="${roomDetails.hasBabyBed == true}">Yes</span>
-                <span th:unless="${roomDetails.hasBabyBed == true}">No</span>
-            </td>
+            <td scope="col" class="align-middle">Guest's full name</td>
+            <td class="align-middle" th:text="${order.userFullName}"></td>
         </tr>
         <tr>
-            <td scope="col" class="align-middle">Wi-Fi</td>
-            <td class="align-middle">
-                <span th:if="${roomDetails.hasWifi == true}">Yes</span>
-                <span th:unless="${roomDetails.hasWifi == true}">No</span>
-            </td>
+            <td scope="col" class="align-middle">Guest's email</td>
+            <td class="align-middle" th:text="${order.userEmail}"></td>
         </tr>
         <tr>
-            <td scope="col" class="align-middle">Breakfast</td>
-            <td class="align-middle">
-                <span th:if="${roomDetails.hasBreakfast == true}">Yes</span>
-                <span th:unless="${roomDetails.hasBreakfast == true}">No</span>
-            </td>
+            <td scope="col" class="align-middle">Amount of persons in room</td>
+            <td class="align-middle" th:text="${order.amountOfGuests}"></td>
         </tr>
-
-
+        <tr>
+            <td scope="col" class="align-middle">Date of check in</td>
+            <td class="align-middle" th:text="${order.dateOfCheckIn}"></td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Date of check out</td>
+            <td class="align-middle" th:text="${order.dateOfCheckOut}"></td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Staying period</td>
+            <td class="align-middle" th:text="${order.stayingPeriod}"></td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Room number</td>
+            <td class="align-middle" th:text="${order.roomNumber}"></td>
+        </tr>
+        <tr>
+            <td scope="col" class="align-middle">Room category</td>
+            <td class="align-middle" th:text="${order.roomCategory}"></td>
+        </tr>
     </table>
 </div>
 <!-- jQuery -->

@@ -2,6 +2,7 @@ package by.nikita.services;
 
 import by.nikita.dao.api.IOrderDao;
 import by.nikita.dao.api.IRoomDao;
+import by.nikita.dao.api.IUserDao;
 import by.nikita.dto.OrderDto;
 import by.nikita.models.Order;
 import by.nikita.models.Room;
@@ -21,6 +22,9 @@ public class OrderService implements IOrderService {
 
     @Autowired
     IOrderDao orderDao;
+
+    @Autowired
+    IUserDao userDao;
 
     @Autowired
     IRoomDao roomDao;

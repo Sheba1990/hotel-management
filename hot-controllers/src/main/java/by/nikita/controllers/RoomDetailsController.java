@@ -4,11 +4,13 @@ import by.nikita.dto.RoomDetailsDto;
 import by.nikita.services.api.IRoomDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+@PreAuthorize("hasAuthority('ADMIN')")
 @RestController
 @RequestMapping("/room_details")
 public class RoomDetailsController {

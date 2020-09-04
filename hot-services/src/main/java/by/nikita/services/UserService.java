@@ -1,10 +1,10 @@
 package by.nikita.services;
 
-import by.nikita.dao.api.IUserDao;
-import by.nikita.dto.UserDto;
+import by.nikita.dao.api.*;
+import by.nikita.dto.*;
+import by.nikita.models.*;
 import by.nikita.services.api.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,10 +17,17 @@ public class UserService implements IUserService {
     @Autowired
     IUserDao userDao;
 
-    @Override
-    public UserDetails getUserByUsername(String username) {
-        return userDao.getByUsername(username);
-    }
+    @Autowired
+    IUserInDetailsDao userInDetailsDao;
+
+    @Autowired
+    IPassportDataDao passportDataDao;
+
+    @Autowired
+    IContactDataDao contactDataDao;
+
+    @Autowired
+    IAddressDao addressDao;
 
     @Override
     public UserDto getUserById(long id) {
@@ -30,5 +37,85 @@ public class UserService implements IUserService {
     @Override
     public List<UserDto> getAllUsers() {
         return UserDto.convertList(userDao.getAll());
+    }
+
+    @Override
+    public List<UserDto> getUsersByUserFirstName(String firstName) {
+        return UserDto.convertList(userDao.getUsersByUserFirstName(firstName));
+    }
+
+    @Override
+    public List<UserDto> getUsersByUserLastName(String lastName) {
+        return UserDto.convertList(userDao.getUsersByUserLastName(lastName));
+    }
+
+    @Override
+    public List<UserDto> getUsersByFullName(String firstName, String lastName) {
+        return UserDto.convertList(userDao.getUsersByFullName(firstName, lastName));
+    }
+
+    @Override
+    public List<UserDto> getUsersByPassportIssueCountry(String passportCountry) {
+        return UserDto.convertList(userDao.getUsersByPassportIssueCountry(passportCountry));
+    }
+
+    @Override
+    public List<UserDto> getUsersByResidenceCountry(String residenceCountry) {
+        return UserDto.convertList(userDao.getUsersByResidenceCountry(residenceCountry));
+    }
+
+    @Override
+    public List<UserDto> getUsersByResidenceCity(String residenceCity) {
+        return UserDto.convertList(userDao.getUsersByResidenceCity(residenceCity));
+    }
+
+    @Override
+    public UserDto getUserByOccupiedRoomNumber(Integer roomNumber) {
+        return UserDto.entityToDto(userDao.getUserByOccupiedRoomNumber(roomNumber));
+    }
+
+    public void updateUser(long id,
+                           UserDto userDto,
+                           UserInDetailsDto userInDetailsDto,
+                           PassportDataDto passportDataDto,
+                           ContactDataDto contactDataDto,
+                           AddressDto addressDto) {
+
+        User user = userDao.get(id);
+        UserInDetails userInDetails = user.getUserInDetails();
+        PassportData passportData = user.getUserInDetails().getPassportData();
+        ContactData contactData = user.getUserInDetails().getContactData();
+        Address address = user.getUserInDetails().getContactData().getAddress();
+
+        if (user.getUserInDetails().getContactData().getAddress() != null) {
+            address.setPostalCode(userDto.getUserPostalCode());
+            address.setCountry(userDto.getUserResidenceCountry());
+            address.setProvince(userDto.getUserResidenceProvince());
+            address.setCity(userDto.getUserResidenceCity());
+            address.setStreet(userDto.getUserResidenceStreet());
+            address.setHomeNumber(userDto.getUserResidenceHomeNumber());
+            address.setApartmentNumber(userDto.getUserResidenceApartmentNumber());
+            addressDao.update(address);
+        }
+        if (user.getUserInDetails().getContactData() != null) {
+            contactData.setPhoneNumber(userDto.getUserPhoneNumber());
+            contactDataDao.update(contactData);
+        }
+        if (user.getUserInDetails().getPassportData() != null) {
+            passportData.setPassportNumber(userDto.getUserPassportNumber());
+            passportData.setCountryOfIssue(userDto.getUserPassportCountryOfIssue());
+            passportData.setDateOfIssue(userDto.getUserPassportDateOfIssue());
+            passportData.setDateOfExpiry(userDto.getUserPassportDateOfExpiry());
+            passportDataDao.update(passportData);
+        }
+        if (user.getUserInDetails() != null) {
+            userInDetails.setFirstName(userDto.getUserFirstName());
+            userInDetails.setMiddleName(userDto.getUserMiddleName());
+            userInDetails.setLastName(userDto.getUserLastName());
+            userInDetails.setBirthDate(userDto.getUserBirthDate());
+            userInDetails.setGender(userDto.getGender());
+            userInDetailsDao.update(userInDetails);
+        }
+        userDao.update(user);
     }
 }

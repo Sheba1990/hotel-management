@@ -97,7 +97,7 @@ public class UserInDetailsDto extends AbstractIdAwareDto {
         userInDetailsDto.setGender(userInDetails.getGender());
         userInDetailsDto.setUserBirthDate(userInDetails.getBirthDate());
         if (userInDetailsDto.getUserBirthDate() != null) {
-            LocalDate date1 = userInDetailsDto.userBirthDate;
+            LocalDate date1 = userInDetailsDto.getUserBirthDate();
             LocalDate date2 = LocalDate.now();
             Long amountOfYears = ChronoUnit.YEARS.between(date1, date2);
             userInDetailsDto.setAge(amountOfYears);

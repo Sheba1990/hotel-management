@@ -30,7 +30,7 @@ public class OrderController {
     public ModelAndView addOrderByUser(OrderDto orderDto) {
         ModelAndView modelAndView = new ModelAndView();
         orderService.addOrderByUser(orderDto);
-        modelAndView.setViewName("redirect/orders");
+        modelAndView.setViewName("redirect:/orders");
         return modelAndView;
     }
 
@@ -39,7 +39,7 @@ public class OrderController {
         ModelAndView modelAndView = new ModelAndView();
         List<OrderDto> orders = orderService.getAllOrders();
         modelAndView.addObject("orders", orders);
-        modelAndView.setViewName("/views/orders/orders");
+        modelAndView.setViewName("/views/orders/all_orders");
         return modelAndView;
     }
 

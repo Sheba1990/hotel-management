@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Резюме менеджер</title>
+    <title>Hotel Horizon</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -21,24 +21,25 @@
    }
 
 
+
 </style>
 <body>
-<div th:replace="~{fragments/header :: header}">Header</div>
+<div th:insert="~{fragments/header :: header}">Header</div>
 <div align="center">
-    <h1>Add new room</h1>
     <br/>
-    <form th:action="@{/rooms/save}" method="post">
+    <h1>New Order</h1>
+    <br/>
+    <form th:action="@{/orders/save}" method="post">
         <div>
             <form>
                 <div class="form-row mx-auto">
                     <div class="col-md-3 mb-3 mx-auto">
-                        <label>Room number</label>
-                        <input type="text" th:field="*{room.roomNumber}" class="form-control"
-                               placeholder="Hotel room number">
+                        <label>Amount of guests</label>
+                        <input type="text" th:field="*{order.amountOfGuests}" class="form-control">
                     </div>
                     <div class="col-md-2 mb-3 mx-auto">
-                        <label>Category</label>
-                        <select class="form-control" id="categoryName" th:field="*{category.categoryName}">
+                        <label>Room Category</label>
+                        <select class="form-control" id="roomCategory" th:field="*{order.roomCategory}">
                             <option th:value="DELUXE"
                                     th:text="DELUXE"></option>
                             <option th:value="BUSINESS"
@@ -50,34 +51,14 @@
                         </select>
                     </div>
                     <div class="col-md-2 mb-3 mx-auto">
-                        <label>Category</label>
-                        <select class="form-control" id="floor" th:field="*{details.floor}">
-                            <option th:value="5"
-                                    th:text="5"></option>
-                            <option th:value="4"
-                                    th:text="4"></option>
-                            <option th:value="3"
-                                    th:text="3"></option>
-                            <option th:value="2"
-                                    th:text="2"></option>
-                            <option th:value="1"
-                                    th:text="1"></option>
-                        </select>
+                        <label>Date of check in</label>
+                        <input type="date" class="form-control" id="dateOfCheckIn"
+                               th:field="*{order.dateOfCheckIn}"/>
                     </div>
                     <div class="col-md-2 mb-3 mx-auto">
-                        <label>Category</label>
-                        <select class="form-control" id="capacity" th:field="*{details.capacity}">
-                            <option th:value="5"
-                                    th:text="5"></option>
-                            <option th:value="4"
-                                    th:text="4"></option>
-                            <option th:value="3"
-                                    th:text="3"></option>
-                            <option th:value="2"
-                                    th:text="2"></option>
-                            <option th:value="1"
-                                    th:text="1"></option>
-                        </select>
+                        <label>Date of check out</label>
+                        <input type="date" class="form-control" id="dateOfCheckOut"
+                               th:field="*{order.dateOfCheckOut}"/>
                     </div>
                 </div>
             </form>
@@ -88,7 +69,7 @@
                     </button>
                 </div>
                 <div class="ml-2">
-                    <form th:action="@{/rooms/}" th:method="get">
+                    <form th:action="@{/orders/}" th:method="get">
                         <button class="btn btn-danger">
                             Cancel
                         </button>
@@ -108,5 +89,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
+
 </body>
 </html>

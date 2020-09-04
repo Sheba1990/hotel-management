@@ -20,23 +20,23 @@
    }
 
 
+
+
 </style>
 <body>
 <div th:replace="~{fragments/header :: header}">Header</div>
 
 <div class="container">
     <div class="text-center">
-        <h1 class="display-3">Welcome new User!</h1>
+        <h1 class="display-3">Welcome!</h1>
         <br/>
         <form th:action="@{/login}" method="post">
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label> User Name : <input type="text" class="form-control" name="username"
-                                               placeholder="Input your login/username"/></label>
+                    <label> User Name : <input type="text" class="form-control" name="username"/></label>
                 </div>
                 <div class="form-group col-md-6">
-                    <label> Password: <input type="password" class="form-control" name="password"
-                                             placeholder="Input your password"/></label>
+                    <label> Password: <input type="password" class="form-control" name="password"/></label>
                 </div>
             </div>
             <div class="form-row">

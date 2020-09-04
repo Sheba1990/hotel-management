@@ -13,6 +13,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/registration").permitAll()
+                .antMatchers("/login").permitAll()
+                // .antMatchers("/users", "/orders", "/rooms").access("hasRole('ADMIN')")
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -23,8 +25,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/access_denied")
-                .and().
-                logout().
-                logoutSuccessUrl("/");
+                .and()
+                .logout()
+                .logoutSuccessUrl("/");
     }
 }
