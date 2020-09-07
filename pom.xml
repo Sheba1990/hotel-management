@@ -27,7 +27,7 @@
         <java.version>1.8</java.version>
         <downloadSources>true</downloadSources>
         <downloadJavadocs>true</downloadJavadocs>
-        <version.org.springframework.boot>2.2.4.RELEASE</version.org.springframework.boot>
+        <version.org.springframework.boot>2.2.6.RELEASE</version.org.springframework.boot>
         <version.org.postgresql>42.2.14</version.org.postgresql>
         <version.org.hibernate>5.4.18.Final</version.org.hibernate>
         <version.org.hibernate-validator>6.1.5.Final</version.org.hibernate-validator>
@@ -71,6 +71,12 @@
                 <artifactId>spring-boot-starter-mail</artifactId>
                 <version>${version.org.springframework.boot}</version>
             </dependency>
+            <!-- devtools -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>${version.org.springframework.boot}</version>
+            </dependency>
             <!-- test -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -92,7 +98,7 @@
             </dependency>
             <dependency>
                 <groupId>org.thymeleaf.extras</groupId>
-                <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+                <artifactId>thymeleaf-extras-springsecurity5</artifactId>
                 <version>${version.org.thymeleaf.extras}</version>
             </dependency>
 

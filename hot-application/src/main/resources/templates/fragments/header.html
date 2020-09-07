@@ -33,10 +33,10 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu2" role="button"
                    aria-expanded="false">
-                    Users
+                    Guests
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/users">All users</a>
+                    <a class="dropdown-item" href="/users">All guests</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -57,7 +57,7 @@
                     <a class="btn btn-success" href="/registration">Create New Account</a>
                 </span>
                 <span th:if="${username != null}">
-                    <a class="btn btn-danger" href="/logout">Log Out</a>
+                    <a href="/logout" class="btn btn-danger">Log Out</a>
                 </span>
             </form>
         </ul>
