@@ -29,9 +29,9 @@ insert into user_table (id, username, email, password, active, user_details_id)
 
 insert into user_role_table(user_id, roles)
 values
-  (1, 'USER'),
-  (2, 'USER'),
-  (3, 'ADMIN');
+  (1, 'ROLE_USER'),
+  (2, 'ROLE_USER'),
+  (3, 'ROLE_ADMIN');
 
 insert into room_details_table (id, price_per_night, floor, amount_of_rooms, capacity, see_view, bath, babybed, wifi, breakfast)
 values

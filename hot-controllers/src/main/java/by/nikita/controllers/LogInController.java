@@ -25,7 +25,7 @@ public class LogInController {
         } else {
             return "redirect:/login";
         }
-        return "redirect:/greeting";
+        return "redirect:/index";
     }
 
 }

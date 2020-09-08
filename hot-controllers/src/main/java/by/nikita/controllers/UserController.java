@@ -90,7 +90,8 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/room_number/{roomNumber}")
+    @GetMapping(value = "/room_number/{" +
+            "}")
     public ModelAndView getUserByOccupiedRoomNumber(@PathVariable Integer roomNumber) {
         ModelAndView modelAndView = new ModelAndView();
         UserDto users = userService.getUserByOccupiedRoomNumber(roomNumber);

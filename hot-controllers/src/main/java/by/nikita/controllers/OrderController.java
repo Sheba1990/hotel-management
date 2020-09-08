@@ -25,11 +25,11 @@ public class OrderController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/save",
+    @PostMapping(value = "/save/{userId}",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView addOrderByUser(OrderDto orderDto) {
+    public ModelAndView addOrderByUser(@PathVariable Long userId, OrderDto orderDto) {
         ModelAndView modelAndView = new ModelAndView();
-        orderService.addOrderByUser(orderDto);
+        orderService.addOrderByUser(userId, orderDto);
         modelAndView.setViewName("redirect:/orders");
         return modelAndView;
     }

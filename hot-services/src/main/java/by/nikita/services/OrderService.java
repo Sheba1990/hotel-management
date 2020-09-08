@@ -6,6 +6,7 @@ import by.nikita.dao.api.IUserDao;
 import by.nikita.dto.OrderDto;
 import by.nikita.models.Order;
 import by.nikita.models.Room;
+import by.nikita.models.User;
 import by.nikita.models.enums.RoomStatus;
 import by.nikita.services.api.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,10 @@ public class OrderService implements IOrderService {
     IRoomDao roomDao;
 
     @Override
-    public OrderDto addOrderByUser(OrderDto orderDto) {
+    public OrderDto addOrderByUser(Long userId, OrderDto orderDto) {
+        User user = userDao.get(userId);
         Order order = new Order();
+        order.setUser(user);
         order.setRoomCategory(orderDto.getRoomCategory());
         order.setAmountOfGuests(orderDto.getAmountOfGuests());
         order.setDateOfCheckIn(orderDto.getDateOfCheckIn());

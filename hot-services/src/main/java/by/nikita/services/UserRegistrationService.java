@@ -60,7 +60,7 @@ public class UserRegistrationService implements IRegistrationService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
         user.setActive(Boolean.FALSE);
-        user.setRoles(Collections.singleton(Role.USER));
+        user.setRoles(Collections.singleton(Role.ROLE_USER));
         user.setUserInDetails(userInDetails);
 
         userDao.create(user);

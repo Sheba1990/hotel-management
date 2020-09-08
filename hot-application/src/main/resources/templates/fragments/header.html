@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/css/bootstrap.min.css}"/>
 </head>
@@ -16,47 +17,55 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <!--li class="nav-item active ml-1">
-                <a class="nav-link" href="/">Main page<span class="sr-only">(current)</span></a>
-            </li-->
-            <!--span th:if="${username != null}"-->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu1" role="button"
-                   aria-expanded="false">
-                    Rooms
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/rooms">All rooms</a>
-                    <a class="dropdown-item" href="/rooms/new">Add new room</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu2" role="button"
-                   aria-expanded="false">
-                    Guests
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/users">All guests</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu3" role="button"
-                   aria-expanded="false">
-                    Orders
-                </a>
+            <span sec:authorize="isAuthenticated()">
+                <span sec:authorize="hasRole('ROLE_ADMIN')">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu1" role="button"
+                       aria-expanded="false">
+                        Rooms
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/rooms">All rooms</a>
+                        <a class="dropdown-item" href="/rooms/new">Add new room</a>
+                    </div>
+                </li>
+                </span>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                <span sec:authorize="hasAuthority('ADMIN')">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu2" role="button"
+                       aria-expanded="false">
+                        Guests
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/users">All guests</a>
+                    </div>
+                </li>
+                </span>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                <span sec:authorize="hasRole('ADMIN')">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu3" role="button"
+                       aria-expanded="false">
+                        Orders
+                    </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/orders">All orders</a>
                     <a class="dropdown-item" href="/orders/new">Add new order</a>
                 </div>
-            </li>
-            <!--/span-->
+                </li>
+                </span>
+            </span>
             <form class="form-inline my-2 my-lg-0">
                 Hello,<span th:text="${username} ?: 'guest!'" class="mr-3 ml-1"></span>
-                <span th:if="${username == null}">
+                <span sec:authorize="!isAuthenticated()">
                     <a class="btn btn-primary" href="/login">Log In</a>
                     <a class="btn btn-success" href="/registration">Create New Account</a>
                 </span>
-                <span th:if="${username != null}">
+
+                <span sec:authorize="isAuthenticated()">
                     <a href="/logout" class="btn btn-danger">Log Out</a>
                 </span>
             </form>

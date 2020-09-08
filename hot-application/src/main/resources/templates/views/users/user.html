@@ -64,98 +64,98 @@
 </div>
 <br/>
 <div class="container rounded bg-white mt-5 mb-5">
-<div class="table-responsive-lg">
-    <table class="table table-hover table-striped">
-        <tr class="thead-dark">
-        <tr>
-            <td scope="col" class="align-middle">Id</td>
-            <td class="align-middle" th:text="${user.id}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Username</td>
-            <td class="align-middle" th:text="${user.username}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">First name</td>
-            <td class="align-middle" th:text="${user.userFirstName}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Middle name</td>
-            <td class="align-middle" th:text="${user.userMiddleName}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Last name</td>
-            <td class="align-middle" th:text="${user.userLastName}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Date of birth</td>
-            <td class="align-middle" th:text="${user.userBirthDate}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Age</td>
-            <td class="align-middle" th:text="${user.age}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Gender</td>
-            <td class="align-middle">
-                <span th:if="${user.gender.toString() == 'MALE'}">MALE</span>
-                <span th:unless="${user.gender.toString() == 'MALE'}">FEMALE</span>
-            </td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Passport number</td>
-            <td class="align-middle" th:text="${user.userPassportNumber}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Country of issue</td>
-            <td class="align-middle" th:text="${user.userPassportCountryOfIssue}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Date of issue</td>
-            <td class="align-middle" th:text="${user.userPassportDateOfIssue}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Date of expiry</td>
-            <td class="align-middle" th:text="${user.userPassportDateOfExpiry}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Phone number</td>
-            <td class="align-middle" th:text="${user.userPhoneNumber}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Email</td>
-            <td class="align-middle" th:text="${user.email}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Postal code</td>
-            <td class="align-middle" th:text="${user.userPostalCode}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Residence country</td>
-            <td class="align-middle" th:text="${user.userResidenceCountry}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Residence province</td>
-            <td class="align-middle" th:text="${user.userResidenceProvince}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Residence city</td>
-            <td class="align-middle" th:text="${user.userResidenceCity}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Residence street</td>
-            <td class="align-middle" th:text="${user.userResidenceStreet}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Residence home number</td>
-            <td class="align-middle" th:text="${user.userResidenceHomeNumber}"></td>
-        </tr>
-        <tr>
-            <td scope="col" class="align-middle">Apartment number</td>
-            <td class="align-middle" th:text="${user.userResidenceApartmentNumber}"></td>
-        </tr>
-    </table>
-</div>
+    <div class="table-responsive-lg">
+        <table class="table table-hover table-striped">
+            <tr class="thead-dark">
+            <tr>
+                <td scope="col" class="align-middle">Id</td>
+                <td class="align-middle" th:text="${user.id}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Username</td>
+                <td class="align-middle" th:text="${user.username}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">First name</td>
+                <td class="align-middle" th:text="${user.userFirstName}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Middle name</td>
+                <td class="align-middle" th:text="${user.userMiddleName}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Last name</td>
+                <td class="align-middle" th:text="${user.userLastName}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Date of birth</td>
+                <td class="align-middle" th:text="${user.userBirthDate}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Age</td>
+                <td class="align-middle" th:text="${user.age}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Gender</td>
+                <td class="align-middle">
+                    <span th:if="${user.gender.toString() == 'MALE'}">MALE</span>
+                    <span th:unless="${user.gender.toString() == 'MALE'}">FEMALE</span>
+                </td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Passport number</td>
+                <td class="align-middle" th:text="${user.userPassportNumber}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Country of issue</td>
+                <td class="align-middle" th:text="${user.userPassportCountryOfIssue}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Date of issue</td>
+                <td class="align-middle" th:text="${user.userPassportDateOfIssue}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Date of expiry</td>
+                <td class="align-middle" th:text="${user.userPassportDateOfExpiry}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Phone number</td>
+                <td class="align-middle" th:text="${user.userPhoneNumber}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Email</td>
+                <td class="align-middle" th:text="${user.email}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Postal code</td>
+                <td class="align-middle" th:text="${user.userPostalCode}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Residence country</td>
+                <td class="align-middle" th:text="${user.userResidenceCountry}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Residence province</td>
+                <td class="align-middle" th:text="${user.userResidenceProvince}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Residence city</td>
+                <td class="align-middle" th:text="${user.userResidenceCity}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Residence street</td>
+                <td class="align-middle" th:text="${user.userResidenceStreet}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Residence home number</td>
+                <td class="align-middle" th:text="${user.userResidenceHomeNumber}"></td>
+            </tr>
+            <tr>
+                <td scope="col" class="align-middle">Apartment number</td>
+                <td class="align-middle" th:text="${user.userResidenceApartmentNumber}"></td>
+            </tr>
+        </table>
+    </div>
 </div>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
