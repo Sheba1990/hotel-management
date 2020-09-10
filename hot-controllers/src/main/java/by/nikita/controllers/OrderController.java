@@ -20,23 +20,44 @@ public class OrderController {
 
     @GetMapping(value = "/new")
     public ModelAndView showNewOrderFormForUser() {
-        OrderDto orderDto = new OrderDto();
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
+        OrderDto orderDto = new OrderDto();
         modelAndView.addObject("order", orderDto);
         modelAndView.setViewName("/views/orders/new_order");
         return modelAndView;
     }
 
-    @PostMapping(value = "/save/{userId}",
+    @PostMapping(value = "/save",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView addOrderByUser(@PathVariable Long userId, OrderDto orderDto) {
+    public ModelAndView addOrderByUser(OrderDto orderDto) {
         ModelAndView modelAndView = new ModelAndView();
-        orderService.addOrderByUser(userId, orderDto);
-        modelAndView.setViewName("redirect:/orders");
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
+        orderService.addOrderByUser(orderDto);
+        modelAndView.setViewName("redirect:/orders/username/?username={username}");
         return modelAndView;
     }
 
-    @GetMapping
+    @GetMapping(value = "/username/")
+    public ModelAndView getOrdersByUsername(@RequestParam(name = "username") String username) {
+        ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
+        List<OrderDto> orders = orderService.getOrdersByUsername(username);
+        modelAndView.addObject("orders", orders);
+        modelAndView.setViewName("/views/orders/my_orders");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/all")
     public ModelAndView getAllOrders() {
         ModelAndView modelAndView = new ModelAndView();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -65,6 +86,10 @@ public class OrderController {
     @GetMapping(value = "/number/{orderNumber}")
     public ModelAndView getOrderByNumber(@PathVariable Integer orderNumber) {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         OrderDto order = orderService.getOrderByNumber(orderNumber);
         modelAndView.addObject("order", order);
         modelAndView.setViewName("/views/orders/order");
@@ -74,27 +99,40 @@ public class OrderController {
     @GetMapping(value = "/room_category/{roomCategory}")
     public ModelAndView getOrdersByRoomCategory(@RequestParam String roomCategory) {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         List<OrderDto> orders = orderService.getOrdersByRoomCategory(roomCategory);
         modelAndView.addObject("orders", orders);
-        modelAndView.setViewName("/views/orders/orders");
+        modelAndView.setViewName("/views/orders/all_orders");
         return modelAndView;
     }
 
     @GetMapping(value = "/user_first_name/{firstName}")
+
     public ModelAndView getOrdersByUserFirstName(@RequestParam String firstName) {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         List<OrderDto> orders = orderService.getOrdersByUserFirstName(firstName);
         modelAndView.addObject("orders", orders);
-        modelAndView.setViewName("/views/orders/orders");
+        modelAndView.setViewName("/views/orders/all_orders");
         return modelAndView;
     }
 
     @GetMapping(value = "/user_last_name/{lastName}")
     public ModelAndView getOrdersByUserLastName(@RequestParam String lastName) {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         List<OrderDto> orders = orderService.getOrdersByUserLastName(lastName);
         modelAndView.addObject("orders", orders);
-        modelAndView.setViewName("/views/orders/orders");
+        modelAndView.setViewName("/views/orders/all_orders");
         return modelAndView;
     }
 
@@ -108,7 +146,7 @@ public class OrderController {
         ModelAndView modelAndView = new ModelAndView();
         List<OrderDto> notApprovedOrders = orderService.getAllNotApprovedOrders();
         modelAndView.addObject("orders", notApprovedOrders);
-        modelAndView.setViewName("/views/orders/orders");
+        modelAndView.setViewName("/views/orders/all_orders");
         return modelAndView;
     }
 
@@ -117,7 +155,7 @@ public class OrderController {
         ModelAndView modelAndView = new ModelAndView();
         List<OrderDto> approvedOrders = orderService.getAllApprovedOrders();
         modelAndView.addObject("orders", approvedOrders);
-        modelAndView.setViewName("/views/orders/orders");
+        modelAndView.setViewName("/views/orders/all_orders");
         return modelAndView;
     }
 
@@ -144,7 +182,7 @@ public class OrderController {
     public ModelAndView deleteOrder(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView();
         orderService.deleteOrder(id);
-        modelAndView.setViewName("redirect:/orders");
+        modelAndView.setViewName("redirect:/all_orders");
         return modelAndView;
     }
 

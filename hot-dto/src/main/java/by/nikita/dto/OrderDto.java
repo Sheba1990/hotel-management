@@ -46,9 +46,13 @@ public class OrderDto extends AbstractIdAwareDto {
             orderDto.setId(order.getId());
             orderDto.setOrderNumber(order.getOrderNumber());
             orderDto.setUserName(order.getUser().getUsername());
-            orderDto.setRoomNumber(order.getRoom().getRoomNumber());
+            if (order.getRoom()!= null) {
+                orderDto.setRoomNumber(order.getRoom().getRoomNumber());
+            } else {
+                orderDto.setRoomNumber(null);
+            }
             orderDto.setAmountOfGuests(order.getAmountOfGuests());
-            orderDto.setRoomCategory(order.getRoom().getRoomCategory().getCategoryName());
+            orderDto.setRoomCategory(order.getRoomCategory());
             orders.add(orderDto);
         }
         return orders;
@@ -79,8 +83,12 @@ public class OrderDto extends AbstractIdAwareDto {
             Long amountOfDays = ChronoUnit.DAYS.between(date1, date2);
             orderDto.setStayingPeriod(amountOfDays);
         }
-        orderDto.setRoomNumber(order.getRoom().getRoomNumber());
-        orderDto.setRoomCategory(order.getRoom().getRoomCategory().getCategoryName());
+        if (order.getRoom()!= null) {
+            orderDto.setRoomNumber(order.getRoom().getRoomNumber());
+        } else {
+            orderDto.setRoomNumber(null);
+        }
+        orderDto.setRoomCategory(order.getRoomCategory());
         return orderDto;
     }
 

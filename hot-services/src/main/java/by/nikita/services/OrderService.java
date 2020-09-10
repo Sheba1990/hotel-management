@@ -10,6 +10,7 @@ import by.nikita.models.User;
 import by.nikita.models.enums.RoomStatus;
 import by.nikita.services.api.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -31,10 +32,14 @@ public class OrderService implements IOrderService {
     IRoomDao roomDao;
 
     @Override
-    public OrderDto addOrderByUser(String username, OrderDto orderDto) {
-        User user = userDao.getByUsername(username);
+    public OrderDto addOrderByUser(OrderDto orderDto) {
         Order order = new Order();
-        order.setUser(user);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof org.springframework.security.core.userdetails.User) {
+            String username = ((org.springframework.security.core.userdetails.User) principal).getUsername();
+            User user = userDao.getByUsername(username);
+            order.setUser(user);
+        }
         order.setRoomCategory(orderDto.getRoomCategory());
         order.setAmountOfGuests(orderDto.getAmountOfGuests());
         order.setDateOfCheckIn(orderDto.getDateOfCheckIn());
@@ -77,6 +82,11 @@ public class OrderService implements IOrderService {
     @Override
     public List<OrderDto> getOrdersByRoomCategory(String roomCategory) {
         return OrderDto.convertList(orderDao.getOrdersByRoomCategory(roomCategory));
+    }
+
+    @Override
+    public List<OrderDto> getOrdersByUsername(String username) {
+        return OrderDto.convertList(orderDao.getOrdersByUsername(username));
     }
 
     @Override

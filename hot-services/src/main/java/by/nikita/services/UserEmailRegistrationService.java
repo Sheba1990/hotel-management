@@ -24,9 +24,9 @@ public class UserEmailRegistrationService implements IRegistrationService {
 
     private void sendEmail(UserDto userDto) {
         // Recipient's email ID needs to be mentioned.
-        String to = userDto.getEmail();
+        String sendTo = userDto.getEmail();
         // Sender's email ID needs to be mentioned
-        String from = "norply@gmail.com";
+        String sendFrom = "norply@gmail.com";
 
         // Get system properties
         Properties properties = System.getProperties();
@@ -53,12 +53,12 @@ public class UserEmailRegistrationService implements IRegistrationService {
             // Create a default MimeMessage object.
             MimeMessage message = new MimeMessage(session);
             // Set From: header field of the header.
-            message.setFrom(new InternetAddress(from));
+            message.setFrom(new InternetAddress(sendFrom));
             // Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(sendTo));
 
             // Set Subject: header field
-            message.setSubject("This is the Subject Line!");
+            message.setSubject("Hotel Horizon. Activation of user.");
 
             // Now set the actual message
             message.setContent("<a href='http://localhost:8080/registration/" + userDto.getUsername() + "'>Press here to activate your account</a>", "text/html");

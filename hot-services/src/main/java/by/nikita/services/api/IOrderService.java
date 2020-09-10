@@ -1,12 +1,13 @@
 package by.nikita.services.api;
 
 import by.nikita.dto.OrderDto;
+import by.nikita.models.Order;
 
 import java.util.List;
 
 public interface IOrderService {
 
-    OrderDto addOrderByUser(String username, OrderDto orderDto);
+    OrderDto addOrderByUser(OrderDto orderDto);
 
     OrderDto acceptOrderByAdmin(long orderId, OrderDto orderDto);
 
@@ -17,6 +18,8 @@ public interface IOrderService {
     OrderDto getOrderByNumber(Integer orderNumber);
 
     List<OrderDto> getOrdersByRoomCategory(String roomCategory);
+
+    List<OrderDto> getOrdersByUsername(String username);
 
     List<OrderDto> getOrdersByUserFirstName(String firstName);
 

@@ -30,6 +30,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
         http
                 .authorizeRequests()
                 .antMatchers(staticResources).permitAll()
+                .antMatchers("/orders/username").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/login").permitAll()

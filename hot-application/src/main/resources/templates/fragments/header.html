@@ -55,7 +55,7 @@
                             Orders
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/orders">All orders</a>
+                            <a class="dropdown-item" href="/orders/all">All orders</a>
                             <a class="dropdown-item" href="/orders/new">Add new order</a>
                         </div>
                     </li>
@@ -67,10 +67,27 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu4"
                            role="button"
                            aria-expanded="false">
-                            Edit my profile
+                            PROFILE
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" th:href="@{/users/edit/(username=${username})}">Edit my profile</a>
+                            <a class="dropdown-item" th:href="@{/users/username/(username=${username})}">Profile Info</a>
+                            <a class="dropdown-item" th:href="@{/users/edit/(username=${username})}">Edit my Profile</a>
+                        </div>
+                    </li>
+                </span>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                <span sec:authorize="hasRole('ROLE_USER')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu5"
+                           role="button"
+                           aria-expanded="false">
+                            BOOKINGS
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                               th:href="@{/orders/username/(username=${username})}">My Bookings</a>
+                            <a class="dropdown-item" href="/orders/new">Book a Room</a>
                         </div>
                     </li>
                 </span>
