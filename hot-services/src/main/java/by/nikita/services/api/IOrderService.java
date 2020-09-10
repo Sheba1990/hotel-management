@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IOrderService {
 
-    OrderDto addOrderByUser(Long userId, OrderDto orderDto);
+    OrderDto addOrderByUser(String username, OrderDto orderDto);
 
     OrderDto acceptOrderByAdmin(long orderId, OrderDto orderDto);
 

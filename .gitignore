@@ -1,6 +1,5 @@
 # Project exclude paths
-/application/target/
 *.iml
-/hotel-management.iml
-.idea
-*/target
+*.idea
+*.class
+*/target/*

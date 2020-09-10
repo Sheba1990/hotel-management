@@ -4,6 +4,8 @@ import by.nikita.dto.OrderDto;
 import by.nikita.services.api.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,6 +39,10 @@ public class OrderController {
     @GetMapping
     public ModelAndView getAllOrders() {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         List<OrderDto> orders = orderService.getAllOrders();
         modelAndView.addObject("orders", orders);
         modelAndView.setViewName("/views/orders/all_orders");
@@ -46,6 +52,10 @@ public class OrderController {
     @GetMapping(value = "/get/{id}")
     public ModelAndView getOrderById(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         OrderDto order = orderService.getOrderById(id);
         modelAndView.addObject("order", order);
         modelAndView.setViewName("/views/orders/order");

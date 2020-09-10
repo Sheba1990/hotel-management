@@ -31,8 +31,8 @@ public class OrderService implements IOrderService {
     IRoomDao roomDao;
 
     @Override
-    public OrderDto addOrderByUser(Long userId, OrderDto orderDto) {
-        User user = userDao.get(userId);
+    public OrderDto addOrderByUser(String username, OrderDto orderDto) {
+        User user = userDao.getByUsername(username);
         Order order = new Order();
         order.setUser(user);
         order.setRoomCategory(orderDto.getRoomCategory());

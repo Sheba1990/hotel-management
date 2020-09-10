@@ -10,6 +10,8 @@ public interface IUserService {
 
     List<UserDto> getAllUsers();
 
+    UserDto getUserByUsername(String username);
+
     List<UserDto> getUsersByUserFirstName(String firstName);
 
     List<UserDto> getUsersByUserLastName(String lastName);
@@ -24,7 +26,7 @@ public interface IUserService {
 
     UserDto getUserByOccupiedRoomNumber(Integer roomNumber);
 
-    void updateUser(long id,
+    void updateUser(String username,
                     UserDto userDto,
                     UserInDetailsDto userInDetailsDto,
                     PassportDataDto passportDataDto,

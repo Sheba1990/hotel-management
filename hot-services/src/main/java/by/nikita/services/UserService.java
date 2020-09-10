@@ -40,6 +40,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public UserDto getUserByUsername(String username) {
+        return UserDto.entityToDto(userDao.getByUsername(username));
+    }
+
+    @Override
     public List<UserDto> getUsersByUserFirstName(String firstName) {
         return UserDto.convertList(userDao.getUsersByUserFirstName(firstName));
     }
@@ -74,14 +79,14 @@ public class UserService implements IUserService {
         return UserDto.entityToDto(userDao.getUserByOccupiedRoomNumber(roomNumber));
     }
 
-    public void updateUser(long id,
+    public void updateUser(String username,
                            UserDto userDto,
                            UserInDetailsDto userInDetailsDto,
                            PassportDataDto passportDataDto,
                            ContactDataDto contactDataDto,
                            AddressDto addressDto) {
 
-        User user = userDao.get(id);
+        User user = userDao.getByUsername(username);
         UserInDetails userInDetails = user.getUserInDetails();
         PassportData passportData = user.getUserInDetails().getPassportData();
         ContactData contactData = user.getUserInDetails().getContactData();

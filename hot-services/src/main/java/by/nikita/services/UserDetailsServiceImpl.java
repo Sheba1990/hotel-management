@@ -1,6 +1,7 @@
 package by.nikita.services;
 
 import by.nikita.dao.api.IUserDao;
+import by.nikita.models.Role;
 import by.nikita.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,8 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -37,8 +38,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(User user) {
-        ArrayList<GrantedAuthority> arrayList = new ArrayList<>();
-        arrayList.add(new SimpleGrantedAuthority(user.getRoles().toString()));
-        return arrayList;
+        return user.getRoles()
+                .stream()
+                .map(Role::getAuthority)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 }

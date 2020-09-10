@@ -21,21 +21,14 @@
     filter: blur(5px); /* Размытие */
    }
 
-
-
-
-
-
-
-
 </style>
 <body>
 <div th:insert="~{fragments/header :: header}">Header</div>
 <div align="center">
     <br/>
-    <h1>Edit profile.</h1>
+    <h1>Edit profile of user: "<span th:text="${user.username} ?: 'guest!'"></span>".</h1>
     <br/>
-    <form action="#" th:action="@{/users/edit/{id}(id=${user.id})}" method="post">
+    <form action="#" th:action="@{/users/save/{id}(id=${user.id})}" method="post">
         <div>
             <form>
                 <div class="form-row mx-auto">

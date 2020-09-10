@@ -19,43 +19,60 @@
         <ul class="navbar-nav mr-auto">
             <span sec:authorize="isAuthenticated()">
                 <span sec:authorize="hasRole('ROLE_ADMIN')">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu1" role="button"
-                       aria-expanded="false">
-                        Rooms
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/rooms">All rooms</a>
-                        <a class="dropdown-item" href="/rooms/new">Add new room</a>
-                    </div>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu1"
+                           role="button"
+                           aria-expanded="false">
+                            Rooms
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/rooms">All rooms</a>
+                            <a class="dropdown-item" href="/rooms/new">Add new room</a>
+                        </div>
+                    </li>
                 </span>
             </span>
             <span sec:authorize="isAuthenticated()">
-                <span sec:authorize="hasAuthority('ADMIN')">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu2" role="button"
-                       aria-expanded="false">
-                        Guests
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/users">All guests</a>
-                    </div>
-                </li>
+                <span sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu2"
+                           role="button"
+                           aria-expanded="false">
+                            Guests
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/users">All guests</a>
+                        </div>
+                    </li>
                 </span>
             </span>
             <span sec:authorize="isAuthenticated()">
-                <span sec:authorize="hasRole('ADMIN')">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu3" role="button"
-                       aria-expanded="false">
-                        Orders
-                    </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/orders">All orders</a>
-                    <a class="dropdown-item" href="/orders/new">Add new order</a>
-                </div>
-                </li>
+                <span sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu3"
+                           role="button"
+                           aria-expanded="false">
+                            Orders
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/orders">All orders</a>
+                            <a class="dropdown-item" href="/orders/new">Add new order</a>
+                        </div>
+                    </li>
+                </span>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                <span sec:authorize="hasRole('ROLE_USER')">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu4"
+                           role="button"
+                           aria-expanded="false">
+                            Edit my profile
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" th:href="@{/users/edit/(username=${username})}">Edit my profile</a>
+                        </div>
+                    </li>
                 </span>
             </span>
             <form class="form-inline my-2 my-lg-0">
@@ -64,7 +81,6 @@
                     <a class="btn btn-primary" href="/login">Log In</a>
                     <a class="btn btn-success" href="/registration">Create New Account</a>
                 </span>
-
                 <span sec:authorize="isAuthenticated()">
                     <a href="/logout" class="btn btn-danger">Log Out</a>
                 </span>

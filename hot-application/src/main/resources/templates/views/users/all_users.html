@@ -94,9 +94,9 @@
             <td class="align-middle col-xs-1 text-center" th:text="${user.email}"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${user.userFullName}"></td>
             <td class="h6 small align-middle col-xs-1 text-center">
-                <a th:href="@{'/users/get/' + ${user.id}}">Details</a>
+                <a th:href="@{/users/username/(username=${user.username})}">Details</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <a th:href="@{'/users/edit_user/' + ${user.id}}">Edit</a>
+                <a th:href="@{/users/edit/(username=${user.username})}">Edit</a>
             </td>
         </tr>
         </tbody>

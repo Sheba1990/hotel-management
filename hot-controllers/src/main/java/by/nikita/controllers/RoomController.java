@@ -6,6 +6,8 @@ import by.nikita.dto.RoomDto;
 import by.nikita.services.api.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,6 +23,10 @@ public class RoomController {
     @GetMapping(value = "/new")
     public ModelAndView showNewRoomForm() {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         RoomDto roomDto = new RoomDto();
         RoomCategoryDto roomCategoryDto = new RoomCategoryDto();
         RoomDetailsDto roomDetailsDto = new RoomDetailsDto();
@@ -37,6 +43,10 @@ public class RoomController {
                                 RoomCategoryDto roomCategoryDto,
                                 RoomDetailsDto roomDetailsDto) {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         roomService.addRoom(roomDto, roomCategoryDto, roomDetailsDto);
         modelAndView.setViewName("redirect:/rooms");
         return modelAndView;
@@ -45,6 +55,10 @@ public class RoomController {
     @GetMapping
     public ModelAndView getAllRooms() {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         List<RoomDto> rooms = roomService.getAllRooms();
         modelAndView.setViewName("/views/rooms/all_rooms");
         modelAndView.addObject("rooms", rooms);
@@ -54,6 +68,10 @@ public class RoomController {
     @GetMapping(value = "/get/{id}")
     public ModelAndView getRoomById(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         RoomDto room = roomService.getRoomById(id);
         modelAndView.setViewName("/views/rooms/room");
         modelAndView.addObject("room", room);
@@ -63,6 +81,10 @@ public class RoomController {
     @GetMapping(value = "/number/{roomNumber}")
     public ModelAndView getRoomByNumber(@PathVariable Integer roomNumber) {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         RoomDto room = roomService.getRoomByNumber(roomNumber);
         modelAndView.setViewName("/views/rooms/room");
         modelAndView.addObject("room", room);
@@ -73,6 +95,10 @@ public class RoomController {
     @GetMapping(value = "/deluxe")
     public ModelAndView getRoomsByDeluxeCategory() {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         List<RoomDto> rooms = roomService.getRoomsByDeluxeCategory();
         modelAndView.setViewName("/views/rooms/all_rooms");
         modelAndView.addObject("rooms", rooms);
@@ -82,6 +108,10 @@ public class RoomController {
     @GetMapping(value = "/business")
     public ModelAndView getRoomsByBusinessCategory() {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         List<RoomDto> rooms = roomService.getRoomsByBusinessCategory();
         modelAndView.setViewName("/views/rooms/all_rooms");
         modelAndView.addObject("rooms", rooms);
@@ -91,6 +121,10 @@ public class RoomController {
     @GetMapping(value = "/standard")
     public ModelAndView getRoomsByStandardCategory() {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         List<RoomDto> rooms = roomService.getRoomsByStandardCategory();
         modelAndView.setViewName("/views/rooms/all_rooms");
         modelAndView.addObject("rooms", rooms);
@@ -100,6 +134,10 @@ public class RoomController {
     @GetMapping(value = "/econom")
     public ModelAndView getRoomsByEconomCategory() {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         List<RoomDto> rooms = roomService.getRoomsByEconomCategory();
         modelAndView.setViewName("/views/rooms/all_rooms");
         modelAndView.addObject("rooms", rooms);
@@ -109,6 +147,10 @@ public class RoomController {
     @GetMapping(value = "/vacant")
     public ModelAndView getRoomsWhereStatusIsVacant() {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         List<RoomDto> rooms = roomService.getRoomsWhereStatusIsVacant();
         modelAndView.setViewName("/views/rooms/all_rooms");
         modelAndView.addObject("rooms", rooms);
@@ -118,6 +160,10 @@ public class RoomController {
     @GetMapping(value = "/occupied")
     public ModelAndView getRoomsWhereStatusIsOccupied() {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         List<RoomDto> rooms = roomService.getRoomsWhereStatusIsOccupied();
         modelAndView.setViewName("/views/rooms/all_rooms");
         modelAndView.addObject("rooms", rooms);
@@ -127,6 +173,10 @@ public class RoomController {
     @GetMapping(value = "/capacity/{roomCapacity}")
     public ModelAndView getRoomsByCapacity(@PathVariable Integer roomCapacity) {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         List<RoomDto> rooms = roomService.getRoomsByCapacity(roomCapacity);
         modelAndView.setViewName("/views/rooms/all_rooms");
         modelAndView.addObject("rooms", rooms);
@@ -136,6 +186,10 @@ public class RoomController {
     @GetMapping(value = "/amount_of_rooms/{amountOfRooms}")
     public ModelAndView getRoomByAmountOfRooms(@PathVariable Integer amountOfRooms) {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         List<RoomDto> rooms = roomService.getRoomByAmountOfRooms(amountOfRooms);
         modelAndView.setViewName("/views/rooms/all_rooms");
         modelAndView.addObject("rooms", rooms);
@@ -154,6 +208,10 @@ public class RoomController {
     @GetMapping(value = "/edit_room/{id}")
     public ModelAndView showRoomEditForm(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         modelAndView.setViewName("/views/rooms/room_edit");
         RoomDto roomDto = roomService.getRoomById(id);
         modelAndView.addObject("room", roomDto);
@@ -167,6 +225,10 @@ public class RoomController {
                                  RoomCategoryDto roomCategoryDto,
                                  RoomDetailsDto roomDetailsDto) {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         modelAndView.setViewName("redirect:/rooms/get/" + id);
         roomService.updateRoom(id, roomDto, roomCategoryDto, roomDetailsDto);
         return modelAndView;
