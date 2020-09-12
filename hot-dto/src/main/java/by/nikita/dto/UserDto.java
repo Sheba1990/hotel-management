@@ -21,7 +21,7 @@ public class UserDto extends AbstractIdAwareDto {
 
     private String username;
 
-    private Set<RoleDto> roles;
+    private Set<String> roles;
 
     @Email
     private String email;
@@ -74,14 +74,14 @@ public class UserDto extends AbstractIdAwareDto {
     public static List<UserDto> convertList(List<User> userList) {
         List<UserDto> users = new ArrayList<>();
         for (User user : userList) {
-            Set<RoleDto> roles = new HashSet<>();
+            Set<String> roles = new HashSet<>();
             UserDto userDto = new UserDto();
             userDto.setId(user.getId());
             userDto.setUsername(user.getUsername());
             for (Role role : user.getRoles()) {
-                RoleDto roleDto = new RoleDto();
+                String roleDto;
                 if (user.getRoles() != null) {
-                    roleDto.setRoleName(role.toString());
+                    roleDto = (role.toString());
                     roles.add(roleDto);
                 } else {
                     userDto.setRoles(null);
@@ -101,13 +101,12 @@ public class UserDto extends AbstractIdAwareDto {
 
     public static UserDto entityToDto(User user) {
         UserDto userDto = new UserDto();
-        Set<RoleDto> roles = new HashSet<>();
-        userDto.setId(user.getId());
+        Set<String> roles = new HashSet<>();
         userDto.setUsername(user.getUsername());
         for (Role role : user.getRoles()) {
-            RoleDto roleDto = new RoleDto();
+            String roleDto;
             if (user.getRoles() != null) {
-                roleDto.setRoleName(role.toString());
+                roleDto = (role.toString());
                 roles.add(roleDto);
             } else {
                 userDto.setRoles(null);
@@ -160,11 +159,11 @@ public class UserDto extends AbstractIdAwareDto {
         this.username = username;
     }
 
-    public Set<RoleDto> getRoles() {
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<RoleDto> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
 

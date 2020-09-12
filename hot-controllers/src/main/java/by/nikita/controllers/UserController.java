@@ -4,7 +4,6 @@ import by.nikita.dto.*;
 import by.nikita.services.api.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
@@ -139,6 +138,10 @@ public class UserController {
     @GetMapping(value = "/username/")
     public ModelAndView getUserByUsername(@RequestParam(name = "username") String username) {
         ModelAndView modelAndView = new ModelAndView();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         UserDto user = userService.getUserByUsername(username);
         modelAndView.addObject("user", user);
         modelAndView.setViewName("/views/users/user");
@@ -146,7 +149,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/edit/")
-    public ModelAndView showUserEditForm(@RequestParam(value = "username") String username) {
+    public ModelAndView showUserEditForm(@RequestParam("username") String username) {
         ModelAndView modelAndView = new ModelAndView();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof User) {
@@ -168,6 +171,9 @@ public class UserController {
                                  AddressDto addressDto) {
         ModelAndView modelAndView = new ModelAndView();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            modelAndView.addObject("username", (((User) principal).getUsername()));
+        }
         userService.updateUser(username, userDto, userInDetailsDto, passportDataDto, contactDataDto, addressDto);
         modelAndView.setViewName("redirect:/users/username/" + username);
         return modelAndView;

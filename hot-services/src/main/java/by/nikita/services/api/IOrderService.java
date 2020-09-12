@@ -9,7 +9,7 @@ public interface IOrderService {
 
     OrderDto addOrderByUser(OrderDto orderDto);
 
-    OrderDto acceptOrderByAdmin(long orderId, OrderDto orderDto);
+    OrderDto approveOrderByAdmin(long orderId);
 
     List<OrderDto> getAllOrders();
 

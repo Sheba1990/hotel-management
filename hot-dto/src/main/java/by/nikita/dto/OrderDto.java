@@ -62,12 +62,7 @@ public class OrderDto extends AbstractIdAwareDto {
         OrderDto orderDto = new OrderDto();
         orderDto.setOrderNumber(order.getOrderNumber());
         orderDto.setApproved(order.isApproved());
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            orderDto.setUserName(((UserDetails) principal).getUsername());
-        } else {
-            orderDto.setUserName(principal.toString());
-        }
+        orderDto.setUserName(order.getUser().getUsername());
         if (order.getUser().getUserInDetails().getMiddleName() != null && !StringUtils.isEmpty(order.getUser().getUserInDetails().getMiddleName())) {
             orderDto.setUserFullName(order.getUser().getUserInDetails().getFirstName().concat(" " + order.getUser().getUserInDetails().getMiddleName() + " " + order.getUser().getUserInDetails().getLastName()));
         } else {

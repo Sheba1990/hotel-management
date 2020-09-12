@@ -48,12 +48,13 @@ public class OrderService implements IOrderService {
         return OrderDto.entityToDto(orderDao.create(order));
     }
 
-    public OrderDto acceptOrderByAdmin(long orderId, OrderDto orderDto) {
+    public OrderDto approveOrderByAdmin(long orderId) {
         Order order = orderDao.get(orderId);
         List<Room> rooms = roomDao.getRoomsWhereStatusIsVacant();
-        Optional<Room> matchingRoom = rooms.stream().
-                filter(room -> room.getRoomCategory().getCategoryName().
-                        equals(order.getRoomCategory())).findAny();
+        Optional<Room> matchingRoom = rooms
+                .stream()
+                .filter(room -> room.getRoomCategory().getCategoryName().equals(order.getRoomCategory()))
+                .findAny();
         Room room = matchingRoom.orElse(null);
         if (room != null) {
             room.setRoomStatus(RoomStatus.OCCUPIED);

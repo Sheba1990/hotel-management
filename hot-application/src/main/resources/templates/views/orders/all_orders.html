@@ -23,6 +23,9 @@
 
 
 
+
+
+
 </style>
 <body>
 <div th:insert="~{fragments/header :: header}">Header</div>
@@ -71,14 +74,32 @@
         <tr th:each="order : ${orders}">
             <td class="align-middle col-xs-1 text-center" th:text="${order.id}"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${order.orderNumber}"></td>
-            <td class="align-middle col-xs-1 text-center" th:text="${order.userName}"></td>
+            <td class="align-middle col-xs-1 text-center" th:text="${order.userName}">
+                <a th:href="@{'/users/username/' + ${order.userName}}"/>
+            </td>
             <td class="align-middle col-xs-1 text-center" th:text="${order.roomNumber}"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${order.amountOfGuests}"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${order.roomCategory}"></td>
             <td class="h6 small align-middle col-xs-1 text-center">
-                <a th:href="@{'/orders/get/' + ${order.id}}">Details</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <a th:href="@{'/orders/edit/' + ${order.id}}">Edit</a>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <form th:action="@{'/orders/get/' + ${order.id}}" th:method="get">
+                        <button class="btn btn-secondary btn-sm">
+                            Details
+                        </button>
+                    </form>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <form th:action="@{'/orders/edit/' + ${order.id}}" th:method="get">
+                        <button class="btn btn-primary btn-sm">
+                            Edit
+                        </button>
+                    </form>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <form th:action="@{'/orders/delete/'+ ${order.id}}" th:method="delete">
+                        <button class="btn btn-danger btn-sm">
+                            Delete
+                        </button>
+                    </form>
+                </div>
             </td>
         </tr>
         </tbody>

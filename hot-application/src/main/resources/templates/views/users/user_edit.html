@@ -118,9 +118,9 @@
                     </button>
                 </div>
                 <div class="ml-2">
-                    <form th:action="@{'/users/delete/' + ${user.id}}" th:method="delete">
+                    <form th:action="@{/users/}" th:method="get">
                         <button class="btn btn-danger">
-                            Delete room
+                            Cancel
                         </button>
                     </form>
                 </div>

@@ -55,7 +55,9 @@
         </tr>
         <tr>
             <td scope="col" class="align-middle">Username</td>
-            <td class="align-middle" th:text="${order.userName}"></td>
+            <td class="align-middle">
+                <a th:href="@{/users/username/(username=${order.userName})}" th:text="${order.userName}"/>
+            </td>
         </tr>
         <tr>
             <td scope="col" class="align-middle">Guest's full name</td>
@@ -89,6 +91,13 @@
             <td scope="col" class="align-middle">Room category</td>
             <td class="align-middle" th:text="${order.roomCategory}"></td>
         </tr>
+        <div class="form-inline justify-content-center">
+            <form th:action="@{'/orders/approved/' + ${order.id}}" th:method="post">
+                <button class="btn btn-secondary btn-sm">
+                    Approve order
+                </button>
+            </form>
+        </div>
     </table>
 </div>
 <!-- jQuery -->

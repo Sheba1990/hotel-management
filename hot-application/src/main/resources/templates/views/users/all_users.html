@@ -21,6 +21,8 @@
    }
 
 
+
+
 </style>
 <body>
 <div th:insert="~{fragments/header :: header}">Header</div>
@@ -82,6 +84,7 @@
         <tr>
             <th scope="col" class="col-xs-1 text-center">ID</th>
             <th scope="col" class="col-xs-1 text-center">Username</th>
+            <th scope="col" class="col-xs-1 text-center">Role</th>
             <th scope="col" class="col-xs-1 text-center">Email</th>
             <th scope="col" class="col-xs-1 text-center">User's full name</th>
             <th scope="col" class="col-xs-1 text-center">More</th>
@@ -91,10 +94,30 @@
         <tr th:each="user : ${users}">
             <td class="align-middle col-xs-1 text-center" th:text="${user.id}"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${user.username}"></td>
+            <td class="align-middle col-xs-1 text-center" th:switch="${#lists.size(user.roles)}">
+                <span th:case="'0'">NO Role!</span>
+                <span th:case="'1'" th:text="${user.roles[0].toString()}"></span>
+                <div th:case="*">
+                    <div th:each="role:${user.roles}" th:text="${role.toString()}"></div>
+                </div>
+            </td>
             <td class="align-middle col-xs-1 text-center" th:text="${user.email}"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${user.userFullName}"></td>
             <td class="h6 small align-middle col-xs-1 text-center">
-                <a th:href="@{/users/username/(username=${user.username})}">Details</a>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <form th:action="@{'/users/get/' + ${user.id}}" th:method="get">
+                        <button class="btn btn-secondary btn-sm">
+                            Details
+                        </button>
+                    </form>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <form method="get" th:action="@{/users/edit/(username=${user.username})}">
+                        <button class="btn btn-primary btn-sm">
+                            Edit
+                        </button>
+                    </form>
+                </div>
+                <!--a th:href="">Details</a-->
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <a th:href="@{/users/edit/(username=${user.username})}">Edit</a>
             </td>
