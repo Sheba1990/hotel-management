@@ -21,6 +21,7 @@
    }
 
 
+
 </style>
 <body>
 <div th:insert="~{fragments/header :: header}">Header</div>
@@ -71,9 +72,19 @@
             <td class="align-middle col-xs-1 text-center" th:text="${room.roomCategory}"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${room.roomStatus}"></td>
             <td class="h6 small align-middle col-xs-1 text-center">
-                <a th:href="@{'/rooms/get/' + ${room.id}}">Details</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <a th:href="@{'/rooms/edit_room/' + ${room.id}}">Edit</a>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <form th:action="@{'/rooms/get/' + ${room.id}}" th:method="get">
+                        <button class="btn btn-secondary btn-sm">
+                            Details
+                        </button>
+                    </form>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <form th:action="@{'/rooms/edit/' + ${room.id}}" th:method="get">
+                        <button class="btn btn-primary btn-sm">
+                            Edit
+                        </button>
+                    </form>
+                </div>
             </td>
         </tr>
         </tbody>

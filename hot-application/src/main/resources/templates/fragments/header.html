@@ -38,10 +38,10 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu2"
                            role="button"
                            aria-expanded="false">
-                            Guests
+                            Users
                         </a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/users">All guests</a>
+                            <a class="dropdown-item" href="/users">All users</a>
                         </div>
                     </li>
                 </span>
@@ -67,7 +67,7 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu4"
                            role="button"
                            aria-expanded="false">
-                            PROFILE
+                            Profile
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" th:href="@{/users/username/(username=${username})}">Profile Info</a>
@@ -82,23 +82,24 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu5"
                            role="button"
                            aria-expanded="false">
-                            BOOKINGS
+                            Bookings
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item"
                                th:href="@{/orders/username/(username=${username})}">My Bookings</a>
-                            <a class="dropdown-item" href="/orders/new">Book a Room</a>
+                            <a class="dropdown-item" href="/orders/new">New Booking</a>
                         </div>
                     </li>
                 </span>
             </span>
             <form class="form-inline my-2 my-lg-0">
-                Hello,<span th:text="${username} ?: 'guest!'" class="mr-3 ml-1"></span>
                 <span sec:authorize="!isAuthenticated()">
+                    Hello,<span th:text="'guest!'" class="mr-3 ml-1"></span>
                     <a class="btn btn-primary" href="/login">Log In</a>
                     <a class="btn btn-success" href="/registration">Create New Account</a>
                 </span>
                 <span sec:authorize="isAuthenticated()">
+                    Hello, <span sec:authentication="name" class="mr-3 ml-1"></span>
                     <a href="/logout" class="btn btn-danger">Log Out</a>
                 </span>
             </form>

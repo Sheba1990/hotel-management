@@ -89,10 +89,17 @@ public class UserDto extends AbstractIdAwareDto {
             }
             userDto.setRoles(roles);
             userDto.setEmail(user.getEmail());
-            if (user.getUserInDetails().getMiddleName() != null && !StringUtils.isEmpty(user.getUserInDetails().getMiddleName())) {
-                userDto.setUserFullName(user.getUserInDetails().getFirstName().concat(" " + user.getUserInDetails().getMiddleName() + " " + user.getUserInDetails().getLastName()));
+            if (user.getUserInDetails().getFirstName() != null
+                    && user.getUserInDetails().getLastName() != null
+                    && user.getUserInDetails().getMiddleName() != null
+            ) {
+                if (user.getUserInDetails().getMiddleName() != null && !StringUtils.isEmpty(user.getUserInDetails().getMiddleName())) {
+                    userDto.setUserFullName(user.getUserInDetails().getFirstName().concat(" " + user.getUserInDetails().getMiddleName() + " " + user.getUserInDetails().getLastName()));
+                } else {
+                    userDto.setUserFullName(user.getUserInDetails().getFirstName().concat(" " + user.getUserInDetails().getLastName()));
+                }
             } else {
-                userDto.setUserFullName(user.getUserInDetails().getFirstName().concat(" " + user.getUserInDetails().getLastName()));
+                userDto.setUserFullName(null);
             }
             users.add(userDto);
         }
@@ -114,9 +121,14 @@ public class UserDto extends AbstractIdAwareDto {
         }
         userDto.setRoles(roles);
         userDto.setEmail(user.getEmail());
-        userDto.setUserFirstName(user.getUserInDetails().getFirstName());
-        userDto.setUserMiddleName(user.getUserInDetails().getMiddleName());
-        userDto.setUserLastName(user.getUserInDetails().getLastName());
+        if (user.getUserInDetails().getFirstName() != null
+                && user.getUserInDetails().getLastName() != null
+                && user.getUserInDetails().getMiddleName() != null
+        ) {
+            userDto.setUserFirstName(user.getUserInDetails().getFirstName());
+            userDto.setUserMiddleName(user.getUserInDetails().getMiddleName());
+            userDto.setUserLastName(user.getUserInDetails().getLastName());
+        }
         userDto.setGender(user.getUserInDetails().getGender());
         userDto.setUserBirthDate(user.getUserInDetails().getBirthDate());
         if (userDto.getUserBirthDate() != null) {
@@ -131,14 +143,20 @@ public class UserDto extends AbstractIdAwareDto {
             userDto.setUserPassportDateOfIssue(user.getUserInDetails().getPassportData().getDateOfIssue());
             userDto.setUserPassportDateOfExpiry(user.getUserInDetails().getPassportData().getDateOfExpiry());
         }
-        userDto.setUserPhoneNumber(user.getUserInDetails().getContactData().getPhoneNumber());
-        userDto.setUserPostalCode(user.getUserInDetails().getContactData().getAddress().getPostalCode());
-        userDto.setUserResidenceCountry(user.getUserInDetails().getContactData().getAddress().getCountry());
-        userDto.setUserResidenceProvince(user.getUserInDetails().getContactData().getAddress().getProvince());
-        userDto.setUserResidenceCity(user.getUserInDetails().getContactData().getAddress().getCity());
-        userDto.setUserResidenceStreet(user.getUserInDetails().getContactData().getAddress().getStreet());
-        userDto.setUserResidenceHomeNumber(user.getUserInDetails().getContactData().getAddress().getHomeNumber());
-        userDto.setUserResidenceApartmentNumber(user.getUserInDetails().getContactData().getAddress().getApartmentNumber());
+        if (user.getUserInDetails().getContactData().getPhoneNumber() != null) {
+            userDto.setUserPhoneNumber(user.getUserInDetails().getContactData().getPhoneNumber());
+        } else {
+            userDto.setUserPhoneNumber(null);
+        }
+        if (user.getUserInDetails().getContactData().getAddress() != null) {
+            userDto.setUserPostalCode(user.getUserInDetails().getContactData().getAddress().getPostalCode());
+            userDto.setUserResidenceCountry(user.getUserInDetails().getContactData().getAddress().getCountry());
+            userDto.setUserResidenceProvince(user.getUserInDetails().getContactData().getAddress().getProvince());
+            userDto.setUserResidenceCity(user.getUserInDetails().getContactData().getAddress().getCity());
+            userDto.setUserResidenceStreet(user.getUserInDetails().getContactData().getAddress().getStreet());
+            userDto.setUserResidenceHomeNumber(user.getUserInDetails().getContactData().getAddress().getHomeNumber());
+            userDto.setUserResidenceApartmentNumber(user.getUserInDetails().getContactData().getAddress().getApartmentNumber());
+        }
         return userDto;
     }
 

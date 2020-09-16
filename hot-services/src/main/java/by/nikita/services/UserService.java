@@ -3,11 +3,15 @@ package by.nikita.services;
 import by.nikita.dao.api.*;
 import by.nikita.dto.*;
 import by.nikita.models.*;
+import by.nikita.services.api.IStorageService;
 import by.nikita.services.api.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -28,6 +32,9 @@ public class UserService implements IUserService {
 
     @Autowired
     IAddressDao addressDao;
+
+    @Autowired
+    IStorageService storageService;
 
     @Override
     public UserDto getUserById(long id) {
@@ -79,12 +86,14 @@ public class UserService implements IUserService {
         return UserDto.entityToDto(userDao.getUserByOccupiedRoomNumber(roomNumber));
     }
 
+    @Override
     public void updateUser(String username,
                            UserDto userDto,
                            UserInDetailsDto userInDetailsDto,
                            PassportDataDto passportDataDto,
                            ContactDataDto contactDataDto,
-                           AddressDto addressDto) {
+                           AddressDto addressDto,
+                           MultipartFile multipartFile) throws IOException {
 
         User user = userDao.getByUsername(username);
         UserInDetails userInDetails = user.getUserInDetails();
@@ -119,8 +128,17 @@ public class UserService implements IUserService {
             userInDetails.setLastName(userDto.getUserLastName());
             userInDetails.setBirthDate(userDto.getUserBirthDate());
             userInDetails.setGender(userDto.getGender());
+            userInDetails.setMimeType(multipartFile.getContentType());
+            userInDetails.setFileName(multipartFile.getOriginalFilename());
+            String save = storageService.save(multipartFile.getInputStream());
+            userInDetails.setFilePath(save);
             userInDetailsDao.update(userInDetails);
         }
         userDao.update(user);
+    }
+
+    @Override
+    public void deleteUser(long id) {
+        userDao.delete(userDao.get(id));
     }
 }

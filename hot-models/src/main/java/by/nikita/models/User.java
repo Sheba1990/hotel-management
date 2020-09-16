@@ -1,15 +1,11 @@
 package by.nikita.models;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Table(name = "user_table", uniqueConstraints = @UniqueConstraint(columnNames = "username"))
-public class User extends AbstractIdAwareEntity implements UserDetails {
+public class User extends AbstractIdAwareEntity {
 
     @Column(name = "username")
     private String username;
@@ -53,6 +49,7 @@ public class User extends AbstractIdAwareEntity implements UserDetails {
         this.email = email;
         this.password = password;
         this.passwordConfirmation = passwordConfirmation;
+        this.active = active;
         this.order = order;
         this.userInDetails = userInDetails;
         this.roles = roles;
@@ -113,31 +110,6 @@ public class User extends AbstractIdAwareEntity implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 
     public boolean isActive() {

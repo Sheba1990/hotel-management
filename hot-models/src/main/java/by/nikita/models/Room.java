@@ -23,7 +23,7 @@ public class Room extends AbstractIdAwareEntity {
     @Column(name = "room_status")
     private RoomStatus roomStatus;
 
-    @OneToOne(mappedBy = "room", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "room", fetch = FetchType.EAGER)
     private Order order;
 
     public Room() {

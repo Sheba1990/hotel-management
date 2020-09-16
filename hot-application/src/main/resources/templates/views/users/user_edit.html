@@ -25,107 +25,152 @@
 <body>
 <div th:insert="~{fragments/header :: header}">Header</div>
 <div align="center">
-    <br/>
-    <h1>Edit profile of user: "<span th:text="${user.username} ?: 'guest!'"></span>".</h1>
-    <br/>
-    <form action="#" th:action="@{/users/save/{id}(id=${user.id})}" method="post">
-        <div>
-            <form>
-                <div class="form-row mx-auto">
-                    <div class="col-md-3 mb-3 mx-auto">
-                        <label>First name</label>
-                        <input type="text" th:field="*{user.userFirstName}" class="form-control">
-                    </div>
-                    <div class="col-md-3 mb-3 mx-auto">
-                        <label>Middle name</label>
-                        <input type="text" th:field="*{user.userMiddleName}" class="form-control">
-                    </div>
-                    <div class="col-md-3 mb-3 mx-auto">
-                        <label>Last name</label>
-                        <input type="text" th:field="*{user.userLastName}" class="form-control">
-                    </div>
-                    <div class="col-md-1 mb-3 mx-auto">
-                        <label>Gender</label>
-                        <select class="form-control" id="gender" th:field="*{user.gender}">
-                            <option th:value="${T(by.nikita.models.enums.Gender).MALE}"
-                                    th:text="Male"></option>
-                            <option th:value="${T(by.nikita.models.enums.Gender).FEMALE}"
-                                    th:text="Female"></option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Date of birth</label>
-                        <input type="date" class="form-control" id="userBirthDate"
-                               th:field="*{user.userBirthDate}"/>
-                    </div>
-                    <div class="col-md-3 mb-3 mx-auto">
-                        <label>Passport number</label>
-                        <input type="text" th:field="*{user.userPassportNumber}" class="form-control">
-                    </div>
-                    <div class="col-md-3 mb-3 mx-auto">
-                        <label>Country of issue</label>
-                        <input type="text" th:field="*{user.userPassportCountryOfIssue}" class="form-control">
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Date of issue</label>
-                        <input type="date" id="userPassportDateOfIssue" th:field="*{user.userPassportDateOfIssue}"
-                               class="form-control">
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Date of expiry</label>
-                        <input type="date" id="userPassportDateOfExpiry" th:field="*{user.userPassportDateOfExpiry}"
-                               class="form-control">
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Phone number</label>
-                        <input type="text" th:field="*{user.userPhoneNumber}" class="form-control">
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Postal code</label>
-                        <input type="text" th:field="*{user.userPostalCode}" class="form-control">
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Residence country</label>
-                        <input type="text" th:field="*{user.userResidenceCountry}" class="form-control">
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Residence province</label>
-                        <input type="text" th:field="*{user.userResidenceProvince}" class="form-control">
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Residence city</label>
-                        <input type="text" th:field="*{user.userResidenceCity}" class="form-control">
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Street</label>
-                        <input type="text" th:field="*{user.userResidenceStreet}" class="form-control">
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Home number</label>
-                        <input type="text" th:field="*{user.userResidenceHomeNumber}" class="form-control">
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Apartment number</label>
-                        <input type="text" th:field="*{user.userResidenceApartmentNumber}" class="form-control">
+    <form action="#" th:action="@{/users/save/(username=${user.username})}" method="post">
+        <div class="container rounded bg-white mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-3 border-right">
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                        <img class="rounded-circle mt-5">
+                        <span class="font-weight-bold" th:text="${user.username}"></span>
+                        <span class="text-black-50" th:text="${user.email}"></span>
+                        <span> </span>
                     </div>
                 </div>
-            </form>
-            <br/>
-            <div class="form-inline justify-content-center">
-                <div>
-                    <button type="submit" class="btn btn-primary">
-                        Save changes
-                    </button>
+                <div class="col-md-5 border-right">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Profile Settings</h4>
+                            <span class="border px-3 p-1 add-experience">
+                                <i class="fa fa-plus"></i>&nbsp;Personal data</span>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <label class="labels">Name</label>
+                                <input type="text" class="form-control" th:field="*{user.userFirstName}"
+                                       placeholder="first name">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Surname</label>
+                                <input type="text" class="form-control" th:field="*{user.userLastName}"
+                                       placeholder="surname">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Middle name</label>
+                                <input type="text" class="form-control" th:field="*{user.userMiddleName}"
+                                       placeholder="surname">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Date of birth</label>
+                                <input type="date" class="form-control" th:field="*{user.userBirthDate}"
+                                       id="userBirthDate">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Gender</label>
+                                <select class="form-control" id="gender" th:field="*{user.gender}">
+                                    <option th:value="${T(by.nikita.models.enums.Gender).MALE}"
+                                            th:text="Male"></option>
+                                    <option th:value="${T(by.nikita.models.enums.Gender).FEMALE}"
+                                            th:text="Female"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+                            <span class="border px-3 p-1 add-experience">
+                                <i class="fa fa-plus"></i>&nbsp;Passport data</span>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <label class="labels">Passport Number</label>
+                                <input type="text" class="form-control" placeholder=" enter passport number"
+                                       th:field="*{user.userPassportNumber}">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="labels">Country of Issue</label>
+                                <input type="text" class="form-control" placeholder="enter country"
+                                       th:field="*{user.userPassportCountryOfIssue}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Date of Issue</label>
+                                <input type="date" class="form-control" id="userPassportDateOfIssue"
+                                       th:field="*{user.userPassportDateOfIssue}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Date of Expiry</label>
+                                <input type="date" class="form-control" id="userPassportDateOfExpiry"
+                                       th:field="*{user.userPassportDateOfExpiry}">
+                            </div>
+                        </div>
+                        <div class="mt-5 form-inline justify-content-center">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    Save
+                                </button>
+                            </div>
+                            <div class="ml-2">
+                                <form th:action="@{/users/}" th:method="get">
+                                    <button class="btn btn-danger">
+                                        Cancel
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="ml-2">
-                    <form th:action="@{/users/}" th:method="get">
-                        <button class="btn btn-danger">
-                            Cancel
-                        </button>
-                    </form>
+                <div class="col-md-4">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center experience">
+                            <span>Edit Contact data</span>
+                            <span class="border px-3 p-1 add-experience">
+                                <i class="fa fa-plus"></i>&nbsp;Contacts</span>
+                        </div>
+                        <br/>
+                        <div class="col-md-12">
+                            <label class="labels">Phone Number</label>
+                            <input type="text" class="form-control" placeholder="phone number"
+                                   th:field="*{user.userPhoneNumber}">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Postal Code</label>
+                            <input type="text" class="form-control" placeholder="postal code"
+                                   th:field="*{user.userPostalCode}">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Country</label>
+                            <input type="text" class="form-control" placeholder="country"
+                                   th:field="*{user.userResidenceCountry}">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">State/Region</label>
+                            <input type="text" class="form-control" placeholder="state"
+                                   th:field="*{user.userResidenceProvince}">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">City</label>
+                            <input type="text" class="form-control" placeholder="city"
+                                   th:field="*{user.userResidenceCity}">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Street</label>
+                            <input type="text" class="form-control" placeholder="street"
+                                   th:field="*{user.userResidenceStreet}">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Home Number</label>
+                            <input type="text" class="form-control" placeholder="home"
+                                   th:field="*{user.userResidenceHomeNumber}">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Apartment</label>
+                            <input type="text" class="form-control" placeholder="apartment"
+                                   th:field="*{user.userResidenceApartmentNumber}">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </form>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

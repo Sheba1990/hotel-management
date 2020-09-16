@@ -111,15 +111,18 @@
                         </button>
                     </form>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <form method="get" th:action="@{/users/edit/(username=${user.username})}">
+                    <form th:action="@{'/users/edit_user/' + ${user.id}}" th:method="get">
                         <button class="btn btn-primary btn-sm">
                             Edit
                         </button>
                     </form>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <form th:action="@{'/users/delete/'+ ${user.id}}" th:method="delete">
+                        <button class="btn btn-danger btn-sm">
+                            Delete
+                        </button>
+                    </form>
                 </div>
-                <!--a th:href="">Details</a-->
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <a th:href="@{/users/edit/(username=${user.username})}">Edit</a>
             </td>
         </tr>
         </tbody>

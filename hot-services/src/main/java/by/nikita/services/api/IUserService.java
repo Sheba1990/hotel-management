@@ -1,7 +1,9 @@
 package by.nikita.services.api;
 
 import by.nikita.dto.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IUserService {
@@ -31,5 +33,8 @@ public interface IUserService {
                     UserInDetailsDto userInDetailsDto,
                     PassportDataDto passportDataDto,
                     ContactDataDto contactDataDto,
-                    AddressDto addressDto);
+                    AddressDto addressDto,
+                    MultipartFile multipartFile) throws IOException;
+
+    void deleteUser(long id);
 }

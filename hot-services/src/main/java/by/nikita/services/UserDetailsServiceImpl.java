@@ -19,22 +19,21 @@ import java.util.stream.Collectors;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    IUserDao userDao;
+    private IUserDao userDao;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User userByUsername = userDao.getByUsername(username);
+        User byUsername = userDao.getByUsername(username);
 
-        if (userByUsername == null) {
+        if (byUsername == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return new org.springframework.security.core.userdetails.
-                User(userByUsername.getUsername(),
-                userByUsername.getPassword(),
-                userByUsername.isActive(), userByUsername.isActive(), userByUsername.isActive(), userByUsername.isActive(),
-                getAuthorities(userByUsername));
+        return new org.springframework.security.core.userdetails.User(
+                byUsername.getUsername(),
+                byUsername.getPassword(),
+                getAuthorities(byUsername));
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(User user) {

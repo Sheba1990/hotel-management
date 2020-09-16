@@ -9,6 +9,7 @@ import by.nikita.models.Room;
 import by.nikita.models.User;
 import by.nikita.models.enums.RoomStatus;
 import by.nikita.services.api.IOrderService;
+import by.nikita.services.config.EmailProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,6 @@ import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -30,6 +30,9 @@ public class OrderService implements IOrderService {
 
     @Autowired
     IRoomDao roomDao;
+
+    @Autowired
+    private EmailProperties emailProperties;
 
     @Override
     public OrderDto addOrderByUser(OrderDto orderDto) {
@@ -50,12 +53,7 @@ public class OrderService implements IOrderService {
 
     public OrderDto approveOrderByAdmin(long orderId) {
         Order order = orderDao.get(orderId);
-        List<Room> rooms = roomDao.getRoomsWhereStatusIsVacant();
-        Optional<Room> matchingRoom = rooms
-                .stream()
-                .filter(room -> room.getRoomCategory().getCategoryName().equals(order.getRoomCategory()))
-                .findAny();
-        Room room = matchingRoom.orElse(null);
+        Room room = roomDao.getRoomByNumber(null);
         if (room != null) {
             room.setRoomStatus(RoomStatus.OCCUPIED);
         }

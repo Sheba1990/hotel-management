@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "/registration")
+@RequestMapping("/registration")
 public class RegistrationController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class RegistrationController {
         return "/signIn_signUp/registration";
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/activate/{username}")
     public String activateForm(@PathVariable String username) {
         registrationService.activateUser(username);
         return "redirect:/login";
@@ -38,4 +38,5 @@ public class RegistrationController {
         registrationService.registerUser(userDto);
         return "redirect:/login";
     }
+
 }

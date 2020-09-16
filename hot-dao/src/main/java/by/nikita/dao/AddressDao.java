@@ -20,7 +20,6 @@ public class AddressDao extends AbstractGenericDao<Address> implements IAddressD
 
     //Get mapping methods
 
-
     @Override
     public List<Address> getAddressByUserFirstName(String userFirstName) {
         try {

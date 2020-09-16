@@ -42,6 +42,7 @@
         <version.org.thymeleaf.extras>3.0.4.RELEASE</version.org.thymeleaf.extras>
         <font-awesome.version>5.14.0</font-awesome.version>
         <webjars-locator.version>0.40</webjars-locator.version>
+        <version.commons-io>2.6</version.commons-io>
     </properties>
 
     <dependencyManagement>
@@ -104,6 +105,12 @@
                 <version>${version.org.thymeleaf.extras}</version>
             </dependency>
 
+            <!-- Work with files -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${version.commons-io}</version>
+            </dependency>
 
             <!-- EMail -->
             <dependency>

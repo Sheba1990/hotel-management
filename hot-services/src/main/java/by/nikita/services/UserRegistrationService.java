@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 
 @Service
@@ -17,7 +17,7 @@ import java.util.Collections;
 public class UserRegistrationService implements IRegistrationService {
 
     @Autowired
-    IUserDao userDao;
+    private IUserDao userDao;
 
     @Autowired
     IUserInDetailsDao userInDetailsDao;
@@ -37,7 +37,7 @@ public class UserRegistrationService implements IRegistrationService {
     @Override
     public void registerUser(UserDto userDto) {
         if (userDao.checkUsernamePresence(userDto.getUsername())) {
-            throw new UsernameNotFoundException("User with the same username: " + userDto.getUsername() + " already exists!");
+            throw new UsernameNotFoundException("User with username: '" + userDto.getUsername() + "' already exists!");
         }
         User user = new User();
 
