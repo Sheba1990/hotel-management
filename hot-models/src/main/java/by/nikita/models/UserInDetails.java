@@ -27,11 +27,8 @@ public class UserInDetails extends AbstractIdAwareEntity {
     @Column(name = "gender", nullable = false)
     private Gender gender;
 
-    private String filePath;
-
+    @Column(name = "file_name")
     private String fileName;
-
-    private String mimeType;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "passport_data_id", referencedColumnName = "id")
@@ -52,9 +49,7 @@ public class UserInDetails extends AbstractIdAwareEntity {
             String lastName,
             String middleName,
             Gender gender,
-            String filePath,
             String fileName,
-            String mimeType,
             LocalDate birthDate,
             PassportData passportData,
             ContactData contactData,
@@ -63,9 +58,7 @@ public class UserInDetails extends AbstractIdAwareEntity {
         this.lastName = lastName;
         this.middleName = middleName;
         this.gender = gender;
-        this.filePath = filePath;
         this.fileName = fileName;
-        this.mimeType = mimeType;
         this.birthDate = birthDate;
         this.passportData = passportData;
         this.contactData = contactData;
@@ -104,28 +97,12 @@ public class UserInDetails extends AbstractIdAwareEntity {
         this.gender = gender;
     }
 
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
     public String getFileName() {
         return fileName;
     }
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
-    }
-
-    public String getMimeType() {
-        return mimeType;
-    }
-
-    public void setMimeType(String mimeType) {
-        this.mimeType = mimeType;
     }
 
     public LocalDate getBirthDate() {

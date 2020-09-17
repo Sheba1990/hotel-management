@@ -3,8 +3,6 @@ package by.nikita.dto;
 import by.nikita.models.Order;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
@@ -39,6 +37,8 @@ public class OrderDto extends AbstractIdAwareDto {
 
     private String roomCategory;
 
+    private Double totalSum;
+
     public static List<OrderDto> convertList(List<Order> orderList) {
         List<OrderDto> orders = new ArrayList<>();
         for (Order order : orderList) {
@@ -46,7 +46,7 @@ public class OrderDto extends AbstractIdAwareDto {
             orderDto.setId(order.getId());
             orderDto.setOrderNumber(order.getOrderNumber());
             orderDto.setUserName(order.getUser().getUsername());
-            if (order.getRoom()!= null) {
+            if (order.getRoom() != null) {
                 orderDto.setRoomNumber(order.getRoom().getRoomNumber());
             } else {
                 orderDto.setRoomNumber(null);
@@ -78,7 +78,12 @@ public class OrderDto extends AbstractIdAwareDto {
             Long amountOfDays = ChronoUnit.DAYS.between(date1, date2);
             orderDto.setStayingPeriod(amountOfDays);
         }
-        if (order.getRoom()!= null) {
+        if (orderDto.getStayingPeriod() >= 1) {
+            double pricePerNight = order.getRoom().getRoomDetails().getPricePerNight();
+            double totalSum = pricePerNight * orderDto.stayingPeriod;
+            orderDto.setTotalSum(totalSum);
+        }
+        if (order.getRoom() != null) {
             orderDto.setRoomNumber(order.getRoom().getRoomNumber());
         } else {
             orderDto.setRoomNumber(null);
@@ -189,5 +194,13 @@ public class OrderDto extends AbstractIdAwareDto {
 
     public void setRoomCategory(String roomCategory) {
         this.roomCategory = roomCategory;
+    }
+
+    public Double getTotalSum() {
+        return totalSum;
+    }
+
+    public void setTotalSum(Double totalSum) {
+        this.totalSum = totalSum;
     }
 }

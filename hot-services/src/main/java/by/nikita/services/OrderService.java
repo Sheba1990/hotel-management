@@ -23,13 +23,13 @@ import java.util.List;
 public class OrderService implements IOrderService {
 
     @Autowired
-    IOrderDao orderDao;
+    private IOrderDao orderDao;
 
     @Autowired
-    IUserDao userDao;
+    private IUserDao userDao;
 
     @Autowired
-    IRoomDao roomDao;
+    private IRoomDao roomDao;
 
     @Autowired
     private EmailProperties emailProperties;
@@ -51,12 +51,9 @@ public class OrderService implements IOrderService {
         return OrderDto.entityToDto(orderDao.create(order));
     }
 
-    public OrderDto approveOrderByAdmin(long orderId) {
+    public OrderDto approveOrderByAdmin(long orderId, long roomId) {
         Order order = orderDao.get(orderId);
-        Room room = roomDao.getRoomByNumber(null);
-        if (room != null) {
-            room.setRoomStatus(RoomStatus.OCCUPIED);
-        }
+        Room room = roomDao.get(roomId);
         order.setRoom(room);
         order.setApproved(true);
         orderDao.update(order);

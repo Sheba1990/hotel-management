@@ -32,6 +32,21 @@ public class UserInDetailsDao extends AbstractGenericDao<UserInDetails> implemen
         }
     }
 
+    @Override
+    public UserInDetails getUserDetailsByUsername(String username) {
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<UserInDetails> query = criteriaBuilder.createQuery(UserInDetails.class);
+            Root<UserInDetails> root = query.from(UserInDetails.class);
+            Join<UserInDetails, User> user = root.join(UserInDetails_.USER);
+            query.select(root).where(criteriaBuilder.equal(user.get(User_.USERNAME), username));
+            TypedQuery<UserInDetails> result = entityManager.createQuery(query);
+            return result.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
     public List<UserInDetails> getUserDetailsByUserFirstName(String firstName) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

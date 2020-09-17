@@ -33,6 +33,7 @@ create table user_details_table (
   first_name varchar(255),
   last_name varchar(255),
   middle_name varchar(255),
+  file_name varchar(255),
   birth_date date,
   gender varchar(255),
   passport_data_id int8,

@@ -34,7 +34,7 @@ public interface IUserService {
                     PassportDataDto passportDataDto,
                     ContactDataDto contactDataDto,
                     AddressDto addressDto,
-                    MultipartFile multipartFile) throws IOException;
+                    MultipartFile file) throws IOException;
 
     void deleteUser(long id);
 }

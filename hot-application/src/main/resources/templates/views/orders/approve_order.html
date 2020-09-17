@@ -91,10 +91,6 @@
             <td scope="col" class="align-middle">Room category</td>
             <td class="align-middle" th:text="${order.roomCategory}"></td>
         </tr>
-        <tr>
-            <td scope="col" class="align-middle">Total cost of accommodation</td>
-            <td class="align-middle" th:text="${order.totalSum} + ' $'"></td>
-        </tr>
         <div class="form-inline justify-content-center">
             <form th:action="@{'/orders/approved/' + ${order.id}}" th:method="post">
                 <button class="btn btn-secondary btn-sm">

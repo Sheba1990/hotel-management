@@ -3,38 +3,40 @@ package by.nikita.services;
 import by.nikita.dao.api.*;
 import by.nikita.dto.*;
 import by.nikita.models.*;
-import by.nikita.services.api.IStorageService;
 import by.nikita.services.api.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
 public class UserService implements IUserService {
 
-    @Autowired
-    IUserDao userDao;
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @Autowired
-    IUserInDetailsDao userInDetailsDao;
+    private IUserDao userDao;
 
     @Autowired
-    IPassportDataDao passportDataDao;
+    private IUserInDetailsDao userInDetailsDao;
 
     @Autowired
-    IContactDataDao contactDataDao;
+    private IPassportDataDao passportDataDao;
 
     @Autowired
-    IAddressDao addressDao;
+    private IContactDataDao contactDataDao;
 
     @Autowired
-    IStorageService storageService;
+    private IAddressDao addressDao;
+
 
     @Override
     public UserDto getUserById(long id) {
@@ -93,7 +95,7 @@ public class UserService implements IUserService {
                            PassportDataDto passportDataDto,
                            ContactDataDto contactDataDto,
                            AddressDto addressDto,
-                           MultipartFile multipartFile) throws IOException {
+                           MultipartFile file) throws IOException {
 
         User user = userDao.getByUsername(username);
         UserInDetails userInDetails = user.getUserInDetails();
@@ -128,10 +130,19 @@ public class UserService implements IUserService {
             userInDetails.setLastName(userDto.getUserLastName());
             userInDetails.setBirthDate(userDto.getUserBirthDate());
             userInDetails.setGender(userDto.getGender());
-            userInDetails.setMimeType(multipartFile.getContentType());
-            userInDetails.setFileName(multipartFile.getOriginalFilename());
-            String save = storageService.save(multipartFile.getInputStream());
-            userInDetails.setFilePath(save);
+            if (file != null && !file.getOriginalFilename().isEmpty()) {
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+                String uuidFile = UUID.randomUUID().toString();
+
+                String resultFileName = uuidFile + "." + file.getOriginalFilename();
+
+                file.transferTo(new File(uploadPath + "/" + resultFileName));
+
+                userInDetails.setFileName(resultFileName);
+            }
             userInDetailsDao.update(userInDetails);
         }
         userDao.update(user);

@@ -1,10 +1,10 @@
 package by.nikita.controllers;
 
+import by.nikita.dao.api.IUserInDetailsDao;
 import by.nikita.dto.*;
-import by.nikita.services.api.IStorageService;
 import by.nikita.services.api.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +18,14 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
+    @Value("${upload.path}")
+    private String uploadPath;
+
     @Autowired
     private IUserService userService;
 
     @Autowired
-    private IStorageService storageService;
+    IUserInDetailsDao userInDetailsDao;
 
     @GetMapping("/get/{id}")
     public ModelAndView getUserById(@PathVariable Long id) {
@@ -140,15 +143,14 @@ public class UserController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/save/",
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/save/")
     public ModelAndView editUser(@RequestParam("username") String username,
                                  UserDto userDto,
                                  UserInDetailsDto userInDetailsDto,
                                  PassportDataDto passportDataDto,
                                  ContactDataDto contactDataDto,
                                  AddressDto addressDto,
-                                 MultipartFile file) throws IOException {
+                                 @RequestParam("file") MultipartFile file) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         userService.updateUser(username, userDto, userInDetailsDto, passportDataDto, contactDataDto, addressDto, file);
         modelAndView.addObject("username", username);

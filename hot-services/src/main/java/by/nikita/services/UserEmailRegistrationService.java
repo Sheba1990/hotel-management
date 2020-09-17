@@ -61,7 +61,7 @@ public class UserEmailRegistrationService implements IRegistrationService {
             message.setSubject("Hotel Horizon. Activation of user: '" + userDto.getUsername() +"'.");
 
             // Now set the actual message
-            message.setContent("<a href='http://localhost:8080/registration/activate/" + userDto.getUsername() + "'>Press here to activate your account.</a>", "text/html");
+            message.setContent("<a href='http://localhost:8080/registration/" + userDto.getUsername() + "'>Press here to activate your account.</a>", "text/html");
             // Send message
             Transport.send(message);
             System.out.println("Message has been sent successfully....");

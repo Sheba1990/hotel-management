@@ -39,6 +39,8 @@ public class UserDto extends AbstractIdAwareDto {
 
     private String userFullName;
 
+    private String fileName;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate userBirthDate;
 
@@ -109,6 +111,7 @@ public class UserDto extends AbstractIdAwareDto {
     public static UserDto entityToDto(User user) {
         UserDto userDto = new UserDto();
         Set<String> roles = new HashSet<>();
+        userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
         for (Role role : user.getRoles()) {
             String roleDto;
@@ -129,7 +132,12 @@ public class UserDto extends AbstractIdAwareDto {
             userDto.setUserMiddleName(user.getUserInDetails().getMiddleName());
             userDto.setUserLastName(user.getUserInDetails().getLastName());
         }
-        userDto.setGender(user.getUserInDetails().getGender());
+        if (user.getUserInDetails().getFileName() != null) {
+            userDto.setFileName(user.getUserInDetails().getFileName());
+        }
+        if (user.getUserInDetails().getGender() != null) {
+            userDto.setGender(user.getUserInDetails().getGender());
+        }
         userDto.setUserBirthDate(user.getUserInDetails().getBirthDate());
         if (userDto.getUserBirthDate() != null) {
             LocalDate date1 = userDto.getUserBirthDate();
@@ -167,6 +175,7 @@ public class UserDto extends AbstractIdAwareDto {
         this.id = user.getId();
         this.username = user.getUsername();
         this.email = user.getEmail();
+        this.fileName = user.getUserInDetails().getFileName();
     }
 
     public String getUsername() {
@@ -359,5 +368,13 @@ public class UserDto extends AbstractIdAwareDto {
 
     public void setUserResidenceApartmentNumber(String userResidenceApartmentNumber) {
         this.userResidenceApartmentNumber = userResidenceApartmentNumber;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

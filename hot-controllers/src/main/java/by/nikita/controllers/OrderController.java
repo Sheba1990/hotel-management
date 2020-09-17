@@ -45,7 +45,7 @@ public class OrderController {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ModelAndView approveOrderByAdmin(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView();
-        orderService.approveOrderByAdmin(id);
+        orderService.approveOrderByAdmin(id,id);
         modelAndView.setViewName("redirect:/orders/all");
         return modelAndView;
     }

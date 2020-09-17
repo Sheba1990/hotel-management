@@ -21,16 +21,67 @@
     filter: blur(5px); /* Размытие */
    }
 
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #76c868
+}
+
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #682773
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #76c868;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #76c868
+}
+
 </style>
 <body>
 <div th:insert="~{fragments/header :: header}">Header</div>
 <div align="center">
-    <form action="#" th:action="@{/users/save/(username=${user.username})}" method="post">
+    <form action="#" th:action="@{/users/save/(username=${user.username})}" enctype="multipart/form-data" method="post">
         <div class="container rounded bg-white mt-5 mb-5">
             <div class="row">
                 <div class="col-md-3 border-right">
-                    <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                        <img class="rounded-circle mt-5">
+                    <div class="d-flex flex-column align-items-center p-3 py-5">
+                        <form>
+                            <img class="mt-5 img-fluid" th:src="@{${'/img/' + user.fileName}}">
+                            <br/>
+                            <div class="custom-file" > <!-- блок для загрузки файла -->
+                                <input type="file" name="file" id="customFile"> <!-- форма для загрузки файла -->
+                                <label class="custom-file-label text-left" for="customFile">
+                                    Choose file
+                                </label>
+                            </div>
+                        </form>
                         <span class="font-weight-bold" th:text="${user.username}"></span>
                         <span class="text-black-50" th:text="${user.email}"></span>
                         <span> </span>
@@ -182,6 +233,12 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
+<script>
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
 
 </body>
 </html>

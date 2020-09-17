@@ -8,6 +8,8 @@ public interface IUserInDetailsDao extends IAbstractGenericDao<UserInDetails> {
 
     UserInDetails getUserDetailsByUserId(long userId);
 
+    UserInDetails getUserDetailsByUsername(String username);
+
     List<UserInDetails> getUserDetailsByUserFirstName(String firstName);
 
     List<UserInDetails> getUserDetailsByUserLastName(String lastName);
