@@ -119,13 +119,17 @@ body::before {
 
 
 
+
+
 </style>
 
 <div class="container emp-profile">
     <div class="row">
         <div class="col-md-4">
             <div class="profile-img">
-                <img th:src="@{${'/img/' + user.fileName}}" class="rounded img-fluid" alt=""/>
+                <img th:if="${user.fileName != null}" th:src="@{${'/img/user/' + user.fileName}}"
+                     class="rounded img-fluid" alt=""/>
+                <img th:unless="${user.fileName != null}" th:src="@{/img/user/u.png}" class="rounded img-fluid" alt=""/>
             </div>
         </div>
         <div class="col-md-6">
@@ -228,7 +232,7 @@ body::before {
                             <p th:unless="${user.gender.toString() == 'MALE'}">Female</p>
                         </div>
                         </span>
-                        <span th:unless="${user.gender == null}"></span>
+                        <span th:unless="${user.gender != null}"></span>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -269,16 +273,16 @@ body::before {
         </div>
     </div>
 </div>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-            crossorigin="anonymous"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

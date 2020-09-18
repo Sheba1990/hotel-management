@@ -22,7 +22,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
     String[] staticResources = {
             "/css/**",
             "/img/**",
-            "/static/**"
+            "/static/**",
     };
 
     @Override

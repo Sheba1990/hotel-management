@@ -24,6 +24,8 @@ public class RoomDto extends AbstractIdAwareDto {
 
     private Integer capacity;
 
+    private String fileName;
+
     private boolean hasSeaView;
 
     private boolean hasBath;
@@ -58,6 +60,7 @@ public class RoomDto extends AbstractIdAwareDto {
         roomDto.setFloor(room.getRoomDetails().getFloor());
         roomDto.setAmountOfRooms(room.getRoomDetails().getAmountOfRooms());
         roomDto.setCapacity(room.getRoomDetails().getCapacity());
+        roomDto.setFileName(room.getRoomDetails().getFileName());
         roomDto.setHasSeaView(room.getRoomDetails().isHasSeaView());
         roomDto.setHasBath(room.getRoomDetails().isHasBath());
         roomDto.setHasBabyBed(room.getRoomDetails().isHasBabyBed());
@@ -78,6 +81,7 @@ public class RoomDto extends AbstractIdAwareDto {
         this.floor = room.getRoomDetails().getFloor();
         this.amountOfRooms = room.getRoomDetails().getAmountOfRooms();
         this.capacity = room.getRoomDetails().getCapacity();
+        this.fileName = room.getRoomDetails().getFileName();
         this.hasSeaView = room.getRoomDetails().isHasSeaView();
         this.hasBath = room.getRoomDetails().isHasBath();
         this.hasBabyBed = room.getRoomDetails().isHasBabyBed();
@@ -139,6 +143,14 @@ public class RoomDto extends AbstractIdAwareDto {
 
     public void setCapacity(Integer capacity) {
         this.capacity = capacity;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public boolean isHasSeaView() {

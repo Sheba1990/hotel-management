@@ -19,8 +19,8 @@ import java.util.UUID;
 @Transactional
 public class UserService implements IUserService {
 
-    @Value("${upload.path}")
-    private String uploadPath;
+    @Value("${user.upload.path}")
+    private String userUploadPath;
 
     @Autowired
     private IUserDao userDao;
@@ -131,7 +131,7 @@ public class UserService implements IUserService {
             userInDetails.setBirthDate(userDto.getUserBirthDate());
             userInDetails.setGender(userDto.getGender());
             if (file != null && !file.getOriginalFilename().isEmpty()) {
-                File uploadDir = new File(uploadPath);
+                File uploadDir = new File(userUploadPath);
                 if (!uploadDir.exists()) {
                     uploadDir.mkdir();
                 }
@@ -139,7 +139,7 @@ public class UserService implements IUserService {
 
                 String resultFileName = uuidFile + "." + file.getOriginalFilename();
 
-                file.transferTo(new File(uploadPath + "/" + resultFileName));
+                file.transferTo(new File(userUploadPath + "/" + resultFileName));
 
                 userInDetails.setFileName(resultFileName);
             }

@@ -18,8 +18,8 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    @Value("${upload.path}")
-    private String uploadPath;
+    @Value("${user.upload.path}")
+    private String userUploadPath;
 
     @Autowired
     private IUserService userService;

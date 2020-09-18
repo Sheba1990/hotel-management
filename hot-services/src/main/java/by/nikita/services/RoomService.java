@@ -14,15 +14,23 @@ import by.nikita.models.RoomDetails;
 import by.nikita.models.enums.RoomStatus;
 import by.nikita.services.api.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
 public class RoomService implements IRoomService {
+
+    @Value("${room.upload.path}")
+    private String roomUploadPath;
 
     @Autowired
     IRoomDao roomDao;
@@ -46,7 +54,8 @@ public class RoomService implements IRoomService {
     @Override
     public RoomDto addRoom(RoomDto roomDto,
                            RoomCategoryDto roomCategoryDto,
-                           RoomDetailsDto roomDetailsDto) {
+                           RoomDetailsDto roomDetailsDto,
+                           MultipartFile file) throws IOException {
 
         RoomCategory roomCategory = new RoomCategory();
         roomCategory.setCategoryName(roomCategoryDto.getCategoryName());
@@ -62,36 +71,28 @@ public class RoomService implements IRoomService {
         roomCategoryDao.create(roomCategory);
 
         RoomDetails roomDetails = new RoomDetails();
-        if (roomCategoryDto.getCategoryName().equalsIgnoreCase("deluxe")) {
-            roomDetails.setHasSeaView(true);
-            roomDetails.setHasBabyBed(true);
-            roomDetails.setHasBreakfast(true);
-            roomDetails.setHasBath(true);
-            roomDetails.setPricePerNight(200.00);
-        } else if (roomCategoryDto.getCategoryName().equalsIgnoreCase("business")) {
-            roomDetails.setHasSeaView(false);
-            roomDetails.setHasBabyBed(false);
-            roomDetails.setHasBreakfast(true);
-            roomDetails.setHasBath(true);
-            roomDetails.setPricePerNight(150.00);
-        } else if (roomCategoryDto.getCategoryName().equalsIgnoreCase("standard")) {
-            roomDetails.setHasSeaView(false);
-            roomDetails.setHasBabyBed(false);
-            roomDetails.setHasBreakfast(false);
-            roomDetails.setHasBath(true);
-            roomDetails.setPricePerNight(100.00);
-        } else if (roomCategoryDto.getCategoryName().equalsIgnoreCase("econom")) {
-            roomDetails.setHasSeaView(false);
-            roomDetails.setHasBabyBed(false);
-            roomDetails.setHasBreakfast(false);
-            roomDetails.setHasBath(false);
-            roomDetails.setPricePerNight(50.00);
-        }
+        roomDetails.setHasSeaView(roomDetailsDto.isHasSeaView());
+        roomDetails.setHasBabyBed(roomDetailsDto.isHasBabyBed());
+        roomDetails.setHasBreakfast(roomDetailsDto.isHasBreakfast());
+        roomDetails.setHasBath(roomDetailsDto.isHasBath());
+        roomDetails.setPricePerNight(roomDetailsDto.getPricePerNight());
         roomDetails.setFloor(roomDetailsDto.getFloor());
         roomDetails.setAmountOfRooms(roomDetailsDto.getAmountOfRooms());
-
         roomDetails.setCapacity(roomDetailsDto.getCapacity());
         roomDetails.setHasWifi(true);
+        if (file != null && !file.getOriginalFilename().isEmpty()) {
+            File uploadDir = new File(roomUploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            String uuidFile = UUID.randomUUID().toString();
+
+            String resultFileName = uuidFile + "." + file.getOriginalFilename();
+
+            file.transferTo(new File(roomUploadPath + "/" + resultFileName));
+
+            roomDetails.setFileName(resultFileName);
+        }
         roomDetailsDao.create(roomDetails);
 
         Room room = new Room();
@@ -169,7 +170,8 @@ public class RoomService implements IRoomService {
     public void updateRoom(long id,
                            RoomDto roomDto,
                            RoomCategoryDto roomCategoryDto,
-                           RoomDetailsDto roomDetailsDto) {
+                           RoomDetailsDto roomDetailsDto,
+                           MultipartFile file) throws IOException {
 
         Room room = roomDao.get(id);
         RoomCategory roomCategory = room.getRoomCategory();
@@ -181,35 +183,28 @@ public class RoomService implements IRoomService {
         }
 
         if (room.getRoomDetails() != null) {
-            if (roomDto.getRoomCategory().equalsIgnoreCase("deluxe")) {
-                roomDetails.setHasSeaView(true);
-                roomDetails.setHasBabyBed(true);
-                roomDetails.setHasBreakfast(true);
-                roomDetails.setHasBath(true);
-                roomDetails.setPricePerNight(200.00);
-            } else if (roomDto.getRoomCategory().equalsIgnoreCase("business")) {
-                roomDetails.setHasSeaView(false);
-                roomDetails.setHasBabyBed(false);
-                roomDetails.setHasBreakfast(true);
-                roomDetails.setHasBath(true);
-                roomDetails.setPricePerNight(150.00);
-            } else if (roomDto.getRoomCategory().equalsIgnoreCase("standard")) {
-                roomDetails.setHasSeaView(false);
-                roomDetails.setHasBabyBed(false);
-                roomDetails.setHasBreakfast(false);
-                roomDetails.setHasBath(true);
-                roomDetails.setPricePerNight(100.00);
-            } else if (roomDto.getRoomCategory().equalsIgnoreCase("econom")) {
-                roomDetails.setHasSeaView(false);
-                roomDetails.setHasBabyBed(false);
-                roomDetails.setHasBreakfast(false);
-                roomDetails.setHasBath(false);
-                roomDetails.setPricePerNight(50.00);
-            }
+            roomDetails.setHasSeaView(roomDetailsDto.isHasSeaView());
+            roomDetails.setHasBabyBed(roomDetailsDto.isHasBabyBed());
+            roomDetails.setHasBreakfast(roomDetailsDto.isHasBreakfast());
+            roomDetails.setHasBath(roomDetailsDto.isHasBath());
+            roomDetails.setPricePerNight(roomDetailsDto.getPricePerNight());
             roomDetails.setFloor(roomDetailsDto.getFloor());
             roomDetails.setAmountOfRooms(roomDetailsDto.getAmountOfRooms());
             roomDetails.setCapacity(roomDetailsDto.getCapacity());
             roomDetails.setHasWifi(true);
+            if (file != null && !file.getOriginalFilename().isEmpty()) {
+                File uploadDir = new File(roomUploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+                String uuidFile = UUID.randomUUID().toString();
+
+                String resultFileName = uuidFile + "." + file.getOriginalFilename();
+
+                file.transferTo(new File(roomUploadPath + "/" + resultFileName));
+
+                roomDetails.setFileName(resultFileName);
+            }
             roomDetailsDao.update(roomDetails);
         }
 
@@ -220,50 +215,4 @@ public class RoomService implements IRoomService {
         roomDao.update(room);
     }
 
-    @Override
-    public RoomDto addRoomDetailsToRoom(long roomId, RoomDetailsDto roomDetailsDto) {
-
-        Room room = roomDao.get(roomId);
-
-        RoomDetails roomDetails = new RoomDetails();
-        roomDetails.setFloor(roomDetailsDto.getFloor());
-        roomDetails.setAmountOfRooms(roomDetailsDto.getAmountOfRooms());
-        roomDetails.setCapacity(roomDetailsDto.getCapacity());
-        roomDetails.setHasWifi(true);
-        if (room.getRoomCategory().getCategoryName().equalsIgnoreCase("deluxe")) {
-            roomDetails.setHasSeaView(true);
-            roomDetails.setHasBabyBed(true);
-            roomDetails.setHasBreakfast(true);
-            roomDetails.setHasBath(true);
-            roomDetails.setPricePerNight(200.00);
-        }
-        if (room.getRoomCategory().getCategoryName().equalsIgnoreCase("business")) {
-            roomDetails.setHasSeaView(false);
-            roomDetails.setHasBabyBed(false);
-            roomDetails.setHasBreakfast(true);
-            roomDetails.setHasBath(true);
-            roomDetails.setPricePerNight(150.00);
-        }
-        if (room.getRoomCategory().getCategoryName().equalsIgnoreCase("standard")) {
-            roomDetails.setHasSeaView(false);
-            roomDetails.setHasBabyBed(false);
-            roomDetails.setHasBreakfast(false);
-            roomDetails.setHasBath(true);
-            roomDetails.setPricePerNight(100.00);
-        }
-        if (room.getRoomCategory().getCategoryName().equalsIgnoreCase("economic")) {
-            roomDetails.setHasSeaView(false);
-            roomDetails.setHasBabyBed(false);
-            roomDetails.setHasBreakfast(false);
-            roomDetails.setHasBath(false);
-            roomDetails.setPricePerNight(50.00);
-        }
-        roomDetailsDao.create(roomDetails);
-
-        room.setRoomDetails(roomDetails);
-
-        roomDao.update(room);
-
-        return RoomDto.entityToDto(room);
-    }
 }

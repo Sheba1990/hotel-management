@@ -3,12 +3,17 @@ package by.nikita.services.api;
 import by.nikita.dto.RoomCategoryDto;
 import by.nikita.dto.RoomDetailsDto;
 import by.nikita.dto.RoomDto;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IRoomService {
 
-    RoomDto addRoom(RoomDto roomDto, RoomCategoryDto roomCategoryDto, RoomDetailsDto roomDetailsDto);
+    RoomDto addRoom(RoomDto roomDto,
+                    RoomCategoryDto roomCategoryDto,
+                    RoomDetailsDto roomDetailsDto,
+                    MultipartFile file) throws IOException;
 
     List<RoomDto> getAllRooms();
 
@@ -36,7 +41,10 @@ public interface IRoomService {
 
     void deleteRoom(long id);
 
-    void updateRoom(long id, RoomDto roomDto, RoomCategoryDto roomCategoryDto, RoomDetailsDto roomDetailsDto);
+    void updateRoom(long id,
+                    RoomDto roomDto,
+                    RoomCategoryDto roomCategoryDto,
+                    RoomDetailsDto roomDetailsDto,
+                    MultipartFile file) throws IOException;
 
-    RoomDto addRoomDetailsToRoom(long roomId, RoomDetailsDto roomDetailsDto);
 }

@@ -33,6 +33,9 @@ public class RoomDetails extends AbstractIdAwareEntity {
     @Column(name = "breakfast")
     private boolean hasBreakfast;
 
+    @Column(name = "file_name")
+    private String fileName;
+
     @OneToOne(mappedBy = "roomDetails", fetch = FetchType.LAZY)
     private Room room;
 
@@ -49,6 +52,7 @@ public class RoomDetails extends AbstractIdAwareEntity {
             boolean hasBabyBed,
             boolean hasWifi,
             boolean hasBreakfast,
+            String fileName,
             Room room) {
         this.pricePerNight = pricePerNight;
         this.floor = floor;
@@ -59,6 +63,7 @@ public class RoomDetails extends AbstractIdAwareEntity {
         this.hasBabyBed = hasBabyBed;
         this.hasWifi = hasWifi;
         this.hasBreakfast = hasBreakfast;
+        this.fileName = fileName;
         this.room = room;
     }
 
@@ -132,6 +137,14 @@ public class RoomDetails extends AbstractIdAwareEntity {
 
     public void setHasBreakfast(boolean hasBreakfast) {
         this.hasBreakfast = hasBreakfast;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public Room getRoom() {

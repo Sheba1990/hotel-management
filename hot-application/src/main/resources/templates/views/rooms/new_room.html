@@ -20,83 +20,217 @@
     filter: blur(5px); /* Размытие */
    }
 
+.form-control:focus {
+    box-shadow: none;
+    border-color: #76c868
+}
 
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #682773
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #76c868;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #76c868
+}
 
 
 </style>
 <body>
 <div th:insert="~{fragments/header :: header}">Header</div>
+
 <div align="center">
-    <br/>
-    <h1>Add new room</h1>
-    <br/>
-    <form th:action="@{/rooms/save}" method="post">
-        <div>
-            <form>
-                <div class="form-row mx-auto">
-                    <div class="col-md-3 mb-3 mx-auto">
-                        <label>Room number</label>
-                        <input type="text" th:field="*{room.roomNumber}" class="form-control"
-                               placeholder="Hotel room number">
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Category</label>
-                        <select class="form-control" id="categoryName" th:field="*{category.categoryName}">
-                            <option th:value="DELUXE"
-                                    th:text="DELUXE"></option>
-                            <option th:value="BUSINESS"
-                                    th:text="BUSINESS"></option>
-                            <option th:value="STANDARD"
-                                    th:text="STANDARD"></option>
-                            <option th:value="ECONOM"
-                                    th:text="ECONOM"></option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Floor</label>
-                        <select class="form-control" id="floor" th:field="*{details.floor}">
-                            <option th:value="5"
-                                    th:text="5"></option>
-                            <option th:value="4"
-                                    th:text="4"></option>
-                            <option th:value="3"
-                                    th:text="3"></option>
-                            <option th:value="2"
-                                    th:text="2"></option>
-                            <option th:value="1"
-                                    th:text="1"></option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 mb-3 mx-auto">
-                        <label>Capacity</label>
-                        <select class="form-control" id="capacity" th:field="*{details.capacity}">
-                            <option th:value="5"
-                                    th:text="5"></option>
-                            <option th:value="4"
-                                    th:text="4"></option>
-                            <option th:value="3"
-                                    th:text="3"></option>
-                            <option th:value="2"
-                                    th:text="2"></option>
-                            <option th:value="1"
-                                    th:text="1"></option>
-                        </select>
+    <form action="#" th:action="@{/rooms/save}" enctype="multipart/form-data" method="post">
+        <div class="container rounded bg-white mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-3 border-right">
+                    <div class="d-flex flex-column align-items-center p-3 py-5">
+                        <form>
+                            <img class="mt-5 img-fluid" th:src="@{${'/img/room' + room.fileName}}">
+                            <br/>
+                            <div class="custom-file" > <!-- блок для загрузки файла -->
+                                <input type="file" name="file" id="customFile"> <!-- форма для загрузки файла -->
+                                <label class="custom-file-label text-left" for="customFile">
+                                    Choose file
+                                </label>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </form>
-            <br/>
-            <div class="form-inline justify-content-center">
-                <div>
-                    <button type="submit" class="btn btn-primary">
-                        Save
-                    </button>
+                <div class="col-md-5 border-right">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Add New Room</h4>
+                            <span class="border px-3 p-1 add-experience">
+                                <i class="fa fa-plus"></i>&nbsp;Info</span>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <label class="labels">Room Number</label>
+                                <input type="text" class="form-control" th:field="*{room.roomNumber}"
+                                       placeholder="number">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Category</label>
+                                <select class="form-control" id="categoryName" th:field="*{category.categoryName}">
+                                    <option th:value="DELUXE"
+                                            th:text="DELUXE"></option>
+                                    <option th:value="BUSINESS"
+                                            th:text="BUSINESS"></option>
+                                    <option th:value="STANDARD"
+                                            th:text="STANDARD"></option>
+                                    <option th:value="ECONOM"
+                                            th:text="ECONOM"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Floor</label>
+                                <select class="form-control" id="floor" th:field="*{details.floor}">
+                                    <option th:value="5"
+                                            th:text="5"></option>
+                                    <option th:value="4"
+                                            th:text="4"></option>
+                                    <option th:value="3"
+                                            th:text="3"></option>
+                                    <option th:value="2"
+                                            th:text="2"></option>
+                                    <option th:value="1"
+                                            th:text="1"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Amount of rooms</label>
+                                <select class="form-control" id="amountOfRooms" th:field="*{details.amountOfRooms}">
+                                    <option th:value="5"
+                                            th:text="5"></option>
+                                    <option th:value="4"
+                                            th:text="4"></option>
+                                    <option th:value="3"
+                                            th:text="3"></option>
+                                    <option th:value="2"
+                                            th:text="2"></option>
+                                    <option th:value="1"
+                                            th:text="1"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Capacity of people</label>
+                                <select class="form-control" id="capacity" th:field="*{details.capacity}">
+                                    <option th:value="5"
+                                            th:text="5"></option>
+                                    <option th:value="4"
+                                            th:text="4"></option>
+                                    <option th:value="3"
+                                            th:text="3"></option>
+                                    <option th:value="2"
+                                            th:text="2"></option>
+                                    <option th:value="1"
+                                            th:text="1"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Price per night</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input type="text" th:field="*{room.pricePerNight}" class="form-control"
+                                           aria-label="Dollar amount (with dot and two decimal places)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="mt-5 form-inline justify-content-center">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    Save
+                                </button>
+                            </div>
+                            <div class="ml-2">
+                                <form th:action="@{/rooms/}" th:method="get">
+                                    <button class="btn btn-danger">
+                                        Cancel
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="ml-2">
-                    <form th:action="@{/rooms/}" th:method="get">
-                        <button class="btn btn-danger">
-                            Cancel
-                        </button>
-                    </form>
+                <div class="col-md-4">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center experience">
+                            <span>Select Options</span>
+                            <span class="border px-3 p-1 add-experience">
+                                <i class="fa fa-plus"></i>&nbsp;Options</span>
+                        </div>
+                        <br/>
+                        <div class="col-md-12">
+                            <label class="labels">Baby Bed</label>
+                            <select class="form-control" id="hasBabyBed" th:field="*{details.hasBabyBed}">
+                                <option th:value="TRUE"
+                                        th:text="Yes"></option>
+                                <option th:value="FALSE"
+                                        th:text="No"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Breakfast</label>
+                            <select class="form-control" id="hasBreakfast" th:field="*{details.hasBreakfast}">
+                                <option th:value="TRUE"
+                                        th:text="Yes"></option>
+                                <option th:value="FALSE"
+                                        th:text="No"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Bathroom</label>
+                            <select class="form-control" id="hasBath" th:field="*{details.hasBath}">
+                                <option th:value="TRUE"
+                                        th:text="Yes"></option>
+                                <option th:value="FALSE"
+                                        th:text="No"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Sea View</label>
+                            <select class="form-control" id="hasSeaView" th:field="*{details.hasSeaView}">
+                                <option th:value="TRUE"
+                                        th:text="Yes"></option>
+                                <option th:value="FALSE"
+                                        th:text="No"></option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

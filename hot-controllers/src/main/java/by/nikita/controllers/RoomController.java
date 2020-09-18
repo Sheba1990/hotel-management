@@ -5,17 +5,23 @@ import by.nikita.dto.RoomDetailsDto;
 import by.nikita.dto.RoomDto;
 import by.nikita.services.api.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/rooms")
 public class RoomController {
+
+    @Value("${room.upload.path}")
+    private String roomUploadPath;
 
     @Autowired
     IRoomService roomService;
@@ -33,13 +39,13 @@ public class RoomController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/save",
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/save")
     public ModelAndView addRoom(RoomDto roomDto,
                                 RoomCategoryDto roomCategoryDto,
-                                RoomDetailsDto roomDetailsDto) {
+                                RoomDetailsDto roomDetailsDto,
+                                @RequestParam("file") MultipartFile file) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
-        roomService.addRoom(roomDto, roomCategoryDto, roomDetailsDto);
+        roomService.addRoom(roomDto, roomCategoryDto, roomDetailsDto, file);
         modelAndView.setViewName("redirect:/rooms");
         return modelAndView;
     }
@@ -167,18 +173,12 @@ public class RoomController {
     public ModelAndView editRoom(@PathVariable("id") long id,
                                  RoomDto roomDto,
                                  RoomCategoryDto roomCategoryDto,
-                                 RoomDetailsDto roomDetailsDto) {
+                                 RoomDetailsDto roomDetailsDto,
+                                 @RequestParam("file") MultipartFile file) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/rooms/get/" + id);
-        roomService.updateRoom(id, roomDto, roomCategoryDto, roomDetailsDto);
+        roomService.updateRoom(id, roomDto, roomCategoryDto, roomDetailsDto, file);
         return modelAndView;
     }
 
-    @PutMapping(value = "/add_room_details/{roomId}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public RoomDto addRoomDetailsToRoom(@PathVariable long roomId,
-                                        @RequestBody RoomDetailsDto roomDetailsDto) {
-        return roomService.addRoomDetailsToRoom(roomId, roomDetailsDto);
-    }
 }
