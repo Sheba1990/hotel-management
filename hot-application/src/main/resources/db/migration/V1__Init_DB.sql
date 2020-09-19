@@ -89,7 +89,6 @@ create table room_table (
 
 create table order_table (
   id bigserial not null,
-  order_number int4,
   room_category varchar(255),
   amount_of_guests int,
   date_of_check_in date,

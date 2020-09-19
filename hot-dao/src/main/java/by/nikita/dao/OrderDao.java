@@ -21,19 +21,6 @@ public class OrderDao extends AbstractGenericDao<Order> implements IOrderDao {
 
     //Get mapping methods
 
-    public Order getOrderByNumber(Integer orderNumber) {
-        try {
-            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Order> query = criteriaBuilder.createQuery(Order.class);
-            Root<Order> root = query.from(Order.class);
-            query.select(root).where(criteriaBuilder.equal(root.get(Order_.ORDER_NUMBER), orderNumber));
-            TypedQuery<Order> result = entityManager.createQuery(query);
-            return result.getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }
-
     public List<Order> getOrdersByRoomCategory(String roomCategory) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();

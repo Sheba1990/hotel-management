@@ -14,7 +14,7 @@ public interface IUserDao extends IAbstractGenericDao<User> {
 
     List<User> getUsersByUserLastName(String lastName);
 
-    List<User> getUsersByFullName(String firstName, String lastName);
+    List<User> getUsersByFullName(String firstName, String lastName, String middleName);
 
     List<User> getUsersByPassportIssueCountry(String passportCountry);
 

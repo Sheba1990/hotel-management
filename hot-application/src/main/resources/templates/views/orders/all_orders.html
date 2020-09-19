@@ -20,12 +20,6 @@
     filter: blur(5px); /* Размытие */
    }
 
-
-
-
-
-
-
 </style>
 <body>
 <div th:insert="~{fragments/header :: header}">Header</div>
@@ -61,19 +55,17 @@
     <table class="table table-hover table-striped">
         <thead class="thead-dark">
         <tr>
-            <th scope="col" class="col-xs-1 text-center">ID</th>
-            <th scope="col" class="col-xs-1 text-center">Order number</th>
+            <th scope="col" class="col-xs-1 text-center">Number</th>
             <th scope="col" class="col-xs-1 text-center">Username</th>
-            <th scope="col" class="col-xs-1 text-center">Room number</th>
-            <th scope="col" class="col-xs-1 text-center">Amount of guests</th>
-            <th scope="col" class="col-xs-1 text-center">Room category</th>
+            <th scope="col" class="col-xs-1 text-center">Room Number</th>
+            <th scope="col" class="col-xs-1 text-center">Amount Of Guests</th>
+            <th scope="col" class="col-xs-1 text-center">Room Category</th>
             <th scope="col" class="col-xs-1 text-center">More</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="order : ${orders}">
             <td class="align-middle col-xs-1 text-center" th:text="${order.id}"></td>
-            <td class="align-middle col-xs-1 text-center" th:text="${order.orderNumber}"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${order.userName}">
                 <a th:href="@{'/users/username/' + ${order.userName}}"/>
             </td>

@@ -15,42 +15,20 @@ import java.util.List;
 public class RoomDetailsService implements IRoomDetailsService {
 
     @Autowired
-    IRoomDetailsDao roomDetailsDao;
+    private IRoomDetailsDao roomDetailsDao;
 
     @Override
     public RoomDetailsDto addRoomDetails(RoomDetailsDto roomDetailsDto) {
         RoomDetails roomDetails = new RoomDetails();
+        roomDetails.setHasSeaView(roomDetailsDto.isHasSeaView());
+        roomDetails.setHasBabyBed(roomDetailsDto.isHasBabyBed());
+        roomDetails.setHasBreakfast(roomDetailsDto.isHasBreakfast());
+        roomDetails.setHasBath(roomDetailsDto.isHasBath());
+        roomDetails.setPricePerNight(roomDetailsDto.getPricePerNight());
         roomDetails.setFloor(roomDetailsDto.getFloor());
         roomDetails.setAmountOfRooms(roomDetailsDto.getAmountOfRooms());
         roomDetails.setCapacity(roomDetailsDto.getCapacity());
-        if (roomDetails.getRoom().getRoomCategory().getCategoryName().equalsIgnoreCase("deluxe")) {
-            roomDetails.setHasSeaView(true);
-            roomDetails.setHasBabyBed(true);
-            roomDetails.setHasBreakfast(true);
-            roomDetails.setHasBath(true);
-            roomDetails.setPricePerNight(200.00);
-        }
-        if (roomDetails.getRoom().getRoomCategory().getCategoryName().equalsIgnoreCase("business")) {
-            roomDetails.setHasSeaView(false);
-            roomDetails.setHasBabyBed(false);
-            roomDetails.setHasBreakfast(true);
-            roomDetails.setHasBath(true);
-            roomDetails.setPricePerNight(150.00);
-        }
-        if (roomDetails.getRoom().getRoomCategory().getCategoryName().equalsIgnoreCase("standard")) {
-            roomDetails.setHasSeaView(false);
-            roomDetails.setHasBabyBed(false);
-            roomDetails.setHasBreakfast(false);
-            roomDetails.setHasBath(true);
-            roomDetails.setPricePerNight(100.00);
-        }
-        if (roomDetails.getRoom().getRoomCategory().getCategoryName().equalsIgnoreCase("economic")) {
-            roomDetails.setHasSeaView(false);
-            roomDetails.setHasBabyBed(false);
-            roomDetails.setHasBreakfast(false);
-            roomDetails.setHasBath(false);
-            roomDetails.setPricePerNight(50.00);
-        }
+        roomDetails.setHasWifi(true);
 
         RoomDetails newRoomDetails = roomDetailsDao.create(roomDetails);
 
@@ -80,45 +58,15 @@ public class RoomDetailsService implements IRoomDetailsService {
     @Override
     public void updateRoomDetails(long id, RoomDetailsDto roomDetailsDto) {
         RoomDetails roomDetails = roomDetailsDao.get(id);
-        if (roomDetailsDto.getFloor() != null) {
-            roomDetails.setFloor(roomDetailsDto.getFloor());
-        }
-        if (roomDetailsDto.getAmountOfRooms() != null) {
-            roomDetails.setAmountOfRooms(roomDetailsDto.getAmountOfRooms());
-        }
-        if (roomDetailsDto.getCapacity() != null) {
-            roomDetails.setCapacity(roomDetailsDto.getCapacity());
-        }
-        if (roomDetails.getRoom().getRoomCategory() != null) {
-            if (roomDetails.getRoom().getRoomCategory().getCategoryName().equalsIgnoreCase("deluxe")) {
-                roomDetails.setHasSeaView(true);
-                roomDetails.setHasBabyBed(true);
-                roomDetails.setHasBreakfast(true);
-                roomDetails.setHasBath(true);
-                roomDetails.setPricePerNight(200.00);
-            }
-            if (roomDetails.getRoom().getRoomCategory().getCategoryName().equalsIgnoreCase("business")) {
-                roomDetails.setHasSeaView(false);
-                roomDetails.setHasBabyBed(false);
-                roomDetails.setHasBreakfast(true);
-                roomDetails.setHasBath(true);
-                roomDetails.setPricePerNight(150.00);
-            }
-            if (roomDetails.getRoom().getRoomCategory().getCategoryName().equalsIgnoreCase("standard")) {
-                roomDetails.setHasSeaView(false);
-                roomDetails.setHasBabyBed(false);
-                roomDetails.setHasBreakfast(false);
-                roomDetails.setHasBath(true);
-                roomDetails.setPricePerNight(100.00);
-            }
-            if (roomDetails.getRoom().getRoomCategory().getCategoryName().equalsIgnoreCase("econom")) {
-                roomDetails.setHasSeaView(false);
-                roomDetails.setHasBabyBed(false);
-                roomDetails.setHasBreakfast(false);
-                roomDetails.setHasBath(false);
-                roomDetails.setPricePerNight(50.00);
-            }
-        }
+        roomDetails.setHasSeaView(roomDetailsDto.isHasSeaView());
+        roomDetails.setHasBabyBed(roomDetailsDto.isHasBabyBed());
+        roomDetails.setHasBreakfast(roomDetailsDto.isHasBreakfast());
+        roomDetails.setHasBath(roomDetailsDto.isHasBath());
+        roomDetails.setPricePerNight(roomDetailsDto.getPricePerNight());
+        roomDetails.setFloor(roomDetailsDto.getFloor());
+        roomDetails.setAmountOfRooms(roomDetailsDto.getAmountOfRooms());
+        roomDetails.setCapacity(roomDetailsDto.getCapacity());
+        roomDetails.setHasWifi(true);
         roomDetailsDao.update(roomDetails);
     }
 }

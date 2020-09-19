@@ -72,7 +72,6 @@ public class UserDto extends AbstractIdAwareDto {
 
     private String userResidenceApartmentNumber;
 
-
     public static List<UserDto> convertList(List<User> userList) {
         List<UserDto> users = new ArrayList<>();
         for (User user : userList) {
@@ -102,6 +101,9 @@ public class UserDto extends AbstractIdAwareDto {
                 }
             } else {
                 userDto.setUserFullName(null);
+            }
+            if (user.getUserInDetails().getContactData().getAddress().getCountry() != null) {
+                userDto.setUserResidenceCountry(user.getUserInDetails().getContactData().getAddress().getCountry());
             }
             users.add(userDto);
         }

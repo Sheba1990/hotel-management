@@ -4,10 +4,10 @@ import by.nikita.dao.api.IOrderDao;
 import by.nikita.dao.api.IRoomDao;
 import by.nikita.dao.api.IUserDao;
 import by.nikita.dto.OrderDto;
+import by.nikita.dto.RoomDto;
 import by.nikita.models.Order;
 import by.nikita.models.Room;
 import by.nikita.models.User;
-import by.nikita.models.enums.RoomStatus;
 import by.nikita.services.api.IOrderService;
 import by.nikita.services.config.EmailProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +51,13 @@ public class OrderService implements IOrderService {
         return OrderDto.entityToDto(orderDao.create(order));
     }
 
-    public OrderDto approveOrderByAdmin(long orderId, long roomId) {
+    public void approveOrderByAdmin(long orderId, long roomId) {
         Order order = orderDao.get(orderId);
         Room room = roomDao.get(roomId);
         order.setRoom(room);
         order.setApproved(true);
         orderDao.update(order);
-        return OrderDto.entityToDto(order);
+        OrderDto.entityToDto(order);
     }
 
     @Override
@@ -68,11 +68,6 @@ public class OrderService implements IOrderService {
     @Override
     public OrderDto getOrderById(long id) {
         return OrderDto.entityToDto(orderDao.get(id));
-    }
-
-    @Override
-    public OrderDto getOrderByNumber(Integer orderNumber) {
-        return OrderDto.entityToDto(orderDao.getOrderByNumber(orderNumber));
     }
 
     @Override
@@ -111,7 +106,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public void updateOrder(long id, OrderDto orderDto) {
+    public void editOrder(long id, OrderDto orderDto) {
         Order order = orderDao.get(id);
         if (orderDto.getAmountOfGuests() != null && !StringUtils.isEmpty(orderDto.getAmountOfGuests())) {
             order.setAmountOfGuests(orderDto.getAmountOfGuests());
@@ -122,6 +117,8 @@ public class OrderService implements IOrderService {
         if (orderDto.getDateOfCheckOut() != null && !StringUtils.isEmpty(orderDto.getDateOfCheckOut())) {
             order.setDateOfCheckOut(orderDto.getDateOfCheckOut());
         }
+        order.setRoomCategory(orderDto.getRoomCategory());
+        order.setApproved(false);
         orderDao.update(order);
     }
 

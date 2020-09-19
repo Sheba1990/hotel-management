@@ -33,21 +33,21 @@ public class RoomService implements IRoomService {
     private String roomUploadPath;
 
     @Autowired
-    IRoomDao roomDao;
+    private IRoomDao roomDao;
 
     @Autowired
-    IOrderDao orderDao;
+    private IOrderDao orderDao;
 
     @Autowired
-    IRoomCategoryDao roomCategoryDao;
+    private IRoomCategoryDao roomCategoryDao;
 
     @Autowired
-    IRoomDetailsDao roomDetailsDao;
+    private IRoomDetailsDao roomDetailsDao;
 
 
     public List<RoomDto> getRoomsSuitableByOrder(long orderId) {
         Order order = orderDao.get(orderId);
-        List<Room> rooms = roomDao.getRoomByCategoryAndCapacity(order.getRoomCategory(), order.getAmountOfGuests());
+        List<Room> rooms = roomDao.getVacantRoomsByCategory(order.getRoomCategory());
         return RoomDto.convertList(rooms);
     }
 

@@ -23,7 +23,7 @@ public class UserDao extends AbstractGenericDao<User> implements IUserDao {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
             Root<User> user = query.from(User.class);
-            query.select(user).where(criteriaBuilder.equal(user.get(User_.USERNAME), username));
+            query.select(user).where(criteriaBuilder.like(user.get(User_.USERNAME), "%" + username + "%"));
             TypedQuery<User> result = entityManager.createQuery(query);
             return result.getSingleResult();
         } catch (NoResultException e) {
@@ -43,7 +43,7 @@ public class UserDao extends AbstractGenericDao<User> implements IUserDao {
             CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
             Root<User> user = query.from(User.class);
             Join<User, UserInDetails> userInDetails = user.join(User_.USER_IN_DETAILS);
-            query.select(user).where(criteriaBuilder.equal(userInDetails.get(UserInDetails_.FIRST_NAME), firstName));
+            query.select(user).where(criteriaBuilder.like(userInDetails.get(UserInDetails_.FIRST_NAME), "%" + firstName + "%"));
             TypedQuery<User> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
@@ -67,7 +67,7 @@ public class UserDao extends AbstractGenericDao<User> implements IUserDao {
     }
 
     @Override
-    public List<User> getUsersByFullName(String firstName, String lastName) {
+    public List<User> getUsersByFullName(String firstName, String lastName, String middleName) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
@@ -75,7 +75,11 @@ public class UserDao extends AbstractGenericDao<User> implements IUserDao {
             Join<User, UserInDetails> userInDetails = user.join(User_.USER_IN_DETAILS);
             Predicate predicateForFirstName = criteriaBuilder.equal(userInDetails.get(UserInDetails_.FIRST_NAME), firstName);
             Predicate predicateForLastName = criteriaBuilder.equal(userInDetails.get(UserInDetails_.LAST_NAME), lastName);
-            Predicate predicateForFullName = criteriaBuilder.and(predicateForFirstName, predicateForLastName);
+            Predicate predicateForMiddleName = criteriaBuilder.equal(userInDetails.get(UserInDetails_.MIDDLE_NAME), middleName);
+            Predicate predicateForFullName = criteriaBuilder.or(
+                    predicateForFirstName,
+                    predicateForLastName,
+                    predicateForMiddleName);
             query.select(user).where(predicateForFullName);
             TypedQuery<User> result = entityManager.createQuery(query);
             return result.getResultList();

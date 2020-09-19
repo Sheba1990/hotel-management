@@ -54,7 +54,7 @@ insert into room_table (id, room_number, room_status, room_category_id, room_det
   (3, 10, 'VACANT', 3, 3),
   (4, 5, 'VACANT', 4, 4);
 
-insert into order_table (id, order_number, room_category, amount_of_guests, date_of_check_in, date_of_check_out, approved, user_id, room_id)
+insert into order_table (id, room_category, amount_of_guests, date_of_check_in, date_of_check_out, approved, user_id, room_id)
 values
-  (1, 1, 'DELUXE', 4, '2020-08-01', '2020-08-06', true, 1, 1),
-  (2, 2, 'BUSINESS', 2, '2020-08-03', '2020-08-09', true, 2, 2);
+  (1, 'DELUXE', 4, '2020-08-01', '2020-08-06', true, 1, 1),
+  (2, 'BUSINESS', 2, '2020-08-03', '2020-08-09', true, 2, 2);

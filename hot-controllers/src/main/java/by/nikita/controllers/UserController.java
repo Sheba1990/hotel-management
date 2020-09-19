@@ -45,7 +45,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/first_name/")
+    @GetMapping(value = "/first_name/{firstName}")
     public ModelAndView getUsersByUserFirstName(@RequestParam String firstName) {
         ModelAndView modelAndView = new ModelAndView();
         List<UserDto> users = userService.getUsersByUserFirstName(firstName);
@@ -64,9 +64,9 @@ public class UserController {
     }
 
     @GetMapping(value = "/full_name/{firstName}/{lastName}")
-    public ModelAndView getUsersByFullName(@RequestParam String firstName, @RequestParam String lastName) {
+    public ModelAndView getUsersByFullName(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String middleName) {
         ModelAndView modelAndView = new ModelAndView();
-        List<UserDto> users = userService.getUsersByFullName(firstName, lastName);
+        List<UserDto> users = userService.getUsersByFullName(firstName, lastName, middleName);
         modelAndView.setViewName("/views/users/all_users");
         modelAndView.addObject("users", users);
         return modelAndView;

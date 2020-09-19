@@ -9,10 +9,6 @@ import java.time.LocalDate;
 @Table(name = "order_table")
 public class Order extends AbstractIdAwareEntity {
 
-    @Column(name = "order_number", unique = true)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer orderNumber;
-
     @Column(name = "room_category")
     private String roomCategory;
 
@@ -49,7 +45,6 @@ public class Order extends AbstractIdAwareEntity {
                  boolean approved,
                  User user,
                  Room room) {
-        this.orderNumber = orderNumber;
         this.roomCategory = roomCategory;
         this.amountOfGuests = amountOfGuests;
         this.dateOfCheckIn = dateOfCheckIn;
@@ -57,14 +52,6 @@ public class Order extends AbstractIdAwareEntity {
         this.approved = approved;
         this.user = user;
         this.room = room;
-    }
-
-    public Integer getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(Integer orderNumber) {
-        this.orderNumber = orderNumber;
     }
 
     public String getRoomCategory() {

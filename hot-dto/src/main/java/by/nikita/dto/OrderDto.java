@@ -13,8 +13,6 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDto extends AbstractIdAwareDto {
 
-    private Integer orderNumber;
-
     private boolean approved;
 
     private String userName;
@@ -44,7 +42,6 @@ public class OrderDto extends AbstractIdAwareDto {
         for (Order order : orderList) {
             OrderDto orderDto = new OrderDto();
             orderDto.setId(order.getId());
-            orderDto.setOrderNumber(order.getOrderNumber());
             orderDto.setUserName(order.getUser().getUsername());
             if (order.getRoom() != null) {
                 orderDto.setRoomNumber(order.getRoom().getRoomNumber());
@@ -60,7 +57,7 @@ public class OrderDto extends AbstractIdAwareDto {
 
     public static OrderDto entityToDto(Order order) {
         OrderDto orderDto = new OrderDto();
-        orderDto.setOrderNumber(order.getOrderNumber());
+        orderDto.setId(order.getId());
         orderDto.setApproved(order.isApproved());
         orderDto.setUserName(order.getUser().getUsername());
         if (order.getUser().getUserInDetails().getMiddleName() != null && !StringUtils.isEmpty(order.getUser().getUserInDetails().getMiddleName())) {
@@ -78,10 +75,12 @@ public class OrderDto extends AbstractIdAwareDto {
             Long amountOfDays = ChronoUnit.DAYS.between(date1, date2);
             orderDto.setStayingPeriod(amountOfDays);
         }
-        if (orderDto.getStayingPeriod() >= 1) {
+        if (orderDto.getStayingPeriod() >= 1 && order.getRoom() != null) {
             double pricePerNight = order.getRoom().getRoomDetails().getPricePerNight();
             double totalSum = pricePerNight * orderDto.stayingPeriod;
             orderDto.setTotalSum(totalSum);
+        } else {
+            orderDto.setTotalSum(null);
         }
         if (order.getRoom() != null) {
             orderDto.setRoomNumber(order.getRoom().getRoomNumber());
@@ -97,7 +96,6 @@ public class OrderDto extends AbstractIdAwareDto {
 
     public OrderDto(Order order) {
         this.id = order.getId();
-        this.orderNumber = order.getOrderNumber();
         this.approved = order.isApproved();
         this.amountOfGuests = order.getAmountOfGuests();
         this.dateOfCheckIn = order.getDateOfCheckIn();
@@ -106,14 +104,6 @@ public class OrderDto extends AbstractIdAwareDto {
         this.userEmail = order.getUser().getEmail();
         this.roomNumber = order.getRoom().getRoomNumber();
         this.roomCategory = order.getRoom().getRoomCategory().getCategoryName();
-    }
-
-    public Integer getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(Integer orderNumber) {
-        this.orderNumber = orderNumber;
     }
 
     public boolean isApproved() {

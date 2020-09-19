@@ -17,6 +17,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Main Page<span class="sr-only">(current)</span></a>
+            </li>
             <span sec:authorize="isAuthenticated()">
                 <span sec:authorize="hasRole('ROLE_ADMIN')">
                     <li class="nav-item dropdown">
@@ -71,7 +74,7 @@
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" th:href="@{/users/username/(username=${username})}">Profile Info</a>
-                            <a class="dropdown-item" th:href="@{/users/edit/(username=${username})}">Edit my Profile</a>
+                            <a class="dropdown-item" th:href="@{/users/edit/(username=${username})}">Edit My Profile</a>
                         </div>
                     </li>
                 </span>
@@ -92,14 +95,16 @@
                     </li>
                 </span>
             </span>
+        </ul>
+        <ul class="navbar-nav ml-auto">
             <form class="form-inline my-2 my-lg-0">
                 <span sec:authorize="!isAuthenticated()">
-                    Hello,<span th:text="'guest!'" class="mr-3 ml-1"></span>
+                    <big>Hello,<span th:text="'guest!'" class="mr-3 ml-1"></span></big>
                     <a class="btn btn-primary" href="/login">Log In</a>
                     <a class="btn btn-success" href="/registration">Create New Account</a>
                 </span>
                 <span sec:authorize="isAuthenticated()">
-                    Hello, <span sec:authentication="name" class="mr-3 ml-1"></span>
+                    <big>Hello, <span sec:authentication="name" class="mr-3 ml-1"></span></big>
                     <a href="/logout" class="btn btn-danger">Log Out</a>
                 </span>
             </form>

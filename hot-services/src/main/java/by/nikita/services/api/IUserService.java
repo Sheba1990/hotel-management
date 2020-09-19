@@ -18,7 +18,7 @@ public interface IUserService {
 
     List<UserDto> getUsersByUserLastName(String lastName);
 
-    List<UserDto> getUsersByFullName(String firstName, String lastName);
+    List<UserDto> getUsersByFullName(String firstName, String lastName, String middleName);
 
     List<UserDto> getUsersByPassportIssueCountry(String passportCountry);
 

@@ -31,17 +31,18 @@ public class RoomDao extends AbstractGenericDao<Room> implements IRoomDao {
         }
     }
 
-    public List<Room> getRoomByCategoryAndCapacity(String roomCategory, Integer capacity) {
+    public List<Room> getVacantRoomsByCategory(String roomCategory) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
             Root<Room> root = query.from(Room.class);
-            Join<Room, RoomDetails> roomDetails = root.join(Room_.ROOM_DETAILS);
             Join<Room, RoomCategory> category = root.join(Room_.ROOM_CATEGORY);
-            Predicate predicateForRoomCapacity = criteriaBuilder.equal(roomDetails.get(RoomDetails_.CAPACITY), capacity);
+            Predicate predicateForStatus = criteriaBuilder.equal(root.get(Room_.ROOM_STATUS), RoomStatus.VACANT);
             Predicate predicateForRoomCategory = criteriaBuilder.equal(category.get(RoomCategory_.CATEGORY_NAME), roomCategory);
-            Predicate predicateForCategoryAndCapacity = criteriaBuilder.and(predicateForRoomCapacity, predicateForRoomCategory);
-            query.select(root).where(predicateForCategoryAndCapacity);
+            Predicate predicateForCategoryCapacityVacant = criteriaBuilder.and(
+                    predicateForRoomCategory,
+                    predicateForStatus);
+            query.select(root).where(predicateForCategoryCapacityVacant);
             TypedQuery<Room> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {

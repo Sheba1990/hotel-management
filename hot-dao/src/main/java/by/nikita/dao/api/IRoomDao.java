@@ -22,7 +22,7 @@ public interface IRoomDao extends IAbstractGenericDao<Room> {
 
     List<Room> getRoomsByCapacity(Integer roomCapacity);
 
-    List<Room> getRoomByCategoryAndCapacity(String roomCategory, Integer capacity);
+    List<Room> getVacantRoomsByCategory(String roomCategory);
 
     List<Room> getRoomByAmountOfRooms(Integer amountOfRooms);
 }

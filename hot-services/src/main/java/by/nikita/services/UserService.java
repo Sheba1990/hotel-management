@@ -64,8 +64,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<UserDto> getUsersByFullName(String firstName, String lastName) {
-        return UserDto.convertList(userDao.getUsersByFullName(firstName, lastName));
+    public List<UserDto> getUsersByFullName(String firstName, String lastName, String middleName) {
+        return UserDto.convertList(userDao.getUsersByFullName(firstName, lastName, middleName));
     }
 
     @Override

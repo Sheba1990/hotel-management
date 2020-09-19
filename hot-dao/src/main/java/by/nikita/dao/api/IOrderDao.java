@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface IOrderDao extends IAbstractGenericDao<Order> {
 
-    Order getOrderByNumber(Integer orderNumber);
-
     List<Order> getOrdersByRoomCategory(String roomCategory);
 
     public List<Order> getOrdersByUsername(String username);
