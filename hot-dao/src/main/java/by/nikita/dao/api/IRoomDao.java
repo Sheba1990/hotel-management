@@ -1,20 +1,17 @@
 package by.nikita.dao.api;
 
 import by.nikita.models.Room;
+import by.nikita.models.enums.RoomStatus;
 
 import java.util.List;
 
 public interface IRoomDao extends IAbstractGenericDao<Room> {
 
-    Room getRoomByNumber(Integer roomNumber);
+    List<Room> getRoomByNumber(Integer roomNumber);
 
-    List<Room> getRoomsByDeluxeCategory();
+    List<Room> getRoomsByStatus(RoomStatus roomStatus);
 
-    List<Room> getRoomsByBusinessCategory();
-
-    List<Room> getRoomsByStandardCategory();
-
-    List<Room> getRoomsByEconomCategory();
+    List<Room> getRoomsByCategory(String roomCategory);
 
     List<Room> getRoomsWhereStatusIsVacant();
 

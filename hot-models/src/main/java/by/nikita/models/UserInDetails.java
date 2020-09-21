@@ -34,11 +34,11 @@ public class UserInDetails extends AbstractIdAwareEntity {
     @JoinColumn(name = "passport_data_id", referencedColumnName = "id")
     private PassportData passportData;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_data_id", referencedColumnName = "id")
     private ContactData contactData;
 
-    @OneToOne(mappedBy = "userInDetails", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "userInDetails", fetch = FetchType.LAZY)
     private User user;
 
     public UserInDetails() {

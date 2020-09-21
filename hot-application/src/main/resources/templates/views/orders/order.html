@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Hotel Horizon</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -121,6 +121,8 @@ body::before {
 
 
 
+
+
 </style>
 
 <div class="container emp-profile">
@@ -148,13 +150,15 @@ body::before {
                 </ul>
             </div>
         </div>
-        <div class="col-md-2">
-            <form th:action="@{'/orders/approve/' + ${order.id}}" th:method="get">
-                <button class="profile-edit-btn" name="btnAddMore">
-                    Approve Booking
-                </button>
-            </form>
-        </div>
+        <span sec:authorize="hasRole('ROLE_ADMIN')">
+            <div class="col-md-2">
+                <form th:action="@{'/orders/approve/' + ${order.id}}" th:method="get">
+                    <button class="profile-edit-btn" name="btnAddMore">
+                        Approve Booking
+                    </button>
+                </form>
+            </div>
+        </span>
     </div>
     <div class="row">
         <div class="col-md-4">
@@ -172,6 +176,7 @@ body::before {
         <div class="col-md-8">
             <div class="tab-content profile-tab" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <span></span>
                     <div class="row">
                         <div class="col-md-6">
                             <label>Room Number</label>

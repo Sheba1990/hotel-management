@@ -20,39 +20,214 @@
     filter: blur(5px); /* Размытие */
    }
 
+.emp-profile{
+    padding: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 0.5rem;
+    background: #fff;
+}
+.profile-img{
+    text-align: center;
+}
+.profile-img img{
+    width: 70%;
+    height: 100%;
+}
+.profile-img .file {
+    position: relative;
+    overflow: hidden;
+    margin-top: -20%;
+    width: 70%;
+    border: none;
+    border-radius: 0;
+    font-size: 15px;
+    background: #212529b8;
+}
+.profile-img .file input {
+    position: absolute;
+    opacity: 0;
+    right: 0;
+    top: 0;
+}
+.profile-head h7{
+    color: #333;
+}
+.profile-head h7{
+    color: #0062cc;
+}
+.profile-edit-btn{
+    border: none;
+    border-radius: 1.5rem;
+    width: 70%;
+    padding: 2%;
+    font-weight: 600;
+    color: #6c757d;
+    cursor: pointer;
+}
+.profile-age{
+    font-size: 14px;
+    color: #818182;
+    margin-top: 5%;
+}
+.profile-age span{
+    color: #495057;
+    font-size: 15px;
+    font-weight: 600;
+}
+.profile-head .nav-tabs{
+    margin-bottom:5%;
+}
+.profile-head .nav-tabs .nav-link{
+    font-weight:600;
+    border: none;
+}
+.profile-head .nav-tabs .nav-link.active{
+    border: none;
+    border-bottom:2px solid #0062cc;
+}
+.profile-work {
+    padding: 14%;
+    margin-top: -15%;
+}
+.profile-work p{
+    font-size: 12px;
+    color: #818182;
+    font-weight: 600;
+    margin-top: 10%;
+}
+.profile-work a{
+    text-decoration: none;
+    color: #495057;
+    font-weight: 600;
+    font-size: 14px;
+}
+.profile-work ul{
+    list-style: none;
+}
+.profile-tab label{
+    font-weight: 600;
+}
+.profile-tab p{
+    font-weight: 600;
+    color: #0062cc;
+}
+
+
+
 
 </style>
 <body>
 <div th:insert="~{fragments/header :: header}">Header</div>
 <br/>
-<div class="form-row mx-auto">
-    <div class="form-group mx-auto">
-        <form method="get" action="/cvs/first_name/{firstName}" class="form-inline">
-            <input type="text" name="firstName" class="form-control" placeholder="По имени">
-            <button type="submit" class="btn btn-primary ml-2">
-                Найти
-            </button>
-        </form>
+<div class="container emp-profile">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-img">
+                <img th:src="@{${'/img/room/' + room.fileName}}" class="rounded img-fluid" alt=""/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="profile-head">
+                <h6>
+                    <p th:text="'Room Number: ' + ${room.roomNumber}"></p>
+                </h6>
+                <p class="profile-age">
+                    Status:
+                    <span th:text="${room.roomStatus}"></span>
+                </p>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                           aria-controls="home" aria-selected="true">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <form th:action="@{'/rooms/edit/' + ${room.id}}" th:method="get">
+                <button class="profile-edit-btn" name="btnAddMore">
+                    Edit
+                </button>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <form method="get" action="/cvs/last_name/{lastName}" class="form-inline">
-            <input type="text" name="lastName" class="form-control" placeholder="По фамилии">
-            <button type="submit" class="btn btn-primary ml-2">
-                Найти
-            </button>
-        </form>
-    </div>
-    <div class="form-group mx-auto">
-        <form method="get" action="/cvs/get_by_technology_name/{name}" class="form-inline">
-            <input type="text" name="name" class="form-control" placeholder="По технологии">
-            <button type="submit" class="btn btn-primary ml-2">
-                Найти
-            </button>
-        </form>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-work">
+                <p>Extras:</p>
+                <p>
+                    <a th:if="${room.hasWifi == true}">Wi-Fi</a>
+                    <a th:unless="${room.hasWifi == true}"></a>
+                </p>
+                <p>
+                    <a th:if="${room.hasBreakfast == true}">Morning Breakfast</a>
+                    <a th:unless="${room.hasBreakfast == true}"></a>
+                </p>
+                <p>
+                    <a th:if="${room.hasSeaView == true}">Bathroom</a>
+                    <a th:unless="${room.hasSeaView == true}"></a> <br/>
+                </p>
+                <p>
+                    <a th:if="${room.hasBabyBed == true}">Baby Bed</a>
+                    <a th:unless="${room.hasBabyBed == true}"></a>
+                </p>
+                <p>
+                    <a th:if="${room.hasSeaView == true}">Sea View</a>
+                    <a th:unless="${room.hasSeaView == true}"></a>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Category</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p th:text="${room.roomCategory}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Price Per Night</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p th:text="${room.pricePerNight} + '0 $'"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Floor</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p th:text="${room.floor}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Amount Of Rooms</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p th:text="${room.amountOfRooms}"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Capacity</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p th:text="${room.capacity} + ' persons'"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<br/>
-<div class="table-responsive-lg ">
+
+<!--div class="table-responsive-lg ">
     <table class="table">
         <tr class="thead-dark">
         <tr>
@@ -121,7 +296,7 @@
 
 
     </table>
-</div>
+</div-->
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

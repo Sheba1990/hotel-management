@@ -26,6 +26,9 @@ public class UserService implements IUserService {
     private IUserDao userDao;
 
     @Autowired
+    private IUserDaoJpaImpl userDaoJpa;
+
+    @Autowired
     private IUserInDetailsDao userInDetailsDao;
 
     @Autowired
@@ -45,6 +48,13 @@ public class UserService implements IUserService {
 
     @Override
     public List<UserDto> getAllUsers() {
+        return UserDto.convertList(userDao.getAll());
+    }
+
+    public List<UserDto> searchAll(String keyword) {
+        if (keyword != null) {
+            return UserDto.convertList(userDaoJpa.search(keyword));
+        }
         return UserDto.convertList(userDao.getAll());
     }
 

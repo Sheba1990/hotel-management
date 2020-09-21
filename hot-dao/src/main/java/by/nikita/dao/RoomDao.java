@@ -18,14 +18,14 @@ public class RoomDao extends AbstractGenericDao<Room> implements IRoomDao {
     }
 
     @Override
-    public Room getRoomByNumber(Integer roomNumber) {
+    public List<Room> getRoomByNumber(Integer roomNumber) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
             Root<Room> root = query.from(Room.class);
             query.select(root).where(criteriaBuilder.equal(root.get(Room_.ROOM_NUMBER), roomNumber));
             TypedQuery<Room> result = entityManager.createQuery(query);
-            return result.getSingleResult();
+            return result.getResultList();
         } catch (NoResultException e) {
             return null;
         }
@@ -51,13 +51,13 @@ public class RoomDao extends AbstractGenericDao<Room> implements IRoomDao {
     }
 
     @Override
-    public List<Room> getRoomsByDeluxeCategory() {
+    public List<Room> getRoomsByCategory(String roomCategory) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
             Root<Room> root = query.from(Room.class);
             Join<Room, RoomCategory> category = root.join(Room_.ROOM_CATEGORY);
-            query.select(root).where(criteriaBuilder.equal(category.get(RoomCategory_.CATEGORY_NAME), "DELUXE"));
+            query.select(root).where(criteriaBuilder.like(criteriaBuilder.upper(category.get(RoomCategory_.CATEGORY_NAME)), "%" + roomCategory.toUpperCase() + "%"));
             query.orderBy(criteriaBuilder.asc(category.get(RoomCategory_.CATEGORY_NAME)));
             TypedQuery<Room> result = entityManager.createQuery(query);
             return result.getResultList();
@@ -67,43 +67,12 @@ public class RoomDao extends AbstractGenericDao<Room> implements IRoomDao {
     }
 
     @Override
-    public List<Room> getRoomsByBusinessCategory() {
+    public List<Room> getRoomsByStatus(RoomStatus roomStatus) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
             Root<Room> root = query.from(Room.class);
-            Join<Room, RoomCategory> category = root.join(Room_.ROOM_CATEGORY);
-            query.select(root).where(criteriaBuilder.equal(category.get(RoomCategory_.CATEGORY_NAME), "BUSINESS"));
-            TypedQuery<Room> result = entityManager.createQuery(query);
-            return result.getResultList();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }
-
-    @Override
-    public List<Room> getRoomsByStandardCategory() {
-        try {
-            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
-            Root<Room> root = query.from(Room.class);
-            Join<Room, RoomCategory> category = root.join(Room_.ROOM_CATEGORY);
-            query.select(root).where(criteriaBuilder.equal(category.get(RoomCategory_.CATEGORY_NAME), "STANDARD"));
-            TypedQuery<Room> result = entityManager.createQuery(query);
-            return result.getResultList();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }
-
-    @Override
-    public List<Room> getRoomsByEconomCategory() {
-        try {
-            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-            CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
-            Root<Room> root = query.from(Room.class);
-            Join<Room, RoomCategory> category = root.join(Room_.ROOM_CATEGORY);
-            query.select(root).where(criteriaBuilder.equal(category.get(RoomCategory_.CATEGORY_NAME), "ECONOM"));
+            query.select(root).where(criteriaBuilder.equal(root.get(Room_.roomStatus), roomStatus));
             TypedQuery<Room> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {

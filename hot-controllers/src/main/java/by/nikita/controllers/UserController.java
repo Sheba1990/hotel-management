@@ -45,6 +45,16 @@ public class UserController {
         return modelAndView;
     }
 
+    @GetMapping(value = "/")
+    public ModelAndView searchUsers(@RequestParam("keyword") String keyword) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<UserDto> users = userService.searchAll(keyword);
+        modelAndView.setViewName("/views/users/all_users");
+        modelAndView.addObject("users", users);
+        modelAndView.addObject("keyword", keyword);
+        return modelAndView;
+    }
+
     @GetMapping(value = "/first_name/{firstName}")
     public ModelAndView getUsersByUserFirstName(@RequestParam String firstName) {
         ModelAndView modelAndView = new ModelAndView();

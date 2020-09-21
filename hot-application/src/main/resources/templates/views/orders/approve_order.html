@@ -52,7 +52,7 @@
 }
 
 .labels {
-    font-size: 11px
+    font-size: 13px
 }
 
 .add-experience:hover {
@@ -77,8 +77,7 @@
 <div th:insert="~{fragments/header :: header}">Header</div>
 
 <div align="center">
-    <form th:each="room : ${rooms}"
-          th:action="@{/orders/approved/{orderId}/{roomId}(orderId=${order.id},roomId=${room.id})}" method="post">
+    <form th:action="@{/orders/approved/{orderId}/{roomId}(orderId=${order.id},roomId=${room.id})}" method="post" th:each="room : ${rooms}" >
         <div class="container-sm rounded bg-white mt-5 mb-5 mr-20 ml-20">
             <div class="row">
                 <div class="col-md-4 border-right">
@@ -99,7 +98,31 @@
                                      aria-labelledby="home-tab">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>Category</label>
+                                            <label>User's Login</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p th:text="${order.userName}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Full Name</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p th:text="${order.userFullName}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>User's Email</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p th:text="${order.userEmail}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Room Category</label>
                                         </div>
                                         <div class="col-md-6">
                                             <p th:text="${order.roomCategory}"></p>
@@ -139,7 +162,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <select class="form-control" id="roomId" name="roomId">
-                                            <option value="">Set Room</option>
+                                            <option value="">Set Room </option>
                                             <option th:each="room : ${rooms}"
                                                     th:value="${room.id}"
                                                     th:text="${room.roomNumber}"></option>
@@ -156,7 +179,7 @@
                                     </button>
                                 </div>
                             <div class="ml-2">
-                                <form th:action="@{/orders/}" th:method="get">
+                                <form th:action="@{/orders/all}" th:method="get">
                                     <button class="btn btn-danger">
                                         Cancel
                                     </button>

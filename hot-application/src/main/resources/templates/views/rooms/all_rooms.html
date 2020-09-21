@@ -17,10 +17,34 @@
     z-index: -1; /* Фон ниже текста */
     /* Параметры фона */
     background: url(/img/rooms.jpg) center / cover no-repeat;
-    filter: blur(5px); /* Размытие */
+    filter: blur(3px); /* Размытие */
    }
 
+table {
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
 
+thead th {
+  background-color: #1a1101;
+  color: white;
+}
+
+tbody td {
+  background-color: rgba(255, 255, 255, .65);
+}
+
+tr td:first-child,
+tr th:first-child {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+tr td:last-child,
+tr th:last-child {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
 
 </style>
 <body>
@@ -31,32 +55,41 @@
         <form method="get" action="/rooms/number/{roomNumber}" class="form-inline">
             <input type="text" name="roomNumber" class="form-control" placeholder="By room number">
             <button type="submit" class="btn btn-primary ml-2">
-                Найти
-            </button>
-        </form>
-    </div>
-    <div class="col-md-2 mb-3 mx-auto">
-        <label>By category</label>
-        <form method="get" action="/cvs/last_name/{lastName}" class="form-inline">
-            <input type="text" name="lastName" class="form-control" placeholder="По фамилии">
-            <button type="submit" class="btn btn-primary ml-2">
-                Найти
+                Search
             </button>
         </form>
     </div>
     <div class="form-group mx-auto">
-        <form method="get" action="/cvs/get_by_technology_name/{name}" class="form-inline">
-            <input type="text" name="name" class="form-control" placeholder="По технологии">
+        <form method="get" action="/rooms/category/{roomCategory}" class="form-inline">
+            <select class="form-control" name="roomCategory">
+                <option selected>Choose category...</option>
+                <option th:text="Deluxe"></option>
+                <option th:text="Standard"></option>
+                <option th:text="Business"></option>
+                <option th:text="Econom"></option>
+            </select>
             <button type="submit" class="btn btn-primary ml-2">
-                Найти
+                Search
+            </button>
+        </form>
+    </div>
+    <div class="form-group mx-auto">
+        <form method="get" action="/rooms/status/{roomStatus}" class="form-inline">
+            <select class="form-control" name="roomStatus">
+                <option selected>Choose category...</option>
+                <option th:text="VACANT"></option>
+                <option th:text="OCCUPIED"></option>
+            </select>
+            <button type="submit" class="btn btn-primary ml-2">
+                Search
             </button>
         </form>
     </div>
 </div>
 <br/>
-<div class="table-responsive-lg ">
-    <table class="table table-hover table-striped">
-        <thead class="thead-dark">
+<div class="container rounded">
+    <table class="table">
+        <thead>
         <tr>
             <th scope="col" class="col-xs-1 text-center">ID</th>
             <th scope="col" class="col-xs-1 text-center">Room Number</th>

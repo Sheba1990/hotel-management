@@ -10,6 +10,8 @@ public interface IUserService {
 
     UserDto getUserById(long id);
 
+    List<UserDto> searchAll(String keyword);
+
     List<UserDto> getAllUsers();
 
     UserDto getUserByUsername(String username);

@@ -28,9 +28,7 @@ public class OrderDao extends AbstractGenericDao<Order> implements IOrderDao {
             Root<Order> root = query.from(Order.class);
             Join<Order, Room> room = root.join(Order_.ROOM);
             Join<Room, RoomCategory> category = room.join(Room_.ROOM_CATEGORY);
-            List<Predicate> conditions = new ArrayList<>();
-            conditions.add(criteriaBuilder.equal(category.get(RoomCategory_.CATEGORY_NAME), roomCategory));
-            query.select(root).where(conditions.toArray(new Predicate[]{}));
+            query.select(root).where(criteriaBuilder.like(criteriaBuilder.upper(category.get(RoomCategory_.CATEGORY_NAME)), roomCategory.toUpperCase()));
             TypedQuery<Order> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
@@ -39,7 +37,7 @@ public class OrderDao extends AbstractGenericDao<Order> implements IOrderDao {
     }
 
     @Override
-    public Order getOrderByRoomNumber(Integer roomNumber) {
+    public List<Order> getOrdersByRoomNumber(Integer roomNumber) {
         try {
             CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<Order> query = criteriaBuilder.createQuery(Order.class);
@@ -47,7 +45,7 @@ public class OrderDao extends AbstractGenericDao<Order> implements IOrderDao {
             Join<Order, Room> room = root.join(Order_.ROOM);
             query.select(root).where(criteriaBuilder.equal(room.get(Room_.ROOM_NUMBER), roomNumber));
             TypedQuery<Order> result = entityManager.createQuery(query);
-            return result.getSingleResult();
+            return result.getResultList();
         } catch (NoResultException e) {
             return null;
         }
@@ -59,7 +57,7 @@ public class OrderDao extends AbstractGenericDao<Order> implements IOrderDao {
             CriteriaQuery<Order> query = criteriaBuilder.createQuery(Order.class);
             Root<Order> root = query.from(Order.class);
             Join<Order, User> user = root.join(Order_.USER);
-            query.select(root).where(criteriaBuilder.equal(user.get(User_.USERNAME), username));
+            query.select(root).where(criteriaBuilder.like(criteriaBuilder.upper(user.get(User_.USERNAME)), "%" + username.toUpperCase() + "%"));
             TypedQuery<Order> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {

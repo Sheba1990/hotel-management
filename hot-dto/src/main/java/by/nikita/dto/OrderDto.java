@@ -60,10 +60,14 @@ public class OrderDto extends AbstractIdAwareDto {
         orderDto.setId(order.getId());
         orderDto.setApproved(order.isApproved());
         orderDto.setUserName(order.getUser().getUsername());
-        if (order.getUser().getUserInDetails().getMiddleName() != null && !StringUtils.isEmpty(order.getUser().getUserInDetails().getMiddleName())) {
-            orderDto.setUserFullName(order.getUser().getUserInDetails().getFirstName().concat(" " + order.getUser().getUserInDetails().getMiddleName() + " " + order.getUser().getUserInDetails().getLastName()));
+        if (order.getUser().getUserInDetails().getFirstName() != null || order.getUser().getUserInDetails().getLastName() != null || order.getUser().getUserInDetails().getMiddleName() != null) {
+            if (order.getUser().getUserInDetails().getMiddleName() != null && !StringUtils.isEmpty(order.getUser().getUserInDetails().getMiddleName())) {
+                orderDto.setUserFullName(order.getUser().getUserInDetails().getFirstName().concat(" " + order.getUser().getUserInDetails().getMiddleName() + " " + order.getUser().getUserInDetails().getLastName()));
+            } else {
+                orderDto.setUserFullName(order.getUser().getUserInDetails().getFirstName().concat(" " + order.getUser().getUserInDetails().getLastName()));
+            }
         } else {
-            orderDto.setUserFullName(order.getUser().getUserInDetails().getFirstName().concat(" " + order.getUser().getUserInDetails().getLastName()));
+            orderDto.setUserFullName(null);
         }
         orderDto.setUserEmail(order.getUser().getEmail());
         orderDto.setAmountOfGuests(order.getAmountOfGuests());

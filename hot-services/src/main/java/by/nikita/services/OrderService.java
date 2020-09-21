@@ -4,10 +4,10 @@ import by.nikita.dao.api.IOrderDao;
 import by.nikita.dao.api.IRoomDao;
 import by.nikita.dao.api.IUserDao;
 import by.nikita.dto.OrderDto;
-import by.nikita.dto.RoomDto;
 import by.nikita.models.Order;
 import by.nikita.models.Room;
 import by.nikita.models.User;
+import by.nikita.models.enums.RoomStatus;
 import by.nikita.services.api.IOrderService;
 import by.nikita.services.config.EmailProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Properties;
 
 @Service
 @Transactional
@@ -56,7 +62,10 @@ public class OrderService implements IOrderService {
         Room room = roomDao.get(roomId);
         order.setRoom(room);
         order.setApproved(true);
+        room.setRoomStatus(RoomStatus.OCCUPIED);
+        roomDao.update(room);
         orderDao.update(order);
+        sendEmailFromAdmin(order);
         OrderDto.entityToDto(order);
     }
 
@@ -91,8 +100,8 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public OrderDto getOrderByRoomNumber(Integer roomNumber) {
-        return OrderDto.entityToDto(orderDao.getOrderByRoomNumber(roomNumber));
+    public List<OrderDto> getOrdersByRoomNumber(Integer roomNumber) {
+        return OrderDto.convertList(orderDao.getOrdersByRoomNumber(roomNumber));
     }
 
     @Override
@@ -125,5 +134,54 @@ public class OrderService implements IOrderService {
     @Override
     public void deleteOrder(long id) {
         orderDao.delete(orderDao.get(id));
+    }
+
+    void sendEmailFromAdmin(Order order) {
+        String to = order.getUser().getEmail();
+        String from = "norply@gmail.com";
+        Properties properties = System.getProperties();
+        properties.put("mail.smtp.host", emailProperties.getHost());
+        properties.put("mail.smtp.port", emailProperties.getPort());
+        properties.put("mail.smtp.ssl.enable", emailProperties.getSsl());
+        properties.put("mail.smtp.auth", emailProperties.getAuth());
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(
+                        emailProperties.getUsername(),
+                        emailProperties.getPassword());
+            }
+        });
+
+        session.setDebug(true);
+
+        try {
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+            // Set Subject: header field
+            message.setSubject("Hotel Horizon. Booking email notification for user: '" + order.getUser().getUsername() + "'.");
+
+            LocalDate start = order.getDateOfCheckIn();
+            LocalDate end = order.getDateOfCheckOut();
+            long stayingPeriod = ChronoUnit.DAYS.between(start, end);
+            double totalSumForStayingPeriod = stayingPeriod * order.getRoom().getRoomDetails().getPricePerNight();
+            // Now set the actual message
+            if (order.getUser().getUserInDetails().getFirstName() != null ||
+                    order.getUser().getUserInDetails().getLastName() != null ||
+                    order.getUser().getUserInDetails().getMiddleName() != null) {
+                message.setContent("Hello Dear, " + order.getUser().getUserInDetails().getFirstName().concat(" " + order.getUser().getUserInDetails().getLastName()) + ". Your Booking, number " + order.getId() + ", has been approved by Administrator. Staying period " + stayingPeriod + " days." + "Total sum for staying period is " + totalSumForStayingPeriod + "0 $.", "text/html");
+            } else {
+                message.setContent("Hello Dear, " + order.getUser().getUsername() + ". Your Booking, number " + order.getId() + ", has been approved by Administrator. Staying period " + stayingPeriod + " days." + "Total sum for staying period is " + totalSumForStayingPeriod + "0 $.", "text/html");
+            }
+            // Send message
+            Transport.send(message);
+            System.out.println("Message has been sent successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
     }
 }

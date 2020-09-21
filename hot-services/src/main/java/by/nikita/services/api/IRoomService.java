@@ -3,6 +3,8 @@ package by.nikita.services.api;
 import by.nikita.dto.RoomCategoryDto;
 import by.nikita.dto.RoomDetailsDto;
 import by.nikita.dto.RoomDto;
+import by.nikita.models.Room;
+import by.nikita.models.enums.RoomStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -19,15 +21,11 @@ public interface IRoomService {
 
     RoomDto getRoomById(long id);
 
-    RoomDto getRoomByNumber(Integer roomNumber);
+    List<RoomDto> getRoomByNumber(Integer roomNumber);
 
-    List<RoomDto> getRoomsByDeluxeCategory();
+    List<RoomDto> getRoomsByCategory(String roomCategory);
 
-    List<RoomDto> getRoomsByBusinessCategory();
-
-    List<RoomDto> getRoomsByStandardCategory();
-
-    List<RoomDto> getRoomsByEconomCategory();
+    List<RoomDto> getRoomsByStatus(RoomStatus roomStatus);
 
     List<RoomDto> getRoomsWhereStatusIsVacant();
 

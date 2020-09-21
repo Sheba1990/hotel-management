@@ -1,7 +1,9 @@
 package by.nikita.config;
 
+import by.nikita.utils.StringToEnumConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -14,6 +16,11 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Value("${room.upload.path}")
     private String roomUploadPath;
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new StringToEnumConverter());
+    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {

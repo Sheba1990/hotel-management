@@ -3,6 +3,7 @@ package by.nikita.controllers;
 import by.nikita.dto.RoomCategoryDto;
 import by.nikita.dto.RoomDetailsDto;
 import by.nikita.dto.RoomDto;
+import by.nikita.models.enums.RoomStatus;
 import by.nikita.services.api.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,46 +68,28 @@ public class RoomController {
     }
 
     @GetMapping(value = "/number/{roomNumber}")
-    public ModelAndView getRoomByNumber(@PathVariable Integer roomNumber) {
+    public ModelAndView getRoomsByNumber(@RequestParam("roomNumber") Integer roomNumber) {
         ModelAndView modelAndView = new ModelAndView();
-        RoomDto room = roomService.getRoomByNumber(roomNumber);
-        modelAndView.setViewName("/views/rooms/room");
-        modelAndView.addObject("room", room);
+        List<RoomDto> rooms = roomService.getRoomByNumber(roomNumber);
+        modelAndView.addObject("rooms", rooms);
         modelAndView.addObject("number", roomNumber);
+        modelAndView.setViewName("/views/rooms/all_rooms");
         return modelAndView;
     }
 
-    @GetMapping(value = "/deluxe")
-    public ModelAndView getRoomsByDeluxeCategory() {
+    @GetMapping(value = "/category/{roomCategory}")
+    public ModelAndView getRoomsByCategory(@RequestParam String roomCategory) {
         ModelAndView modelAndView = new ModelAndView();
-        List<RoomDto> rooms = roomService.getRoomsByDeluxeCategory();
+        List<RoomDto> rooms = roomService.getRoomsByCategory(roomCategory);
         modelAndView.setViewName("/views/rooms/all_rooms");
         modelAndView.addObject("rooms", rooms);
         return modelAndView;
     }
 
-    @GetMapping(value = "/business")
-    public ModelAndView getRoomsByBusinessCategory() {
+    @GetMapping(value = "/status/{roomStatus}")
+    public ModelAndView getRoomsByStatus(@RequestParam RoomStatus roomStatus) {
         ModelAndView modelAndView = new ModelAndView();
-        List<RoomDto> rooms = roomService.getRoomsByBusinessCategory();
-        modelAndView.setViewName("/views/rooms/all_rooms");
-        modelAndView.addObject("rooms", rooms);
-        return modelAndView;
-    }
-
-    @GetMapping(value = "/standard")
-    public ModelAndView getRoomsByStandardCategory() {
-        ModelAndView modelAndView = new ModelAndView();
-        List<RoomDto> rooms = roomService.getRoomsByStandardCategory();
-        modelAndView.setViewName("/views/rooms/all_rooms");
-        modelAndView.addObject("rooms", rooms);
-        return modelAndView;
-    }
-
-    @GetMapping(value = "/econom")
-    public ModelAndView getRoomsByEconomCategory() {
-        ModelAndView modelAndView = new ModelAndView();
-        List<RoomDto> rooms = roomService.getRoomsByEconomCategory();
+        List<RoomDto> rooms = roomService.getRoomsByStatus(roomStatus);
         modelAndView.setViewName("/views/rooms/all_rooms");
         modelAndView.addObject("rooms", rooms);
         return modelAndView;

@@ -107,6 +107,11 @@ public class RoomService implements IRoomService {
     }
 
     @Override
+    public List<RoomDto> getRoomsByStatus(RoomStatus roomStatus) {
+        return RoomDto.convertList(roomDao.getRoomsByStatus(roomStatus));
+    }
+
+    @Override
     public List<RoomDto> getAllRooms() {
         return RoomDto.convertList(roomDao.getAll());
     }
@@ -117,28 +122,13 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public RoomDto getRoomByNumber(Integer roomNumber) {
-        return RoomDto.entityToDto(roomDao.getRoomByNumber(roomNumber));
+    public List<RoomDto> getRoomByNumber(Integer roomNumber) {
+        return RoomDto.convertList(roomDao.getRoomByNumber(roomNumber));
     }
 
     @Override
-    public List<RoomDto> getRoomsByDeluxeCategory() {
-        return RoomDto.convertList(roomDao.getRoomsByDeluxeCategory());
-    }
-
-    @Override
-    public List<RoomDto> getRoomsByBusinessCategory() {
-        return RoomDto.convertList(roomDao.getRoomsByBusinessCategory());
-    }
-
-    @Override
-    public List<RoomDto> getRoomsByStandardCategory() {
-        return RoomDto.convertList(roomDao.getRoomsByStandardCategory());
-    }
-
-    @Override
-    public List<RoomDto> getRoomsByEconomCategory() {
-        return RoomDto.convertList(roomDao.getRoomsByEconomCategory());
+    public List<RoomDto> getRoomsByCategory(String roomCategory) {
+        return RoomDto.convertList(roomDao.getRoomsByCategory(roomCategory));
     }
 
     @Override

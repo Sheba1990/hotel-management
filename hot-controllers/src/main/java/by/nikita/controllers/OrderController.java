@@ -49,17 +49,8 @@ public class OrderController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/approve/{orderId}/{roomNumber}",
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ModelAndView approveOrderByAdmin(@PathVariable("id") long orderId, @PathVariable("roomNumber") Integer roomNumber) {
-        ModelAndView modelAndView = new ModelAndView();
-        orderService.approveOrderByAdmin(orderId, roomNumber);
-        modelAndView.setViewName("redirect:/orders/all");
-        return modelAndView;
-    }
-
     @GetMapping(value = "/username/")
-    public ModelAndView getOrdersByUsername(@RequestParam String username) {
+    public ModelAndView getOrdersByUsernameForUser(@RequestParam String username) {
         ModelAndView modelAndView = new ModelAndView();
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof User) {
@@ -103,8 +94,7 @@ public class OrderController {
     }
 
     @GetMapping(value = "/user_first_name/{firstName}")
-
-    public ModelAndView getOrdersByUserFirstName(@RequestParam String firstName) {
+    public ModelAndView getOrdersByUserFirstName(@RequestParam("firstName") String firstName) {
         ModelAndView modelAndView = new ModelAndView();
         List<OrderDto> orders = orderService.getOrdersByUserFirstName(firstName);
         modelAndView.addObject("orders", orders);
@@ -113,7 +103,7 @@ public class OrderController {
     }
 
     @GetMapping(value = "/user_last_name/{lastName}")
-    public ModelAndView getOrdersByUserLastName(@RequestParam String lastName) {
+    public ModelAndView getOrdersByUserLastName(@RequestParam("lastName") String lastName) {
         ModelAndView modelAndView = new ModelAndView();
         List<OrderDto> orders = orderService.getOrdersByUserLastName(lastName);
         modelAndView.addObject("orders", orders);
@@ -122,8 +112,21 @@ public class OrderController {
     }
 
     @GetMapping(value = "/room_number/{roomNumber}")
-    OrderDto getOrderByRoomNumber(@PathVariable Integer roomNumber) {
-        return orderService.getOrderByRoomNumber(roomNumber);
+    public ModelAndView getOrderByRoomNumber(@RequestParam(value = "roomNumber",required = false,defaultValue = "") Integer roomNumber) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<OrderDto> orders = orderService.getOrdersByRoomNumber(roomNumber);
+        modelAndView.addObject("orders", orders);
+        modelAndView.setViewName("/views/orders/all_orders");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/for_admin/{username}")
+    public ModelAndView getOrdersByUsernameForAdmin(@RequestParam("username") String username) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<OrderDto> orders = orderService.getOrdersByUsername(username);
+        modelAndView.addObject("orders", orders);
+        modelAndView.setViewName("/views/orders/all_orders");
+        return modelAndView;
     }
 
     @GetMapping(value = "/not_approved")

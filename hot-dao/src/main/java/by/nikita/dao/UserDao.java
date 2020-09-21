@@ -43,7 +43,7 @@ public class UserDao extends AbstractGenericDao<User> implements IUserDao {
             CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
             Root<User> user = query.from(User.class);
             Join<User, UserInDetails> userInDetails = user.join(User_.USER_IN_DETAILS);
-            query.select(user).where(criteriaBuilder.like(userInDetails.get(UserInDetails_.FIRST_NAME), "%" + firstName + "%"));
+            query.select(user).where(criteriaBuilder.like(criteriaBuilder.upper(userInDetails.get(UserInDetails_.FIRST_NAME)), "%" + firstName.toUpperCase() + "%"));
             TypedQuery<User> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
@@ -58,7 +58,7 @@ public class UserDao extends AbstractGenericDao<User> implements IUserDao {
             CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
             Root<User> user = query.from(User.class);
             Join<User, UserInDetails> userInDetails = user.join(User_.USER_IN_DETAILS);
-            query.select(user).where(criteriaBuilder.equal(userInDetails.get(UserInDetails_.LAST_NAME), lastName));
+            query.select(user).where(criteriaBuilder.like(criteriaBuilder.upper(userInDetails.get(UserInDetails_.LAST_NAME)), "%" + lastName.toUpperCase() + "%"));
             TypedQuery<User> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {
@@ -73,9 +73,9 @@ public class UserDao extends AbstractGenericDao<User> implements IUserDao {
             CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
             Root<User> user = query.from(User.class);
             Join<User, UserInDetails> userInDetails = user.join(User_.USER_IN_DETAILS);
-            Predicate predicateForFirstName = criteriaBuilder.equal(userInDetails.get(UserInDetails_.FIRST_NAME), firstName);
-            Predicate predicateForLastName = criteriaBuilder.equal(userInDetails.get(UserInDetails_.LAST_NAME), lastName);
-            Predicate predicateForMiddleName = criteriaBuilder.equal(userInDetails.get(UserInDetails_.MIDDLE_NAME), middleName);
+            Predicate predicateForFirstName = criteriaBuilder.like(userInDetails.get(UserInDetails_.FIRST_NAME), firstName);
+            Predicate predicateForLastName = criteriaBuilder.like(userInDetails.get(UserInDetails_.LAST_NAME), lastName);
+            Predicate predicateForMiddleName = criteriaBuilder.like(userInDetails.get(UserInDetails_.MIDDLE_NAME), middleName);
             Predicate predicateForFullName = criteriaBuilder.or(
                     predicateForFirstName,
                     predicateForLastName,
@@ -113,7 +113,7 @@ public class UserDao extends AbstractGenericDao<User> implements IUserDao {
             Join<User, UserInDetails> userInDetails = user.join(User_.USER_IN_DETAILS);
             Join<UserInDetails, ContactData> contactData = userInDetails.join(UserInDetails_.CONTACT_DATA);
             Join<ContactData, Address> address = contactData.join(ContactData_.ADDRESS);
-            query.select(user).where(criteriaBuilder.equal(address.get(Address_.COUNTRY), residenceCountry));
+            query.select(user).where(criteriaBuilder.like(criteriaBuilder.upper(address.get(Address_.COUNTRY)), "%" + residenceCountry.toUpperCase() + "%"));
             TypedQuery<User> result = entityManager.createQuery(query);
             return result.getResultList();
         } catch (NoResultException e) {

@@ -22,7 +22,7 @@ public interface IOrderService {
 
     List<OrderDto> getOrdersByUserLastName(String lastName);
 
-    OrderDto getOrderByRoomNumber(Integer roomNumber);
+    List<OrderDto> getOrdersByRoomNumber(Integer roomNumber);
 
     List<OrderDto> getAllNotApprovedOrders();
 
