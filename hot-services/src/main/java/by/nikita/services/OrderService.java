@@ -176,7 +176,7 @@ public class OrderService implements IOrderService {
                     order.getUser().getUserInDetails().getMiddleName() != null) {
                 message.setContent("Hello Dear, " + order.getUser().getUserInDetails().getFirstName().concat(" " + order.getUser().getUserInDetails().getLastName()) + "!\n" +
                         "Your Booking, number " + order.getId() + ", has been approved by Administrator.\n" +
-                        "Staying period " + stayingPeriod + " days.\n" +
+                        "Staying period " + stayingPeriod + " day(s).\n" +
                         "Room Number " + order.getRoom().getRoomNumber() + ".\n" +
                         "Total sum for staying period is " + totalSumForStayingPeriod + "0 $.", "text/html");
             } else {

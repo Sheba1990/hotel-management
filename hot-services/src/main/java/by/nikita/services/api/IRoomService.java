@@ -3,7 +3,6 @@ package by.nikita.services.api;
 import by.nikita.dto.RoomCategoryDto;
 import by.nikita.dto.RoomDetailsDto;
 import by.nikita.dto.RoomDto;
-import by.nikita.models.Room;
 import by.nikita.models.enums.RoomStatus;
 import org.springframework.web.multipart.MultipartFile;
 

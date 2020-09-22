@@ -43,6 +43,8 @@
         <font-awesome.version>5.14.0</font-awesome.version>
         <webjars-locator.version>0.40</webjars-locator.version>
         <version.commons-io>2.6</version.commons-io>
+        <version.org.assertj>3.17.2</version.org.assertj>
+        <version.junit-jupiter-engine>5.7.0</version.junit-jupiter-engine>
     </properties>
 
     <dependencyManagement>
@@ -85,12 +87,18 @@
                 <artifactId>spring-boot-starter-test</artifactId>
                 <version>${version.org.springframework.boot}</version>
                 <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.junit.vintage</groupId>
-                        <artifactId>junit-vintage-engine</artifactId>
-                    </exclusion>
-                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${version.junit-jupiter-engine}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${version.org.assertj}</version>
+                <scope>test</scope>
             </dependency>
             <!-- thymeleaf -->
             <dependency>

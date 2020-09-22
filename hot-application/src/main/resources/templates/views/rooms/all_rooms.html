@@ -49,8 +49,12 @@ tr th:last-child {
 </style>
 <body>
 <div th:insert="~{fragments/header :: header}">Header</div>
-<br/>
-<div class="form-row mx-auto">
+<div class="container">
+    <div class="text-center">
+        <p class="display-4">Rooms List</p>
+    </div>
+</div>
+<div class="form-row mx-auto mt-4">
     <div class="form-group mx-auto">
         <form method="get" action="/rooms/number/{roomNumber}" class="form-inline">
             <input type="text" name="roomNumber" class="form-control" placeholder="By room number">
