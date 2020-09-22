@@ -77,7 +77,7 @@
 <div th:insert="~{fragments/header :: header}">Header</div>
 
 <div align="center">
-    <form th:action="@{/orders/approved/{orderId}/{roomId}(orderId=${order.id},roomId=${room.id})}" method="post" th:each="room : ${rooms}" >
+    <form th:action="@{/orders/approved/{orderId}/{roomId}(orderId=${order.id},roomId=${room.id})}" method="post" data-th-each="room : ${rooms}" >
         <div class="container-sm rounded bg-white mt-5 mb-5 mr-20 ml-20">
             <div class="row">
                 <div class="col-md-4 border-right">
@@ -89,7 +89,7 @@
                     <div class="p-3 py-5">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h6>
-                                <p th:text="'Booking Number: ' + ${order.id}"></p>
+                                <p th:text="'Booking № ' + ${order.id}"></p>
                             </h6>
                         </div>
                         <div class="col-md-8">
@@ -160,12 +160,12 @@
                                             <p th:text="${order.stayingPeriod} + ' days'"></p>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="row-md-6">
                                         <select class="form-control" id="roomId" name="roomId">
-                                            <option value="">Set Room </option>
+                                            <option value="">Set Room Number to the Booking. Choose...</option>
                                             <option th:each="room : ${rooms}"
                                                     th:value="${room.id}"
-                                                    th:text="${room.roomNumber}"></option>
+                                                    th:text="'Room № ' + ${room.roomNumber}"></option>
                                         </select>
                                     </div>
                                 </div>

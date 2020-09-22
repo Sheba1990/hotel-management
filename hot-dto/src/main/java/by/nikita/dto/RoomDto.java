@@ -43,6 +43,7 @@ public class RoomDto extends AbstractIdAwareDto {
             RoomDto roomDto = new RoomDto();
             roomDto.setId(room.getId());
             roomDto.setRoomNumber(room.getRoomNumber());
+            roomDto.setPricePerNight(room.getRoomDetails().getPricePerNight());
             roomDto.setRoomCategory(room.getRoomCategory().getCategoryName());
             roomDto.setRoomStatus(room.getRoomStatus());
             rooms.add(roomDto);

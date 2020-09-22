@@ -75,9 +75,10 @@
                         <form>
                             <img th:if="${user.fileName != null}" th:src="@{${'/img/user/' + user.fileName}}"
                                  class="rounded img-fluid" alt=""/>
-                            <img th:unless="${user.fileName != null}" th:src="@{/img/user/u.png}" class="rounded img-fluid" alt=""/>
+                            <img th:unless="${user.fileName != null}" th:src="@{/img/user/u.png}"
+                                 class="rounded img-fluid" alt=""/>
                             <br/>
-                            <div class="custom-file" > <!-- блок для загрузки файла -->
+                            <div class="custom-file"> <!-- блок для загрузки файла -->
                                 <input type="file" name="file" id="customFile"> <!-- форма для загрузки файла -->
                                 <label class="custom-file-label text-left" for="customFile">
                                     Choose file
@@ -240,6 +241,7 @@ $(".custom-file-input").on("change", function() {
   var fileName = $(this).val().split("\\").pop();
   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 });
+
 </script>
 
 </body>

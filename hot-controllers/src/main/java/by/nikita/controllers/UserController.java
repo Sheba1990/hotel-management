@@ -5,6 +5,9 @@ import by.nikita.dto.*;
 import by.nikita.services.api.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
@@ -37,9 +40,10 @@ public class UserController {
     }
 
     @GetMapping
-    public ModelAndView getAllUsers() {
+    public ModelAndView getAllUsers(Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView();
         List<UserDto> users = userService.getAllUsers();
+        Page<UserDto> pages = new PageImpl<UserDto>(users,pageable,users.size());
         modelAndView.setViewName("/views/users/all_users");
         modelAndView.addObject("users", users);
         return modelAndView;

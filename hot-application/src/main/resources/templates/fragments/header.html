@@ -24,6 +24,21 @@
             <span sec:authorize="isAuthenticated()">
                 <span sec:authorize="hasRole('ROLE_ADMIN')">
                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu3"
+                           role="button"
+                           aria-expanded="false">
+                            Bookings
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/orders/all">All Bookings</a>
+                            <a class="dropdown-item" href="/orders/new">New Booking</a>
+                        </div>
+                    </li>
+                </span>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                <span sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu1"
                            role="button"
                            aria-expanded="false">
@@ -51,21 +66,6 @@
                 </span>
             </span>
             <span sec:authorize="isAuthenticated()">
-                <span sec:authorize="hasRole('ROLE_ADMIN')">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu3"
-                           role="button"
-                           aria-expanded="false">
-                            Orders
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="/orders/all">All Orders</a>
-                            <a class="dropdown-item" href="/orders/new">Add New Order</a>
-                        </div>
-                    </li>
-                </span>
-            </span>
-            <span sec:authorize="isAuthenticated()">
                 <span sec:authorize="hasRole('ROLE_USER')">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownMenu4"
@@ -75,7 +75,7 @@
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" th:href="@{/users/username/(username=${username})}">Profile Info</a>
-                            <a class="dropdown-item" th:href="@{/users/edit/(username=${username})}">Edit My Profile</a>
+                            <a class="dropdown-item" th:href="@{/users/edit/(username=${username})}">Edit Profile</a>
                         </div>
                     </li>
                 </span>

@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.StringUtils;
 
-import javax.validation.constraints.Email;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -19,14 +19,17 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto extends AbstractIdAwareDto {
 
+    @NotEmpty(message = "Username can not be empty.")
+    @Size(min = 4, max = 20, message = "Username can not be less than 4 symbols.")
     private String username;
 
     private Set<String> roles;
 
-    @Email
+    @Email(message = "Email is not correct.")
     private String email;
 
-    @Length(min = 5, message = "Password can not be less than 5 symbols")
+    @NotNull(message = "Password can not be empty")
+    @Length(min = 5, max = 20, message = "Password can not be less than 5, and more than 20 symbols.")
     private String password;
 
     private String userPasswordConfirmation;
@@ -41,6 +44,7 @@ public class UserDto extends AbstractIdAwareDto {
 
     private String fileName;
 
+    @Past(message = "Birth date should be less than current date!!!")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate userBirthDate;
 

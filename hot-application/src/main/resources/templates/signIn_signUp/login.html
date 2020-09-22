@@ -29,24 +29,24 @@
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
                 <div class="card-body">
-                    <h5 class="card-title text-center">Sign In</h5>
+                    <h5 class="card-title text-center">Hello!</h5>
                     <form class="form-signin" th:action="@{/login}" method="post">
                         <div class="form-label-group">
                             <label for="username">Username</label>
                             <input type="text" id="username" class="form-control" name="username"
-                                   placeholder="Input there your Username" required autofocus>
+                                   placeholder="Enter your Username" required autofocus>
                         </div>
                         <div class="form-label-group mt-2">
                             <label for="password">Password</label>
                             <input type="password" id="password" class="form-control" name="password"
-                                   placeholder="Input there your Password" required>
+                                   placeholder="Enter your Password" required>
                         </div>
                         <br/>
                         <div class="custom-control custom-checkbox mb-3">
                             <input type="checkbox" class="custom-control-input" name="rememberme" id="rememberMe">
-                            <label class="custom-control-label" for="rememberMe">Remember password</label>
+                            <label class="custom-control-label" for="rememberMe">Remember me</label>
                         </div>
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Log In</button>
                     </form>
                 </div>
             </div>

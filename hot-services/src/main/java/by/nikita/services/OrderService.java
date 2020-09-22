@@ -128,6 +128,7 @@ public class OrderService implements IOrderService {
         }
         order.setRoomCategory(orderDto.getRoomCategory());
         order.setApproved(false);
+        order.setRoom(null);
         orderDao.update(order);
     }
 
@@ -163,7 +164,7 @@ public class OrderService implements IOrderService {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("Hotel Horizon. Booking email notification for user: '" + order.getUser().getUsername() + "'.");
+            message.setSubject("Hotel Horizon. Booking confirmation. Email notification for user: '" + order.getUser().getUsername() + "'.");
 
             LocalDate start = order.getDateOfCheckIn();
             LocalDate end = order.getDateOfCheckOut();
@@ -173,9 +174,16 @@ public class OrderService implements IOrderService {
             if (order.getUser().getUserInDetails().getFirstName() != null ||
                     order.getUser().getUserInDetails().getLastName() != null ||
                     order.getUser().getUserInDetails().getMiddleName() != null) {
-                message.setContent("Hello Dear, " + order.getUser().getUserInDetails().getFirstName().concat(" " + order.getUser().getUserInDetails().getLastName()) + ". Your Booking, number " + order.getId() + ", has been approved by Administrator. Staying period " + stayingPeriod + " days." + "Total sum for staying period is " + totalSumForStayingPeriod + "0 $.", "text/html");
+                message.setContent("Hello Dear, " + order.getUser().getUserInDetails().getFirstName().concat(" " + order.getUser().getUserInDetails().getLastName()) + "!\n" +
+                        "Your Booking, number " + order.getId() + ", has been approved by Administrator.\n" +
+                        "Staying period " + stayingPeriod + " days.\n" +
+                        "Room Number " + order.getRoom().getRoomNumber() + ".\n" +
+                        "Total sum for staying period is " + totalSumForStayingPeriod + "0 $.", "text/html");
             } else {
-                message.setContent("Hello Dear, " + order.getUser().getUsername() + ". Your Booking, number " + order.getId() + ", has been approved by Administrator. Staying period " + stayingPeriod + " days." + "Total sum for staying period is " + totalSumForStayingPeriod + "0 $.", "text/html");
+                message.setContent("Hello Dear, " + order.getUser().getUsername() + "!\n" +
+                        "Your Booking № " + order.getId() + " has been approved by Administrator.\n" +
+                        "Staying period " + stayingPeriod + " day(s).\n" +
+                        "Total sum for staying period is " + totalSumForStayingPeriod + "0 $.", "text/html");
             }
             // Send message
             Transport.send(message);

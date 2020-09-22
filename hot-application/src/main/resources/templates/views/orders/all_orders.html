@@ -89,6 +89,7 @@ tr th:last-child {
         <thead>
         <tr>
             <th scope="col" class="col-xs-1 text-center">Number</th>
+            <th scope="col" class="col-xs-1 text-center">Approved</th>
             <th scope="col" class="col-xs-1 text-center">Username</th>
             <th scope="col" class="col-xs-1 text-center">Room Number</th>
             <th scope="col" class="col-xs-1 text-center">Amount Of Guests</th>
@@ -99,6 +100,10 @@ tr th:last-child {
         <tbody>
         <tr th:each="order : ${orders}">
             <td class="align-middle col-xs-1 text-center" th:text="${order.id}"></td>
+            <td class="align-middle col-xs-1 text-center">
+                <span th:if="${order.approved == true}">Yes</span>
+                <span th:unless="${order.approved == true}">No</span>
+            </td>
             <td class="align-middle col-xs-1 text-center" th:text="${order.userName}">
                 <a th:href="@{'/users/username/' + ${order.userName}}"/>
             </td>

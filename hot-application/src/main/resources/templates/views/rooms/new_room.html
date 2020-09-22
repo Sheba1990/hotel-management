@@ -71,9 +71,12 @@
                 <div class="col-md-3 border-right">
                     <div class="d-flex flex-column align-items-center p-3 py-5">
                         <form>
-                            <img th:src="@{${'/img/room/' + room.fileName}}" class="mt-5 img-fluid">
+                            <img th:if="${room.fileName != null}" th:src="@{${'/img/room/' + room.fileName}}"
+                                 class="rounded img-fluid">
+                            <img th:unless="${room.fileName != null}" th:src="@{/img/room/number.png}"
+                                 class="rounded img-fluid">
                             <br/>
-                            <div class="custom-file" > <!-- блок для загрузки файла -->
+                            <div class="custom-file"> <!-- блок для загрузки файла -->
                                 <input type="file" name="file" id="customFile"> <!-- форма для загрузки файла -->
                                 <label class="custom-file-label text-left" for="customFile">
                                     Choose file

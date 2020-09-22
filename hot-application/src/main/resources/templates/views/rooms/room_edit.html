@@ -24,7 +24,184 @@
 </style>
 <body>
 <div th:insert="~{fragments/header :: header}">Header</div>
+
 <div align="center">
+    <form action="#" th:action="@{/rooms/save/{id}(id=${room.id})}" enctype="multipart/form-data" method="post">
+        <div class="container rounded bg-white mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-3 border-right">
+                    <div class="d-flex flex-column align-items-center p-3 py-5">
+                        <form>
+                            <img th:if="${room.fileName != null}" th:src="@{${'/img/room/' + room.fileName}}"
+                                 class="rounded img-fluid">
+                            <img th:unless="${room.fileName != null}" th:src="@{/img/room/number.png}"
+                                 class="rounded img-fluid">
+                            <br/>
+                            <div class="custom-file"> <!-- блок для загрузки файла -->
+                                <input type="file" name="file" id="customFile"> <!-- форма для загрузки файла -->
+                                <label class="custom-file-label text-left" for="customFile">
+                                    Choose file
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-5 border-right">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">
+                                <p th:text="'Edit Room № ' + ${room.roomNumber}"></p>
+                            </h4>
+                            <span class="border px-3 p-1 add-experience">
+                                <i class="fa fa-plus"></i>&nbsp;Info</span>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <label class="labels">Room Number</label>
+                                <input type="text" class="form-control" th:field="*{room.roomNumber}"
+                                       placeholder="number">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Category</label>
+                                <select class="form-control" id="roomCategory" th:field="*{room.roomCategory}">
+                                    <option th:value="DELUXE"
+                                            th:text="DELUXE"></option>
+                                    <option th:value="BUSINESS"
+                                            th:text="BUSINESS"></option>
+                                    <option th:value="STANDARD"
+                                            th:text="STANDARD"></option>
+                                    <option th:value="ECONOM"
+                                            th:text="ECONOM"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Floor</label>
+                                <select class="form-control" id="floor" th:field="*{room.floor}">
+                                    <option th:value="5"
+                                            th:text="5"></option>
+                                    <option th:value="4"
+                                            th:text="4"></option>
+                                    <option th:value="3"
+                                            th:text="3"></option>
+                                    <option th:value="2"
+                                            th:text="2"></option>
+                                    <option th:value="1"
+                                            th:text="1"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Amount of rooms</label>
+                                <select class="form-control" id="amountOfRooms" th:field="*{room.amountOfRooms}">
+                                    <option th:value="5"
+                                            th:text="5"></option>
+                                    <option th:value="4"
+                                            th:text="4"></option>
+                                    <option th:value="3"
+                                            th:text="3"></option>
+                                    <option th:value="2"
+                                            th:text="2"></option>
+                                    <option th:value="1"
+                                            th:text="1"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Capacity of people</label>
+                                <select class="form-control" id="capacity" th:field="*{room.capacity}">
+                                    <option th:value="5"
+                                            th:text="5"></option>
+                                    <option th:value="4"
+                                            th:text="4"></option>
+                                    <option th:value="3"
+                                            th:text="3"></option>
+                                    <option th:value="2"
+                                            th:text="2"></option>
+                                    <option th:value="1"
+                                            th:text="1"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="labels">Price per night</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </div>
+                                    <input type="text" th:field="*{room.pricePerNight}" class="form-control"
+                                           aria-label="Dollar amount (with dot and two decimal places)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="mt-5 form-inline justify-content-center">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    Save
+                                </button>
+                            </div>
+                            <div class="ml-2">
+                                <form th:action="@{/rooms/}" th:method="get">
+                                    <button class="btn btn-danger">
+                                        Cancel
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center experience">
+                            <span>Select Options</span>
+                            <span class="border px-3 p-1 add-experience">
+                                <i class="fa fa-plus"></i>&nbsp;Options</span>
+                        </div>
+                        <br/>
+                        <div class="col-md-12">
+                            <label class="labels">Baby Bed</label>
+                            <select class="form-control" id="hasBabyBed" th:field="*{room.hasBabyBed}">
+                                <option th:value="TRUE"
+                                        th:text="Yes"></option>
+                                <option th:value="FALSE"
+                                        th:text="No"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Breakfast</label>
+                            <select class="form-control" id="hasBreakfast" th:field="*{room.hasBreakfast}">
+                                <option th:value="TRUE"
+                                        th:text="Yes"></option>
+                                <option th:value="FALSE"
+                                        th:text="No"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Bathroom</label>
+                            <select class="form-control" id="hasBath" th:field="*{room.hasBath}">
+                                <option th:value="TRUE"
+                                        th:text="Yes"></option>
+                                <option th:value="FALSE"
+                                        th:text="No"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Sea View</label>
+                            <select class="form-control" id="hasSeaView" th:field="*{room.hasSeaView}">
+                                <option th:value="TRUE"
+                                        th:text="Yes"></option>
+                                <option th:value="FALSE"
+                                        th:text="No"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--div align="center">
     <br/>
     <h1>Edit room</h1>
     <br/>
@@ -112,7 +289,7 @@
             </div>
         </div>
     </form>
-</div>
+</div-->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>

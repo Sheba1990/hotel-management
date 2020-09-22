@@ -42,6 +42,7 @@ public class OrderDto extends AbstractIdAwareDto {
         for (Order order : orderList) {
             OrderDto orderDto = new OrderDto();
             orderDto.setId(order.getId());
+            orderDto.setApproved(order.isApproved());
             orderDto.setUserName(order.getUser().getUsername());
             if (order.getRoom() != null) {
                 orderDto.setRoomNumber(order.getRoom().getRoomNumber());

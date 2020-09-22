@@ -93,6 +93,7 @@ tr th:last-child {
         <tr>
             <th scope="col" class="col-xs-1 text-center">ID</th>
             <th scope="col" class="col-xs-1 text-center">Room Number</th>
+            <th scope="col" class="col-xs-1 text-center">Room Rate</th>
             <th scope="col" class="col-xs-1 text-center">Category</th>
             <th scope="col" class="col-xs-1 text-center">Status</th>
             <th scope="col" class="col-xs-1 text-center">More</th>
@@ -102,6 +103,7 @@ tr th:last-child {
         <tr th:each="room : ${rooms}">
             <td class="align-middle col-xs-1 text-center" th:text="${room.id}"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${room.roomNumber}"></td>
+            <td class="align-middle col-xs-1 text-center" th:text="${room.pricePerNight} + '0 $'"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${room.roomCategory}"></td>
             <td class="align-middle col-xs-1 text-center" th:text="${room.roomStatus}"></td>
             <td class="h6 small align-middle col-xs-1 text-center">
@@ -115,6 +117,12 @@ tr th:last-child {
                     <form th:action="@{'/rooms/edit/' + ${room.id}}" th:method="get">
                         <button class="btn btn-primary btn-sm">
                             Edit
+                        </button>
+                    </form>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <form th:action="@{'/rooms/delete/'+ ${room.id}}" th:method="delete">
+                        <button class="btn btn-danger btn-sm">
+                            Delete
                         </button>
                     </form>
                 </div>

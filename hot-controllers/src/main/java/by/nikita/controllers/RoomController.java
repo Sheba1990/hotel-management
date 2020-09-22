@@ -149,8 +149,7 @@ public class RoomController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/save/{id}",
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/save/{id}")
     public ModelAndView editRoom(@PathVariable("id") long id,
                                  RoomDto roomDto,
                                  RoomCategoryDto roomCategoryDto,
