@@ -42,7 +42,7 @@
         <version.org.thymeleaf.extras>3.0.4.RELEASE</version.org.thymeleaf.extras>
         <font-awesome.version>5.14.0</font-awesome.version>
         <webjars-locator.version>0.40</webjars-locator.version>
-        <version.commons-io>2.6</version.commons-io>
+        <version.commons-io>2.7</version.commons-io>
         <version.org.assertj>3.17.2</version.org.assertj>
         <version.junit-jupiter-engine>5.7.0</version.junit-jupiter-engine>
     </properties>
