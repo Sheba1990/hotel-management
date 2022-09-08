@@ -30,7 +30,7 @@
         <downloadSources>true</downloadSources>
         <downloadJavadocs>true</downloadJavadocs>
         <version.org.springframework.boot>2.3.3.RELEASE</version.org.springframework.boot>
-        <version.org.postgresql>42.2.16</version.org.postgresql>
+        <version.org.postgresql>42.4.1</version.org.postgresql>
         <version.org.hibernate>5.4.21.Final</version.org.hibernate>
         <version.org.hibernate-validator>6.1.5.Final</version.org.hibernate-validator>
         <version.org.flywaydb>6.5.0</version.org.flywaydb>
